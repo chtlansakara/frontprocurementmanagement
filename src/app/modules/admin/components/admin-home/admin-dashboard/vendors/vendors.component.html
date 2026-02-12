@@ -1,0 +1,24 @@
+<!-- Tab for settings page -->
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">category</mat-icon>
+      Vendors List
+    </ng-template>
+    <!-- component  -->
+    <app-vendor-list></app-vendor-list>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">add_circle_outline</mat-icon>
+      Add New Vendor
+    </ng-template>
+    <!-- component  -->
+    <app-vendor-form></app-vendor-form>
+  </mat-tab>
+
+
+
+</mat-tab-group>

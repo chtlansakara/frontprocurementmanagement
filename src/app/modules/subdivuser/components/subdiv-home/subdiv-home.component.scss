@@ -1,0 +1,121 @@
+.nav-bar
+{
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.logo-link
+{
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.main-toolbar-icon-button:hover
+{
+  background-color: rgba(255, 255, 255, 0.212);
+}
+
+
+// logo styles
+.main-toolbar-logo
+{
+  margin-right: 4px;
+  // margin-top: 4px;
+  // height: 40px;
+}
+
+.main-toolbar-logo:hover
+{
+  opacity: 0.6;
+}
+
+//custom color for toolbar icons
+.main-toolbar-icon
+{
+  color: white;
+
+}
+
+.nav-links
+{
+  display: flex;
+  gap: 8px;
+}
+
+.main-toolbar-links
+{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.main-toolbar-links:hover
+{
+  background-color: rgba(255, 255, 255, 0.212);
+}
+
+.main-toolbar-links:active
+{
+  background-color: rgba(255, 255, 255, 0.212);
+}
+
+.example-spacer
+{
+  flex: 1 1 auto;
+}
+
+.example-button-container
+{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Prevent wrapping */
+mat-toolbar
+{
+  white-space: nowrap;
+}
+
+/* Hide text on smaller screens */
+@media (max-width: 1000px)
+{
+
+
+  .main-toolbar-links
+  {
+    min-width: 48px;
+    padding: 0 8px;
+  }
+
+  .example-button-container
+  {
+    gap: 8px;
+  }
+}
+
+/* Even smaller screens */
+@media (max-width: 768px)
+{
+  .link-text
+  {
+    display: none;
+  }
+
+  .nav-links
+  {
+    gap: 2px;
+  }
+
+  .main-toolbar-links
+  {
+    padding: 0 4px;
+  }
+
+  .example-button-container
+  {
+    gap: 4px;
+  }
+}

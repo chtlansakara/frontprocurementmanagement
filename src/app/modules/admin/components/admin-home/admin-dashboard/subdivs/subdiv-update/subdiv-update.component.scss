@@ -1,0 +1,30 @@
+// form styles
+
+mat-form-field
+{
+
+  width: 100%;
+  margin-right: 8px;
+}
+
+.form-title
+{
+  padding: 16px;
+  color: #F9FAF4;
+  background-color: #55A265;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.form-button-container
+{
+  text-align: left;
+  width: 100%;
+  display: flex;
+  justify-content: start
+}
+
+.form-button
+{
+  font-size: 16px;
+}

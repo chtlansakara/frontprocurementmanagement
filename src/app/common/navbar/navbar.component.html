@@ -1,0 +1,50 @@
+<!-- Supplies toolbar -->
+<mat-toolbar class="nav-bar ">
+  <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon class="main-toolbar-icon">menu</mat-icon>
+  </button> -->
+  <a routerLink="/supplies" style="cursor: pointer;" matTooltip="Go to Home">
+    <!-- <img src="LOGOHeader.svg" height="40px" style="padding-top: 7px;" alt="logo supplies" class="main-toolbar-logo"> -->
+    <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
+
+  </a>
+  <span class="example-spacer"></span>
+  <span style="margin-right: 16px;"></span>
+  <button routerLink="/supplies/dashboard" mat-button>Dashboard</button>
+  <button routerLink="/supplies/requests" mat-button class="main-toolbar-links" routerLinkActive="active"
+    matTooltip="Procurement Requests">Requests</button>
+  <button routerLink="/supplies/procurement" mat-button class="main-toolbar-links " routerLinkActive="active"
+    matTooltip="Procurement">Procurement</button>
+  <button routerLink="/supplies/reports" mat-button class="main-toolbar-links " routerLinkActive="active"
+    matTooltip="Procurement Reports">Reports</button>
+  <button routerLink="/supplies/logs" mat-button class="main-toolbar-links " routerLinkActive="active"
+    matTooltip="Activity Logs">Logs</button>
+
+  <span class="example-spacer"></span>
+  <div class="example-button-container">
+
+
+    <button mat-icon-button class="main-toolbar-icon-button" aria-label="Icon-button for contact support"
+      matTooltip="Contact support">
+      <mat-icon class="main-toolbar-icon">contact_support</mat-icon>
+    </button>
+    <button mat-icon-button class="main-toolbar-icon-button" aria-label="Icon button for notifications"
+      matTooltip="Notifications">
+      <mat-icon class="main-toolbar-icon">notifications</mat-icon>
+    </button>
+    <button routerLink="/supplies/settings" mat-icon-button class="main-toolbar-icon-button"
+      aria-label="Icon button for settings" matTooltip="Settings">
+      <mat-icon class="main-toolbar-icon">settings</mat-icon>
+    </button>
+    <button mat-icon-button class="main-toolbar-icon-button" aria-label="Icon button for user profile"
+      matTooltip="User profile">
+      <mat-icon class="main-toolbar-icon">account_circle</mat-icon>
+    </button>
+
+    <button routerLink="/login" mat-icon-button class="main-toolbar-icon-button" aria-label="Icon button for sign out"
+      matTooltip="Sign out">
+      <mat-icon class="main-toolbar-icon">logout</mat-icon>
+    </button>
+
+  </div>
+</mat-toolbar>

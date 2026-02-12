@@ -1,0 +1,58 @@
+<mat-card appearance="outlined">
+  <!-- <mat-card-title class="form-title">Update Designation</mat-card-title> -->
+  <form [formGroup]="designationUpdateForm" (ngSubmit)="updateDesignation()">
+
+    <mat-card-content>
+
+      <mat-grid-list cols="3" rowHeight="100px">
+
+        <mat-grid-tile [colspan]="2">
+          <mat-form-field appearance="outline">
+            <mat-label>Designation title</mat-label>
+            <input matInput type="text" formControlName="title" required>
+            <!-- for error message -->
+            <mat-error error *ngIf="designationUpdateForm.get('title')?.hasError('required')">Title is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Grade</mat-label>
+            <mat-select formControlName="grade" name="grade">
+              <mat-option *ngFor="let grade of listOfGrades" [value]="grade">{{grade}}</mat-option>
+            </mat-select>
+            <!-- for error message -->
+            <mat-error error *ngIf="designationUpdateForm.get('grade')?.hasError('required')">Grade is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Code name</mat-label>
+            <input matInput type="text" formControlName="code" required>
+            <!-- for error message -->
+            <mat-error error *ngIf="designationUpdateForm.get('code')?.hasError('required')">Code is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="3">
+          <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
+            <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>
+            <button type="submit" mat-flat-button class="form-button" color="primary"
+              [disabled]="designationUpdateForm.invalid || designationUpdateForm.pristine">Update</button>
+          </div>
+        </mat-grid-tile>
+
+
+
+      </mat-grid-list>
+
+
+    </mat-card-content>
+
+  </form>
+</mat-card>

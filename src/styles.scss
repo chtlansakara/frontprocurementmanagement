@@ -1,1 +1,76 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html
+{
+  @include mat.theme((color: (theme-type: light,
+        primary: mat.$spring-green-palette,
+        tertiary: mat.$violet-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body
+{
+  height: 100%;
+  margin: 0;
+  // overflow-y: scroll;
+  // scrollbar-gutter: stable;
+}
+
+*
+{
+  box-sizing: border-box;
+}
+
+body
+{
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// custom color for toolbar - for whole application
+:root
+{
+  @include mat.toolbar-overrides((container-background-color: rgb(20, 120, 67),
+      container-text-color:white, ));
+}
+
+
+// styles for activated router link - settings pages - included in settings styles file
+.active
+{
+  font-weight: 700;
+  background-color: gray;
+}
+
+//styles for Mat Snackbar
+.snackbar-error
+{
+  // --mdc-snackbar-container-color: #ef1d12;
+  @include mat.snack-bar-overrides((button-color: white,
+      container-color: #cf1208,
+    ));
+}
+
+.snackbar-success
+{
+  // --mdc-snackbar-container-color: #ef1d12;
+  @include mat.snack-bar-overrides((button-color: white,
+      container-color: #14581f,
+    ));
+}
+
+.snackbar-info
+{
+  // --mdc-snackbar-container-color: #ef1d12;
+  @include mat.snack-bar-overrides((button-color: white,
+      container-color: #142c58,
+    ));
+}

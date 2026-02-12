@@ -1,0 +1,52 @@
+<!-- Supplies toolbar -->
+<mat-toolbar class="nav-bar ">
+  <div class="container toolbar-container">
+
+    <a routerLink="/supplies" style="cursor: pointer;" matTooltip="Go to supplies page">
+      <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
+    </a>
+    <span class="example-spacer"></span>
+    <span style="margin-right: 16px;"></span>
+
+
+    <button routerLink="/adminuser/home/dashboard/users" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Go to Users">
+      <mat-icon>perm_identity</mat-icon>
+      <span class="settings-title">Users</span>
+    </button>
+
+    <button routerLink="/adminuser/home/dashboard/designations" mat-button class="main-toolbar-links"
+      routerLinkActive="active" matTooltip="Go to Designations">
+      <mat-icon>work_outline</mat-icon>
+      <span class="settings-title">Designations</span>
+    </button>
+    <button routerLink="/adminuser/home/dashboard/admindivs" mat-button class="main-toolbar-links"
+      routerLinkActive="active" matTooltip="Go to Admin Divisions">
+      <mat-icon>business</mat-icon>
+      <span class="settings-title">Admin Divisions</span>
+    </button>
+    <button routerLink="/adminuser/home/dashboard/subdivs" mat-button class="main-toolbar-links"
+      routerLinkActive="active" matTooltip="Go to Sub-divisions">
+      <mat-icon>account_balance</mat-icon>
+      <span class="settings-title">Sub-divisions</span>
+    </button>
+    <!-- <button routerLink="/adminuser/home/dashboard/vendors" mat-button class="main-toolbar-links"
+      routerLinkActive="active" matTooltip="Go to Vendors">
+      <mat-icon>category</mat-icon>
+      <span class="settings-title">Vendors</span>
+    </button> -->
+
+
+    <span class="example-spacer"></span>
+
+
+    <button mat-icon-button class="main-toolbar-icon-button" aria-label="Icon button for sign out" matTooltip="Sign out"
+      (click)="logout()">
+      <mat-icon class="main-toolbar-icon">logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

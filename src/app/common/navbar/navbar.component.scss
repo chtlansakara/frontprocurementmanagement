@@ -1,0 +1,66 @@
+// for toolbar
+
+
+.example-spacer
+{
+  flex: 1 1 auto;
+}
+
+.nav-bar
+{
+  padding: 0 16px;
+}
+
+//custom color for toolbar icons
+.main-toolbar-icon
+{
+  color: white;
+
+}
+
+// styles for activated router link - main toolbar pages
+.active
+{
+  background-color: rgba(128, 128, 128, 0.356);
+}
+
+
+
+
+
+.example-button-container
+{
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.main-toolbar-icon-button:hover
+{
+  background-color: rgba(255, 255, 255, 0.212);
+}
+
+// logo styles
+.main-toolbar-logo
+{
+  margin-right: 4px;
+  margin-top: 6px;
+}
+
+.main-toolbar-logo:hover
+{
+  opacity: 0.6;
+}
+
+
+//toolbar links
+.main-toolbar-links:hover
+{
+
+  background-color: rgba(255, 255, 255, 0.144);
+}
+
+.main-toolbar-links
+{
+  font-size: 16px;
+}

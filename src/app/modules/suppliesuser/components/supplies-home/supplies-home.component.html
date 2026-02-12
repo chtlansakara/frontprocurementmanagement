@@ -1,0 +1,74 @@
+<mat-toolbar class="nav-bar">
+
+  <!-- Logo -->
+  <a routerLink="/suppliesuser/home" matTooltip="Go to Home" class="logo-link">
+    <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
+  </a>
+
+  <!-- LEFT NAV LINKS -->
+  <div class="nav-links">
+    <button routerLink="/supplies/requests" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Procurement Requests">
+
+      <mat-icon>note_add</mat-icon>
+      <!-- <mat-icon>assignment</mat-icon> -->
+      <span class="link-text">Requests</span>
+    </button>
+
+    <button routerLink="/supplies/procurement" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Procurement">
+
+      <mat-icon>data_thresholding</mat-icon>
+      <span class="link-text">Procurement</span>
+    </button>
+
+    <button routerLink="/supplies/reports" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Reports">
+
+      <mat-icon>article</mat-icon>
+      <!-- <mat-icon>bar_chart</mat-icon> -->
+      <span class="link-text">Reports</span>
+    </button>
+
+    <button routerLink="/supplies/logs" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Activity Logs">
+
+      <mat-icon>browse_gallery</mat-icon>
+      <!-- <mat-icon>history</mat-icon> -->
+      <span class="link-text">Logs</span>
+    </button>
+  </div>
+
+  <span class="example-spacer"></span>
+
+  <!-- RIGHT ICON BUTTONS -->
+  <div class="example-button-container">
+
+    <button mat-icon-button matTooltip="Contact support" class="main-toolbar-icon-button">
+      <mat-icon class="main-toolbar-icon">contact_support</mat-icon>
+    </button>
+
+    <button mat-icon-button matTooltip="Notifications" class="main-toolbar-icon-button">
+      <mat-icon class="main-toolbar-icon">notifications</mat-icon>
+    </button>
+
+    <button routerLink="/supplies/settings" mat-icon-button matTooltip="Settings" class="main-toolbar-icon-button">
+      <mat-icon class="main-toolbar-icon">settings</mat-icon>
+    </button>
+
+    <button mat-icon-button matTooltip="User profile" class="main-toolbar-icon-button">
+      <mat-icon class="main-toolbar-icon">account_circle</mat-icon>
+    </button>
+
+    <button routerLink="/login" mat-icon-button matTooltip="Sign out" class="main-toolbar-icon-button"
+      (click)="logout()">
+      <mat-icon class="main-toolbar-icon">logout</mat-icon>
+    </button>
+
+  </div>
+
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

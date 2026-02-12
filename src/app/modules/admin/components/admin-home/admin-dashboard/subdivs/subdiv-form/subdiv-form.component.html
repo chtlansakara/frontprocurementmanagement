@@ -1,0 +1,103 @@
+<mat-card appearance="outlined">
+
+  <form [formGroup]="subdivForm" (ngSubmit)="submitSubdiv()">
+
+    <mat-card-content>
+
+      <mat-grid-list cols="3" rowHeight="100px">
+
+        <mat-grid-tile [colspan]="2">
+          <mat-form-field appearance="outline">
+            <mat-label>Sub-division name</mat-label>
+            <input matInput type="text" formControlName="name" required>
+            <!-- error message -->
+            <mat-error error *ngIf="subdivForm.get('name')?.hasError('required')">
+              Name is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Code</mat-label>
+            <input matInput type="text" formControlName="code" required>
+            <!-- error message -->
+            <mat-error error *ngIf="subdivForm.get('code')?.hasError('required')">
+              Name is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Admin Division</mat-label>
+            <mat-select formControlName="admindivId" name="admindivId" required>
+              <mat-option *ngFor="let admindiv of admindivList" [value]="admindiv.id">
+                {{admindiv.name}}
+              </mat-option>
+            </mat-select>
+            <!-- error message -->
+            <mat-error error *ngIf="subdivForm.get('admindivId')?.hasError('required')">
+              Admin division is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Sub-division Email</mat-label>
+            <input matInput type="text" formControlName="email">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Contact Number</mat-label>
+            <input matInput type="tel" formControlName="telephone" placeholder="0123456789">
+            <mat-icon matSuffix>phone</mat-icon>
+            <!-- error message -->
+            <mat-error error *ngIf="subdivForm.get('telephone')?.hasError('pattern')">
+              Invalid phone number!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2">
+          <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="3">
+          <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
+            <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>
+            <button type="submit" mat-flat-button class="form-button" color="primary"
+              [disabled]="subdivForm.invalid">Save</button>
+          </div>
+        </mat-grid-tile>
+
+
+
+      </mat-grid-list>
+
+
+    </mat-card-content>
+
+  </form>
+</mat-card>
+
+
+
+
+<!--
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>Sub-division</mat-label>
+            <mat-select>
+              <mat-option value="FOM">Faulty of Management</mat-option>
+              <mat-option value="FOS">Faculty of Science</mat-option>
+              <mat-option value="FCT">Faculty of Computing Technology</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile> -->
