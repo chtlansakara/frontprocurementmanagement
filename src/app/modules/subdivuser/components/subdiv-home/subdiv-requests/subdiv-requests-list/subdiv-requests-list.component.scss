@@ -1,0 +1,156 @@
+//table
+table
+{
+  width: 100%;
+  padding: 4px 0;
+  border-radius: 12px;
+  // background-color: white;
+}
+
+.table-container
+{
+  // max-width: 1200px;
+  width: 100%;
+  // margin: 0 auto;
+  // background-color: gray;
+}
+
+// .center-container
+// {
+//   display: flex;
+//   /* enable flex layout */
+//   justify-content: center;
+//   /* center horizontally */
+//   padding: 24px;
+// }
+
+.filter
+{
+  margin-top: 4px;
+  width: 100%;
+}
+
+.white-background
+{
+  background-color: white;
+}
+
+// buttons wrappers on the table
+.example-flex-container
+{
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+
+
+}
+
+.example-button-container
+{
+  display: flex;
+  justify-content: space-between;
+  min-width: 100px;
+  padding-right: 16px;
+
+
+}
+
+// buttons styles in the table
+.warn-button
+{
+  // background-color: rgb(236, 37, 37);
+
+  background-color: white;
+  color: #D64545;
+  // color: black;
+  margin-left: 36px;
+}
+
+.success-button
+{
+  // background-color: rgba(115, 243, 115, 0.563);
+  background-color: white;
+  color: #7ED1B2;
+  // color: black;
+}
+
+
+//for status styling
+.status-badge
+{
+
+  padding: 4px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 500;
+  display: inline-block;
+
+}
+
+/* Pending */
+.status-supplies-pending
+{
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Admin Pending */
+.status-admin-pending
+{
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Rejected */
+.status-admin-rejected
+{
+  background-color: #f8d7da;
+  color: #721c24;
+
+}
+
+.status-supplies-rejected
+{
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Approved */
+.status-pending-procurement
+{
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-procurement-created
+{
+  background-color: #abebba;
+  color: #011606;
+}
+
+/* Default */
+.status-default
+{
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.request-description-table
+{
+  font-size: 12px;
+}
+
+.table-row
+{
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.table-row:active
+{
+  // box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25);
+  transform: scale(0.998);
+}

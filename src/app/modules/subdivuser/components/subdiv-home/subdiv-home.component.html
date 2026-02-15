@@ -1,13 +1,13 @@
 <mat-toolbar class="nav-bar">
 
   <!-- Logo -->
-  <a routerLink="/subdivuser/home" matTooltip="Go to Home" class="logo-link">
+  <a routerLink="/subdivuser/home/dashboard" matTooltip="Go to Home" class="logo-link">
     <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
   </a>
 
   <!-- LEFT NAV LINKS -->
   <div class="nav-links">
-    <button routerLink="/supplies/requests" mat-button class="main-toolbar-links" routerLinkActive="active"
+    <button routerLink="/subdivuser/home/requests" mat-button class="main-toolbar-links" routerLinkActive="active"
       matTooltip="Procurement Requests">
 
       <mat-icon>note_add</mat-icon>
@@ -15,7 +15,7 @@
       <span class="link-text">Requests</span>
     </button>
 
-    <button routerLink="/supplies/procurement" mat-button class="main-toolbar-links" routerLinkActive="active"
+    <button routerLink="/subdivuser/home/procurement" mat-button class="main-toolbar-links" routerLinkActive="active"
       matTooltip="Procurement">
 
       <mat-icon>data_thresholding</mat-icon>

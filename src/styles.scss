@@ -50,7 +50,7 @@ body
   background-color: gray;
 }
 
-//styles for Mat Snackbar
+// global styles for Mat Snackbar
 .snackbar-error
 {
   // --mdc-snackbar-container-color: #ef1d12;
@@ -73,4 +73,79 @@ body
   @include mat.snack-bar-overrides((button-color: white,
       container-color: #142c58,
     ));
+}
+
+
+// buttons styles in the table
+// for list's delete and update buttons -- has to add to styles file of the list components
+.warn-button
+{
+  // background-color: rgb(236, 37, 37);
+
+  background-color: white;
+  color: #D64545;
+  // color: black;
+  margin-left: 36px;
+}
+
+.success-button
+{
+  // background-color: rgba(115, 243, 115, 0.563);
+  background-color: white;
+  color: #7ED1B2;
+  // color: black;
+}
+
+
+// table row hover effect for mat-table
+/* Global hover effect for all Angular Material tables */
+.mat-mdc-row:hover
+{
+  // background-color: #52e38004;
+  // background-color: white;
+  background-color: #DBEADD;
+  transition: background-color 0.2s ease-in-out;
+  /* light teal */
+}
+
+.mat-mdc-table
+{
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+
+.mat-mdc-header-row
+{
+  background-color: #f8fafc;
+}
+
+.mat-mdc-header-cell
+{
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+// styles for activated router link - has to add to  home pages with nav-bar
+.active
+{
+  // background-color: rgba(128, 128, 128, 0.356);
+  // background-color: rgba(255, 255, 255, 0.11);
+}
+
+
+//for containers in home pages - for router outlet
+//for container
+.container
+{
+  padding: 0 16px;
+  margin-top: 8px;
+  width: 100vw;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
