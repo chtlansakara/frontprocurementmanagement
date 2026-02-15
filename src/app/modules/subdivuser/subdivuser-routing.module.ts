@@ -7,6 +7,7 @@ import { SubdivRequestsListComponent } from './components/subdiv-home/subdiv-req
 import { SubdivRequestsFormComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-form/subdiv-requests-form.component';
 import { SubdivRequestsUpdateComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-update/subdiv-requests-update.component';
 import { SubdivProcurementComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement.component';
+import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-view/subdiv-requests-view.component';
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
@@ -16,7 +17,8 @@ const routes: Routes = [
       {path:'', redirectTo: 'list', pathMatch: 'full'},
       {path:'list', component: SubdivRequestsListComponent},
       {path:'form', component: SubdivRequestsFormComponent},
-      {path:'update', component: SubdivRequestsUpdateComponent},
+      {path:'view/:id', component: SubdivRequestsViewComponent},
+      {path:'update/:id', component: SubdivRequestsUpdateComponent},
     ]},
     {path:'procurement', component:SubdivProcurementComponent}
   ]},

@@ -9,6 +9,8 @@ import { SubdivProcurementComponent } from './components/subdiv-home/subdiv-proc
 import { SubdivRequestsListComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-list/subdiv-requests-list.component';
 import { SubdivRequestsFormComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-form/subdiv-requests-form.component';
 import { SubdivRequestsUpdateComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-update/subdiv-requests-update.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-view/subdiv-requests-view.component';
 
 
 @NgModule({
@@ -19,12 +21,15 @@ import { SubdivRequestsUpdateComponent } from './components/subdiv-home/subdiv-r
     SubdivProcurementComponent,
     SubdivRequestsListComponent,
     SubdivRequestsFormComponent,
-    SubdivRequestsUpdateComponent
+    SubdivRequestsUpdateComponent,
+    SubdivRequestsViewComponent
   ],
   imports: [
     CommonModule,
     SubdivuserRoutingModule,
     AngularmaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class SubdivuserModule { }

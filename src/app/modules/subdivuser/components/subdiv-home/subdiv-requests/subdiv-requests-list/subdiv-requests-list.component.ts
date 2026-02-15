@@ -1,286 +1,268 @@
+import { SubdivService } from './../../../../services/subdiv.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { RequestDto } from '../../../../../../interfaces/RequestDto';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
-export interface RequestDto{
-        "approvedDate": string  | null,
-        "authorizedBy": string | null,
-        "createdDate": string  | null,
-        "description": string | null,
-        "emailCreatedBy": string,
-        "employeeIdCreatedBy": string,
-        "estimation": string | null,
-        "fund": string | null,
-        "id": number,
-        "previousPurchaseYear": number | null,
-        "previouslyPurchased": boolean | null,
-        "quantity": string | null,
-        "reasonForRequirement": string | null,
-        "status": string,
-        "subdivCodeList": string[],
-        "subdivIdList": number[],
-        "subdivNameList": string[],
-        "title": string | null,
-        "userIdCreatedBy": number,
-        "userNameCreatedBy": string
-}
 
 //for data source
-const requestsList : RequestDto[] = [
-    {
-        "approvedDate": "2026-02-15T00:00:00.000Z",
-        "authorizedBy": null,
-        "createdDate": null,
-        "description": "Purchase 10 new laptops for the development team",
-        "emailCreatedBy": "cht@test.com",
-        "employeeIdCreatedBy": "50021500",
-        "estimation": "1500 USD per laptop",
-        "fund": "IT Budget 2026",
-        "id": 6,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "10",
-        "reasonForRequirement": "Upgrade outdated equipment",
-        "status": "REJECTED_ADMIN_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Laptops for Staff",
-        "userIdCreatedBy": 2,
-        "userNameCreatedBy": "Chathurangi"
-    },
-    {
-        "approvedDate": "2026-02-13T00:00:00.000Z",
-        "authorizedBy": "Finance Manager",
-        "createdDate": null,
-        "description": "Ergonomic chairs for staff",
-        "emailCreatedBy": "cht@test.com",
-        "employeeIdCreatedBy": "50021500",
-        "estimation": "5000 USD",
-        "fund": "Office Budget 2026",
-        "id": 7,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "20",
-        "reasonForRequirement": "Replacing old chairs",
-        "status": "REJECTED_ADMIN_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Office Chairs",
-        "userIdCreatedBy": 2,
-        "userNameCreatedBy": "Chathurangi"
-    },
-    {
-        "approvedDate": "2026-02-13T00:00:00.000Z",
-        "authorizedBy": "Finance Manager",
-        "createdDate": null,
-        "description": "Ergonomic chairs for staff",
-        "emailCreatedBy": "cht@test.com",
-        "employeeIdCreatedBy": "50021500",
-        "estimation": "5000 USD",
-        "fund": "Office Budget 2026",
-        "id": 8,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "20",
-        "reasonForRequirement": "Replacing old chairs",
-        "status": "PENDING_ADMIN_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Office Chairs",
-        "userIdCreatedBy": 2,
-        "userNameCreatedBy": "Chathurangi"
-    },
-    {
-        "approvedDate": "2026-02-13T00:00:00.000Z",
-        "authorizedBy": "Finance Manager",
-        "createdDate": null,
-        "description": "Ergonomic chairs for staff",
-        "emailCreatedBy": "cht@test.com",
-        "employeeIdCreatedBy": "50021500",
-        "estimation": "5000 USD",
-        "fund": "Office Budget 2026",
-        "id": 9,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "20",
-        "reasonForRequirement": "Replacing old chairs",
-        "status": "PENDING_ADMIN_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Office Chairs",
-        "userIdCreatedBy": 2,
-        "userNameCreatedBy": "Chathurangi"
-    },
-    {
-        "approvedDate": null,
-        "authorizedBy": "HR Head",
-        "createdDate": "2026-02-14T14:53:59.162Z",
-        "description": "Laptops",
-        "emailCreatedBy": "rangika@test.com",
-        "employeeIdCreatedBy": "500214875",
-        "estimation": "1000 USD",
-        "fund": "101",
-        "id": 15,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "2",
-        "reasonForRequirement": "New staff onboarding",
-        "status": "PENDING_SUPPLIES_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Laptops",
-        "userIdCreatedBy": 3,
-        "userNameCreatedBy": "Rangika"
-    },
-    {
-        "approvedDate": "2026-02-13T00:00:00.000Z",
-        "authorizedBy": "Finance Manager",
-        "createdDate": "2026-02-14T15:35:51.424Z",
-        "description": "Ergonomic chairs for staff",
-        "emailCreatedBy": "cht@test.com",
-        "employeeIdCreatedBy": "50021500",
-        "estimation": "5000 USD",
-        "fund": "Office Budget 2026",
-        "id": 19,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "20",
-        "reasonForRequirement": "Replacing old chairs",
-        "status": "PENDING_SUPPLIES_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Office Chairs",
-        "userIdCreatedBy": 2,
-        "userNameCreatedBy": "Chathurangi"
-    },
-    {
-        "approvedDate": "2026-02-13T00:00:00.000Z",
-        "authorizedBy": "Finance Manager",
-        "createdDate": "2026-02-14T15:38:16.416Z",
-        "description": "Ergonomic chairs for staff",
-        "emailCreatedBy": "cht@test.com",
-        "employeeIdCreatedBy": "50021500",
-        "estimation": "5000 USD",
-        "fund": "Office Budget 2026",
-        "id": 20,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "20",
-        "reasonForRequirement": "Replacing old chairs",
-        "status": "PENDING_SUPPLIES_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Office Chairs",
-        "userIdCreatedBy": 2,
-        "userNameCreatedBy": "Chathurangi"
-    },
-    {
-        "approvedDate": null,
-        "authorizedBy": "HR Head",
-        "createdDate": "2026-02-14T15:47:27.681Z",
-        "description": "Laptops",
-        "emailCreatedBy": "rangika@test.com",
-        "employeeIdCreatedBy": "500214875",
-        "estimation": "1000 USD",
-        "fund": "101",
-        "id": 21,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "2",
-        "reasonForRequirement": "New staff onboarding",
-        "status": "PENDING_SUPPLIES_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Laptops",
-        "userIdCreatedBy": 3,
-        "userNameCreatedBy": "Rangika"
-    },
-    {
-        "approvedDate": null,
-        "authorizedBy": "HR Head",
-        "createdDate": "2026-02-14T15:48:34.812Z",
-        "description": "Laptops",
-        "emailCreatedBy": "rangika@test.com",
-        "employeeIdCreatedBy": "500214875",
-        "estimation": "1000 USD",
-        "fund": "101",
-        "id": 22,
-        "previousPurchaseYear": null,
-        "previouslyPurchased": false,
-        "quantity": "2",
-        "reasonForRequirement": "New staff onboarding",
-        "status": "PENDING_SUPPLIES_APPROVAL",
-        "subdivCodeList": [
-            "DOM-FOS"
-        ],
-        "subdivIdList": [
-            6
-        ],
-        "subdivNameList": [
-            "Department of Mathematics"
-        ],
-        "title": "New Laptops",
-        "userIdCreatedBy": 3,
-        "userNameCreatedBy": "Rangika"
-    }
-];
+// const requestsList : RequestDto[] = [
+//     {
+//         "approvedDate": "2026-02-15T00:00:00.000Z",
+//         "authorizedBy": null,
+//         "createdDate": null,
+//         "description": "Purchase 10 new laptops for the development team",
+//         "emailCreatedBy": "cht@test.com",
+//         "employeeIdCreatedBy": "50021500",
+//         "estimation": "1500 USD per laptop",
+//         "fund": "IT Budget 2026",
+//         "id": 6,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "10",
+//         "reasonForRequirement": "Upgrade outdated equipment",
+//         "status": "REJECTED_ADMIN_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Laptops for Staff",
+//         "userIdCreatedBy": 2,
+//         "userNameCreatedBy": "Chathurangi"
+//     },
+//     {
+//         "approvedDate": "2026-02-13T00:00:00.000Z",
+//         "authorizedBy": "Finance Manager",
+//         "createdDate": null,
+//         "description": "Ergonomic chairs for staff",
+//         "emailCreatedBy": "cht@test.com",
+//         "employeeIdCreatedBy": "50021500",
+//         "estimation": "5000 USD",
+//         "fund": "Office Budget 2026",
+//         "id": 7,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "20",
+//         "reasonForRequirement": "Replacing old chairs",
+//         "status": "REJECTED_ADMIN_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Office Chairs",
+//         "userIdCreatedBy": 2,
+//         "userNameCreatedBy": "Chathurangi"
+//     },
+//     {
+//         "approvedDate": "2026-02-13T00:00:00.000Z",
+//         "authorizedBy": "Finance Manager",
+//         "createdDate": null,
+//         "description": "Ergonomic chairs for staff",
+//         "emailCreatedBy": "cht@test.com",
+//         "employeeIdCreatedBy": "50021500",
+//         "estimation": "5000 USD",
+//         "fund": "Office Budget 2026",
+//         "id": 8,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "20",
+//         "reasonForRequirement": "Replacing old chairs",
+//         "status": "PENDING_ADMIN_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Office Chairs",
+//         "userIdCreatedBy": 2,
+//         "userNameCreatedBy": "Chathurangi"
+//     },
+//     {
+//         "approvedDate": "2026-02-13T00:00:00.000Z",
+//         "authorizedBy": "Finance Manager",
+//         "createdDate": null,
+//         "description": "Ergonomic chairs for staff",
+//         "emailCreatedBy": "cht@test.com",
+//         "employeeIdCreatedBy": "50021500",
+//         "estimation": "5000 USD",
+//         "fund": "Office Budget 2026",
+//         "id": 9,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "20",
+//         "reasonForRequirement": "Replacing old chairs",
+//         "status": "PENDING_ADMIN_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Office Chairs",
+//         "userIdCreatedBy": 2,
+//         "userNameCreatedBy": "Chathurangi"
+//     },
+//     {
+//         "approvedDate": null,
+//         "authorizedBy": "HR Head",
+//         "createdDate": "2026-02-14T14:53:59.162Z",
+//         "description": "Laptops",
+//         "emailCreatedBy": "rangika@test.com",
+//         "employeeIdCreatedBy": "500214875",
+//         "estimation": "1000 USD",
+//         "fund": "101",
+//         "id": 15,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "2",
+//         "reasonForRequirement": "New staff onboarding",
+//         "status": "PENDING_SUPPLIES_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Laptops",
+//         "userIdCreatedBy": 3,
+//         "userNameCreatedBy": "Rangika"
+//     },
+//     {
+//         "approvedDate": "2026-02-13T00:00:00.000Z",
+//         "authorizedBy": "Finance Manager",
+//         "createdDate": "2026-02-14T15:35:51.424Z",
+//         "description": "Ergonomic chairs for staff",
+//         "emailCreatedBy": "cht@test.com",
+//         "employeeIdCreatedBy": "50021500",
+//         "estimation": "5000 USD",
+//         "fund": "Office Budget 2026",
+//         "id": 19,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "20",
+//         "reasonForRequirement": "Replacing old chairs",
+//         "status": "PENDING_SUPPLIES_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Office Chairs",
+//         "userIdCreatedBy": 2,
+//         "userNameCreatedBy": "Chathurangi"
+//     },
+//     {
+//         "approvedDate": "2026-02-13T00:00:00.000Z",
+//         "authorizedBy": "Finance Manager",
+//         "createdDate": "2026-02-14T15:38:16.416Z",
+//         "description": "Ergonomic chairs for staff",
+//         "emailCreatedBy": "cht@test.com",
+//         "employeeIdCreatedBy": "50021500",
+//         "estimation": "5000 USD",
+//         "fund": "Office Budget 2026",
+//         "id": 20,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "20",
+//         "reasonForRequirement": "Replacing old chairs",
+//         "status": "PENDING_SUPPLIES_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Office Chairs",
+//         "userIdCreatedBy": 2,
+//         "userNameCreatedBy": "Chathurangi"
+//     },
+//     {
+//         "approvedDate": null,
+//         "authorizedBy": "HR Head",
+//         "createdDate": "2026-02-14T15:47:27.681Z",
+//         "description": "Laptops",
+//         "emailCreatedBy": "rangika@test.com",
+//         "employeeIdCreatedBy": "500214875",
+//         "estimation": "1000 USD",
+//         "fund": "101",
+//         "id": 21,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "2",
+//         "reasonForRequirement": "New staff onboarding",
+//         "status": "PENDING_SUPPLIES_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Laptops",
+//         "userIdCreatedBy": 3,
+//         "userNameCreatedBy": "Rangika"
+//     },
+//     {
+//         "approvedDate": null,
+//         "authorizedBy": "HR Head",
+//         "createdDate": "2026-02-14T15:48:34.812Z",
+//         "description": "Laptops",
+//         "emailCreatedBy": "rangika@test.com",
+//         "employeeIdCreatedBy": "500214875",
+//         "estimation": "1000 USD",
+//         "fund": "101",
+//         "id": 22,
+//         "previousPurchaseYear": null,
+//         "previouslyPurchased": false,
+//         "quantity": "2",
+//         "reasonForRequirement": "New staff onboarding",
+//         "status": "PENDING_SUPPLIES_APPROVAL",
+//         "subdivCodeList": [
+//             "DOM-FOS"
+//         ],
+//         "subdivIdList": [
+//             6
+//         ],
+//         "subdivNameList": [
+//             "Department of Mathematics"
+//         ],
+//         "title": "New Laptops",
+//         "userIdCreatedBy": 3,
+//         "userNameCreatedBy": "Rangika"
+//     }
+// ];
 
 
 @Component({
@@ -290,6 +272,9 @@ const requestsList : RequestDto[] = [
   styleUrl: './subdiv-requests-list.component.scss'
 })
 export class SubdivRequestsListComponent {
+  //to save returned list
+  requestsList : RequestDto[] = [];
+
 
   diplayedColumns: string[] = [
     'id',
@@ -298,25 +283,41 @@ export class SubdivRequestsListComponent {
     'quantity',
     'fund',
     'estimation',
+
+    'authorizedBy',
+    'approvedDate',
+    'status',
+    'emailCreatedBy',
+    'employeeIdCreatedBy',
+    'createdDate',
     'previouslyPurchased',
     'previousPurchaseYear',
     'reasonForRequirement',
-    'authorizedBy',
-    'approvedDate',
 
-    'status',
-    'userNameCreatedBy',
-    'employeeIdCreatedBy',
-    'createdDate',
     // 'actions'
   ];
+
+  constructor(
+    private subdivService: SubdivService,
+    private router : Router
+  ){}
 
   datasource = new MatTableDataSource<RequestDto>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(){
-    this.datasource.data= requestsList;
+    //loading the list from backend
+    this.loadList();
+  }
+
+  loadList(){
+    this.subdivService.getRequestsOfSubdiv().subscribe(res=>{
+      //assign to class array
+      this.requestsList = res;
+      //set table data source
+      this.datasource.data = res;
+    })
   }
 
   ngAfterViewInit(): void{
@@ -351,6 +352,14 @@ export class SubdivRequestsListComponent {
       case 'PROCUREMENT_CREATED':
         return 'status-procuremnt-created';
 
+          //postponed request - after approved by supplies
+      // case 'PROCUREMENT_POSTPONED':
+      //   return 'status-procuremnt-created';
+
+      //   //cancelled request - after approved by supplies
+      // case 'PROCUREMENT_CANCELLED':
+      //   return 'status-procuremnt-created';
+
       default:
         return 'status-default';
     }
@@ -360,25 +369,36 @@ export class SubdivRequestsListComponent {
   formatStatus(status: string): string{
     switch(status) {
       case 'PENDING_ADMIN_APPROVAL':
-        return 'ADMIN Pending';
+        return 'PENDING ADMIN';
 
       case 'REJECTED_ADMIN_APPROVAL':
-        return 'ADMIN Rejected';
+        return 'REJECTED ADMIN';
 
+        //when directed to supplies approval
       case 'PENDING_SUPPLIES_APPROVAL':
-        return 'ADMIN Approved';
+        return 'Pending Supplies';
 
       case 'REJECTED_SUPPLIES_APPROVAL':
-        return 'Supplies Pending';
+        return 'REJECTED Supplies';
 
+        //when approved by supplies
       case 'PENDING_PROCUREMENT':
-        return 'Supplies Approved';
+        return 'APPROVED Supplies';
 
+        //when a procurement is created for the request
       case 'PROCUREMENT_CREATED':
         return 'In Procurment';
 
+        //postponed request - after approved by supplies
+      case 'PROCUREMENT_POSTPONED':
+        return 'Postponed';
+
+        //cancelled request - after approved by supplies
+      case 'PROCUREMENT_CANCELLED':
+        return 'Cancelled';
+
       default:
-        return 'status-default';
+        return 'Not defined';
   }
 }
 
@@ -391,7 +411,7 @@ formatBoolean(value: boolean): string{
 }
 
 //get if of a row
-getId(row: RequestDto){
-  console.log(row.id);
+ViewRequest(row: RequestDto){
+  this.router.navigateByUrl("/subdivuser/home/requests/view/"+row.id);
 }
 }

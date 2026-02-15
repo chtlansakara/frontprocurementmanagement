@@ -1,0 +1,212 @@
+/* Main container centers everything */
+.card-container
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 0 8px;
+
+}
+
+/* wrapper */
+.request-list
+{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+
+}
+
+/* card responsive sizing */
+.request-card
+{
+  width: 100%;
+  max-width: 600px;
+  /* prevents card from being too wide */
+  padding: 16px;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 82, 37, 0.322);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.request-details
+{
+  min-width: 300px;
+
+}
+
+/* optional styling */
+.request-name
+{
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: rgb(20, 120, 67);
+}
+
+.request-description
+{
+  margin-bottom: 16px;
+  color: #555;
+}
+
+.request-info
+{
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 200;
+}
+
+.info-row
+{
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  margin-bottom: 8px;
+}
+
+.info-label
+{
+  font-weight: 500;
+}
+
+.info-value
+{
+  margin-left: 12px;
+  color: #444;
+}
+
+.created-details
+{
+  font-size: 14px;
+}
+
+@media (max-width: 600px)
+{
+  .request-details
+  {
+    width: 100%;
+    /* stack vertically */
+  }
+
+  .request-list
+  {
+    flex-direction: column;
+  }
+}
+
+
+.reject-card
+{
+  // background-color: rgba(247, 154, 154, 0.281);
+  border: 2px solid rgb(158, 5, 5);
+}
+
+.reject-title
+{
+  color: black;
+}
+
+.approval-card
+{
+  // background-color: rgba(20, 120, 67, 0.342);
+  border: 2px solid rgb(20, 120, 67);
+}
+
+
+// status formatting
+//for status styling
+.status-badge
+{
+
+  padding: 4px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 500;
+  display: inline-block;
+
+}
+
+/* Pending */
+.status-supplies-pending
+{
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Admin Pending */
+.status-admin-pending
+{
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Rejected */
+.status-admin-rejected
+{
+  background-color: #f8d7da;
+  color: #721c24;
+
+}
+
+.status-supplies-rejected
+{
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Approved */
+.status-pending-procurement
+{
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-procurement-created
+{
+  background-color: #abebba;
+  color: #011606;
+}
+
+/* Default */
+.status-default
+{
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+
+
+//update delete buttons
+
+// buttons styles in the table
+.warn-button
+{
+  // background-color: rgb(236, 37, 37);
+
+  background-color: white;
+  color: #D64545;
+  // color: black;
+  margin-left: 36px;
+}
+
+.success-button
+{
+  // background-color: rgba(115, 243, 115, 0.563);
+  background-color: white;
+  color: #7ED1B2;
+  // color: black;
+}
+
+.button-row
+{
+  padding-top: 8px;
+  padding-right: 8px;
+  justify-content: end;
+
+
+}

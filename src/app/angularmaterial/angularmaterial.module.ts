@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
@@ -59,6 +60,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSortModule,
     MatPaginatorModule,
     MatGridListModule,
+    MatCheckboxModule,
   ]
 })
 export class AngularmaterialModule { }
