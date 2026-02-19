@@ -1,3 +1,4 @@
+import { SpinnerService } from './common/services/spinner.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'frontprocurementmanagement';
+  // constructor(public spinnerService: SpinnerService){}
+
 }
