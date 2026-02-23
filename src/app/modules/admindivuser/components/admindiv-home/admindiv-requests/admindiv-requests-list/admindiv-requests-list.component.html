@@ -1,0 +1,52 @@
+<!-- Tab for settings page -->
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: #005225;" class="example-tab-icon">note_add</mat-icon>
+      All Requests
+    </ng-template>
+
+    <ng-template matTabContent>
+      <app-admindiv-all></app-admindiv-all>
+    </ng-template>
+
+
+  </mat-tab>
+
+
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: #4E7EB3;" class="example-tab-icon">pending</mat-icon>
+      Pending Review
+    </ng-template>
+
+    <ng-template matTabContent>
+      <app-admindiv-requests-pending></app-admindiv-requests-pending>
+    </ng-template>
+  </mat-tab>
+
+
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: rgb(20, 120, 67);" class="example-tab-icon">done_outline</mat-icon>
+      Approved
+    </ng-template>
+    <ng-template matTabContent>
+      <app-admindiv-approved></app-admindiv-approved>
+    </ng-template>
+
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style=" color: rgb(95, 3, 3); " class="example-tab-icon">cancel_presentation</mat-icon>
+      Rejected
+    </ng-template>
+    <ng-template matTabContent>
+      <app-admindiv-rejected></app-admindiv-rejected>
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>

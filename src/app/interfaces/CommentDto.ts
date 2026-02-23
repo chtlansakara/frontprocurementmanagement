@@ -18,5 +18,11 @@ export interface CommentDto {
   "createdByUserId": number,
   "createdbyUsername": string,
 
+  "userRoleCreatedBy": string,
+  "admindivCodeCreatedBy": string,
+  "admindivCreatedBy": string,
+  "subdivCodeCreatedBy": string,
+  "subdivCreatedBy": string,
+
   "createdDate":string
 }

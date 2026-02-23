@@ -22,6 +22,13 @@ export interface RequestDto{
         "createdDate": string  | null,
 
         "emailCreatedBy": string,
+
+        "userRoleCreatedBy": string,
+        "admindivCodeCreatedBy": string,
+        "admindivCreatedBy": string,
+        "subdivCodeCreatedBy": string,
+        "subdivCreatedBy": string,
+
         "employeeIdCreatedBy": string,
         "userIdCreatedBy": number,
         "userNameCreatedBy": string

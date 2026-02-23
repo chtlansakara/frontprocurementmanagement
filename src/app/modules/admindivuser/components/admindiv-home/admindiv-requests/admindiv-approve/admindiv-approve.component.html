@@ -1,0 +1,87 @@
+<mat-card class="approval-card">
+
+  <mat-card-header>
+
+    <mat-card-title class="approval-form-title">
+      <mat-icon class="approved-icon">done_outline</mat-icon>
+      Create Approval
+    </mat-card-title>
+    <!-- <mat-card-subtitle style="padding-bottom: 8px;">Create Approval for the Request</mat-card-subtitle> -->
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <form [formGroup]="approvalForm" class="approval-form" (ngSubmit)="submitApproval()">
+
+      <!-- Allocated Amount -->
+      <mat-form-field appearance="outline">
+        <mat-label>Allocated Amount</mat-label>
+        <input matInput type="number" formControlName="allocatedAmount">
+        <mat-error *ngIf="approvalForm.get('allocatedAmount')?.hasError('required')">
+          Allocated amount is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Amount in Words -->
+      <mat-form-field appearance="outline">
+        <mat-label>Amount in Words</mat-label>
+        <input matInput formControlName="amountInWords">
+      </mat-form-field>
+
+      <!-- Fund -->
+      <mat-form-field appearance="outline">
+        <mat-label>Fund</mat-label>
+        <input matInput formControlName="fund">
+      </mat-form-field>
+
+      <!-- Procurement Plan No -->
+      <mat-form-field appearance="outline">
+        <mat-label>Procurement Plan No</mat-label>
+        <input matInput type="number" formControlName="planNo">
+      </mat-form-field>
+
+      <!-- Authorized By -->
+      <mat-form-field appearance="outline">
+        <mat-label>Authorized By</mat-label>
+        <input matInput formControlName="authorizedBy">
+        <mat-error *ngIf="approvalForm.get('authorizedBy')?.hasError('required')">
+          Authorized by is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Approved Date</mat-label>
+        <!-- date type input  -->
+        <input matInput [matDatepicker]="datePicker" formControlName="approvedDate">
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+        <mat-error *ngIf="approvalForm.get('approvedDate')?.hasError('required')">
+          Approved date is required
+        </mat-error>
+      </mat-form-field>
+
+
+
+      <!-- Comment -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Approval Comment</mat-label>
+        <textarea matInput rows="4" formControlName="comment"></textarea>
+      </mat-form-field>
+
+      <!-- Buttons -->
+      <div class="button-row">
+        <button mat-stroked-button type="reset" color="warn">
+          Reset
+        </button>
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="approvalForm.invalid">
+          Submit Approval
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>

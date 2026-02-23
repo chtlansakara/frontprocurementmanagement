@@ -40,6 +40,17 @@ body
 {
   @include mat.toolbar-overrides((container-background-color: rgb(20, 120, 67),
       container-text-color:white, ));
+
+  @include mat.chips-overrides((disabled-label-text-color: orange,
+      disabled-outline-color: red,
+      // label-text-color:#0d47a1,
+      label-text-size: 14px,
+      label-text-weight: 400px,
+      // outline-width: 0,
+      outline-color: #147843,
+      container-height: 20px));
+
+  @include mat.select-overrides((panel-background-color: white));
 }
 
 
@@ -55,7 +66,8 @@ body
 {
   // --mdc-snackbar-container-color: #ef1d12;
   @include mat.snack-bar-overrides((button-color: white,
-      container-color: #cf1208,
+      // container-color: #cf1208,
+      container-color: #D64545,
     ));
 }
 
@@ -129,14 +141,17 @@ body
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: #475569;
+  // text-align: center;
+
 }
 
+
 // styles for activated router link - has to add to  home pages with nav-bar
-.active
-{
-  // background-color: rgba(128, 128, 128, 0.356);
-  // background-color: rgba(255, 255, 255, 0.11);
-}
+// .active
+// {
+//   // background-color: rgba(128, 128, 128, 0.356);
+//   // background-color: rgba(255, 255, 255, 0.11);
+// }
 
 
 //for containers in home pages - for router outlet
@@ -148,4 +163,325 @@ body
   width: 100vw;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+
+//for progress spinner
+//for table pages
+.spinner-container
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+//for forms pages
+.overlay
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+
+
+// status styles
+//for status styling
+.status-badge
+{
+
+  // padding: 4px 8px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 12px;
+  // font-style: italic;
+  font-weight: 500;
+  display: inline-block;
+
+}
+
+/* Pending */
+.status-supplies-pending
+{
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Admin Pending */
+.status-admin-pending
+{
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Rejected */
+.status-admin-rejected
+{
+  background-color: #f8d7da;
+
+  color: #721c24;
+
+}
+
+.status-supplies-rejected
+{
+  background-color: #fdb1b7;
+  // color: #721c24;
+  color: black;
+}
+
+/* Approved */
+.status-pending-procurement
+{
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-procurement-created
+{
+  background-color: #abebba;
+  color: #011606;
+}
+
+/* Default */
+.status-default
+{
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+
+// for view request page styles
+/* Main container centers everything */
+.card-container
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 0 8px;
+  // align-items: flex-start;
+
+}
+
+@media (max-width: 1100px)
+{
+  .request-details
+  {
+    width: 100%;
+    /* stack vertically */
+  }
+
+  .request-list
+  {
+    flex-direction: column;
+  }
+}
+
+
+/* wrapper */
+.request-list
+{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  align-items: flex-start;
+
+}
+
+/* card responsive sizing */
+.request-card
+{
+  width: 100%;
+  max-width: 600px;
+  /* prevents card from being too wide */
+  padding: 16px;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 82, 37, 0.322);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  background-color: rgba(20, 120, 67, 0.089);
+  margin-bottom: 24px;
+}
+
+.request-details
+{
+  min-width: 300px;
+
+}
+
+/* optional styling */
+.request-name
+{
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: rgb(20, 120, 67);
+}
+
+.request-description
+{
+  margin-bottom: 16px;
+  color: #555;
+}
+
+.request-info
+{
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 200;
+}
+
+.info-row
+{
+  display: flex;
+  width: 100%;
+  // justify-content: start;
+  margin-bottom: 8px;
+}
+
+.info-label
+{
+  font-weight: 500;
+}
+
+.info-value
+{
+  margin-left: 12px;
+  color: #444;
+}
+
+.approved-icon
+{
+  color: rgb(20, 120, 67);
+  padding-right: 28px;
+  padding-top: 4px;
+}
+
+.approved-title
+{
+  padding-right: 4px;
+  font-variant: small-caps;
+  color: rgb(20, 120, 67);
+}
+
+.reject-icon
+{
+  color: rgb(95, 3, 3);
+  padding-right: 32px;
+  padding-top: 3.5px;
+}
+
+.rejected-title
+{
+  padding-right: 4px;
+  color: rgb(95, 3, 3);
+  font-family: Tahoma;
+}
+
+.created-details
+{
+  font-size: 14px;
+}
+
+
+.created-details-label
+{
+  font-weight: 200;
+  font-size: 12px;
+}
+
+.created-details-value-user
+{
+  padding-top: 4px;
+}
+
+@media (max-width: 600px)
+{
+  .request-details
+  {
+    width: 100%;
+    /* stack vertically */
+  }
+
+  .request-list
+  {
+    flex-direction: column;
+  }
+}
+
+
+.reject-card
+{
+  background-color: white;
+  border: 2px solid rgb(158, 5, 5);
+
+}
+
+.reject-title
+{
+  color: black;
+}
+
+.reject-content
+{
+  color: rgb(95, 3, 3);
+}
+
+.approval-card
+{
+  background-color: white;
+  border: 2px solid rgb(20, 120, 67);
+}
+
+.approval-content
+{
+  color: rgb(20, 120, 67);
+}
+
+//update delete buttons
+
+// buttons styles in the table
+.warn-button
+{
+  // background-color: rgb(236, 37, 37);
+
+  background-color: white;
+  color: #D64545;
+  // color: black;
+  margin-left: 36px;
+}
+
+.success-button
+{
+  // background-color: rgba(115, 243, 115, 0.563);
+  background-color: white;
+  color: #7ED1B2;
+  // color: black;
+}
+
+.button-row
+{
+  display: flex;
+  // padding-top: 8px;
+  // padding-right: 8px;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 8px;
+
+}
+
+.decline-button
+{
+  color: #D64545;
+  margin-left: 16px;
 }

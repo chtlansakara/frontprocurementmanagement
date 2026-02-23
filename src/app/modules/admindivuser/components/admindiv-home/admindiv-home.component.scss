@@ -44,6 +44,14 @@
   gap: 8px;
 }
 
+
+
+.link-text
+{
+  font-size: 16px;
+  font-weight: 400;
+}
+
 .main-toolbar-links
 {
   display: flex;
@@ -56,9 +64,12 @@
   background-color: rgba(255, 255, 255, 0.212);
 }
 
-.main-toolbar-links:active
+
+//for active-links
+.active
 {
-  background-color: rgba(255, 255, 255, 0.212);
+  // background-color: rgba(128, 128, 128, 0.356);
+  background-color: rgba(255, 255, 255, 0.11);
 }
 
 .example-spacer
