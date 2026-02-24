@@ -17,7 +17,7 @@ export class DesignationListComponent {
   designationsList: any[] = [];
 
  //column names in an array
-  displayedColumns: string[] = ['title','grade','code','actions'];
+  displayedColumns: string[] = ['title','code','actions'];
 
   //with the filter & sort - need an instance
   dataSource = new MatTableDataSource<any>([]);

@@ -33,12 +33,13 @@
         </div>
         <div class="info-row">
           <span class="info-label">Status: </span>
-          <span class="info-value status-badge"
-            [ngClass]="getStatusClass(currentRequest.status)">{{formatStatus(currentRequest.status)}}</span>
+          <span class="info-value status-badge" [ngClass]="utilService.getStatusClass(currentRequest.status)">
+            <mat-chip>{{utilService.formatStatus (currentRequest.status)}}</mat-chip>
+          </span>
         </div>
         <div class="info-row">
           <span class="info-label">Is Previsously Purchased? </span>
-          <span class="info-value"> {{formatBoolean(currentRequest.previouslyPurchased)}}</span>
+          <span class="info-value"> {{ utilService.formatBoolean(currentRequest.previouslyPurchased)}}</span>
         </div>
         <div *ngIf="currentRequest.previouslyPurchased">
           <div class="info-row">
@@ -57,74 +58,86 @@
         <div class="request-info">
 
           <div class="info-row created-details">
-            <span class="info-label">Sub-division:</span>
+            <span class="info-label created-details-label">Created by:</span>
             <span class="info-value">
-              {{subdiv.name}}
+              {{mapUserRole(currentRequest.userRoleCreatedBy)}}
             </span>
           </div>
-          <div class="info-row created-details">
-            <span class="info-label">Admin-division:</span>
-            <span class="info-value">
-              {{subdiv.admindivName}}
-            </span>
-          </div>
-
-          <div class="info-row created-details">
-            <span class="info-label">Created by:</span>
-            <span class="info-value">
-              {{currentRequest.emailCreatedBy+" (" + currentRequest.employeeIdCreatedBy+ ")"}}
-            </span>
-          </div>
-
-
-
-          <div class="info-row created-details">
-            <span class="info-label">Created On:</span>
+          <div class="info-row created-details" *ngIf="currentRequest.createdDate">
+            <span class="info-label created-details-label">Created on</span>
             <span class="info-value">
               {{currentRequest.createdDate | date: 'medium'}}</span>
           </div>
 
-          <!-- only if the request is still pending -->
-          <div class="info-row button-row" *ngIf="currentRequest.status=='PENDING_ADMIN_APPROVAL'">
-            <span class="info-value">
-              <a>
-                <button mat-fab class="success-button"
-                  routerLink="/subdivuser/home/requests/update/{{currentRequest.id}}">
-                  <mat-icon matTooltip="Edit">edit</mat-icon>
-                </button>
-              </a>
-              <a>
-                <button mat-fab class="warn-button">
-                  <mat-icon matTooltip="Delete" (click)="deleteRequest(currentRequest.id)">delete</mat-icon>
-                </button>
-              </a>
+          <div class="info-row created-details">
+            <!-- <span class="info-label"></span> -->
+            <mat-icon>account_circle</mat-icon>
+            <span class="info-value created-details-value-user">
+              {{currentRequest.emailCreatedBy+" | " + currentRequest.employeeIdCreatedBy +" | "
+              +currentRequest.subdivCreatedBy+" | " + currentRequest.admindivCreatedBy}}
             </span>
           </div>
 
-
-
         </div>
+
+        <!-- updated by user details -->
+        @if(currentRequest.lastUpdatedDate){
+        <mat-divider></mat-divider>
+
+        <div class="request-info">
+          <div class="info-row created-details" *ngIf="currentRequest.lastUpdatedDate">
+            <span class="info-label created-details-label">Last updated on</span>
+            <span class="info-value">
+              {{currentRequest.lastUpdatedDate | date: 'medium'}}</span>
+          </div>
+
+          <div class="info-row created-details">
+            <span class="info-label created-details-label">Updated by:</span>
+            <span class="info-value ">
+              {{currentRequest.emailLastUpdatedBy+" | " + currentRequest.employeeIdLastUpdatedBy +" | "
+              +currentRequest.subdivLastUpdatedBy+" | " + currentRequest.admindivLastUpdatedBy}}
+            </span>
+          </div>
+        </div>
+        }
+
+      </div>
+      <!-- only if the request is still pending -->
+      <div class="info-row button-row" *ngIf="currentRequest.status=='PENDING_ADMIN_APPROVAL'">
+        <span class="info-value">
+          <a>
+            <button mat-fab class="success-button" routerLink="/subdivuser/home/requests/update/{{currentRequest.id}}">
+              <mat-icon matTooltip="Edit">edit</mat-icon>
+            </button>
+          </a>
+          <a>
+            <button mat-fab class="warn-button">
+              <mat-icon matTooltip="Delete" (click)="deleteRequest(currentRequest.id)">delete</mat-icon>
+            </button>
+          </a>
+        </span>
       </div>
     </mat-card>
-
 
     <!-- comments (if any) -->
     <div *ngIf="comments">
       <mat-card class="request-card reject-card" *ngFor="let comment of comments">
         <div class="request-details">
-          <h2 class="request-name reject-title">
-            <!-- <span style="padding-right: 4px; color: rgb(95, 3, 3); font-family: Tahoma;">Rejected
-              by:</span> -->
-            <mat-icon style=" color: rgb(95, 3, 3); padding-right: 28px;">cancel_presentation</mat-icon>
 
-            {{(comment.type==
+          <h2 class="request-name reject-title">
+
+            <mat-icon class="reject-icon">cancel_presentation</mat-icon>
+            <span class="rejected-title">Declined by:</span>
+            {{(comment.type ==
             'ADMIN_DIV')?
-            subdiv.admindivName :
+            currentRequest.admindivCreatedBy :
             'Supplies Division'}}
           </h2>
-          <p class="request-description">{{comment.content}}</p>
 
-          <div class="info-row">
+
+          <p class="request-description reject-content" *ngIf="comment.content">{{comment.content}}</p>
+
+          <div class="info-row" *ngIf="comment.authorizedBy">
             <span class="info-label">Authorized By: </span>
             <span class="info-value">{{comment.authorizedBy}}</span>
           </div>
@@ -133,37 +146,31 @@
           <mat-divider></mat-divider>
 
           <div class="request-info">
-            <div class="info-row created-details" *ngIf="comment.type=='ADMIN_DIV'">
-              <span class="info-label">Admin-division:</span>
-              <span class="info-value">
-                {{subdiv.admindivName}}
-              </span>
-            </div>
-            <div class="info-row created-details" *ngIf="comment.type!=='ADMIN_DIV'">
-              <span class="info-label">By</span>
-              <span class="info-value">
-                Supplies Division
-              </span>
-            </div>
 
             <div class="info-row created-details">
-              <span class="info-label">Created by:</span>
+              <span class="info-label created-details-label">Created by:</span>
               <span class="info-value">
-                {{comment.createdByUserEmail+" (" + comment.createdByUserEmployeeId+ ")"}}
+                {{mapUserRole(comment.userRoleCreatedBy)}}
               </span>
             </div>
-
-
-
-            <div class="info-row created-details">
-              <span class="info-label">Created On:</span>
+            <div class="info-row created-details" *ngIf="comment.createdDate">
+              <span class="info-label created-details-label">Created on</span>
               <span class="info-value">
                 {{comment.createdDate | date: 'medium'}}</span>
             </div>
 
-
+            <div class="info-row created-details">
+              <mat-icon>account_circle</mat-icon>
+              <span class="info-value created-details-value-user">
+                {{comment.createdByUserEmail+" | " + comment.createdByUserEmployeeId +" | "
+                +comment.subdivCreatedBy+" | " + comment.admindivCreatedBy}}
+              </span>
+            </div>
 
           </div>
+
+
+
         </div>
       </mat-card>
 
@@ -173,71 +180,76 @@
     <div *ngIf="approvals">
       <mat-card class="request-card approval-card" *ngFor="let approval of approvals">
         <div class="request-details">
-          <h2 class="request-name reject-title">
-            <!-- <span style="padding-right: 4px; font-variant:small-caps; color: rgb(20, 120, 67);">
-              Approved by:</span> -->
-            <mat-icon style="color: rgb(20, 120, 67); padding-right: 28px;">done_outline</mat-icon>
-            {{(approval.type=='ADMIN_DIV')? subdiv.admindivName :'Supplies Division'}}
-          </h2>
-          <p class="request-description">{{approval.comment}}</p>
 
-          <div class="info-row">
+          <h2 class="request-name reject-title">
+
+            <mat-icon class="approved-icon">done_outline</mat-icon>
+            <span class="approved-title">Approved by:</span>
+
+            {{(approval.type=='ADMIN_DIV')? approval.admindivCreatedBy :'Supplies Division'}}
+          </h2>
+
+
+          <p class="request-description approval-content">{{approval.comment}}</p>
+
+          <div class="info-row" *ngIf="approval.allocatedAmount">
             <span class="info-label">Allocated Amount: </span>
             <span class="info-value">{{approval.allocatedAmount}}</span>
           </div>
-          <div class="info-row">
+          <div class="info-row" *ngIf="approval.amountInWords">
             <span class="info-label">Amount in Words: </span>
             <span class="info-value">{{approval.amountInWords}}</span>
           </div>
-          <div class="info-row">
-            <span class="info-label">Amount in Words: </span>
-            <span class="info-value">{{approval.amountInWords}}</span>
+          <div class="info-row" *ngIf="approval.fund">
+            <span class="info-label">Fund: </span>
+            <span class="info-value">{{approval.fund}}</span>
           </div>
-          <div class="info-row">
+          <div class="info-row" *ngIf="approval.planNo">
+            <span class="info-label">Procurement Plan No: </span>
+            <span class="info-value">{{approval.planNo}}</span>
+          </div>
+
+          <div class="info-row" *ngIf="approval.authorizedBy">
             <span class="info-label">Authorized By: </span>
             <span class="info-value">{{approval.authorizedBy}}</span>
+          </div>
+          <div class="info-row" *ngIf="approval.approvedDate">
+            <span class="info-label">Approved Date: </span>
+            <span class="info-value">{{approval.approvedDate | date : 'medium'}}</span>
           </div>
 
 
           <mat-divider></mat-divider>
 
           <div class="request-info">
-            <div class="info-row created-details" *ngIf="approval.type=='ADMIN_DIV'">
-              <span class="info-label">Admin-division:</span>
-              <span class="info-value">
-                {{subdiv.admindivName}}
-              </span>
-            </div>
-            <div class="info-row created-details" *ngIf="approval.type!=='ADMIN_DIV'">
-              <span class="info-label">By</span>
-              <span class="info-value">
-                Supplies Division
-              </span>
-            </div>
 
             <div class="info-row created-details">
-              <span class="info-label">Created by:</span>
+              <span class="info-label created-details-label">Created by:</span>
               <span class="info-value">
-                {{approval.createdByUserEmail+" (" + approval.createdByUserEmployeeId+ ")"}}
+                {{mapUserRole(approval.userRoleCreatedBy)}}
               </span>
             </div>
-
-
-
             <div class="info-row created-details" *ngIf="approval.createdDate">
-              <span class="info-label">Created On:</span>
+              <span class="info-label created-details-label">Created on</span>
               <span class="info-value">
                 {{approval.createdDate | date: 'medium'}}</span>
             </div>
 
-
+            <div class="info-row created-details">
+              <mat-icon>account_circle</mat-icon>
+              <span class="info-value created-details-value-user">
+                {{approval.createdByUserEmail+" | " + approval.createdByUserEmployeeId +" | "
+                +approval.subdivCreatedBy+" | " + approval.admindivCreatedBy}}
+              </span>
+            </div>
 
           </div>
+
+
         </div>
       </mat-card>
 
     </div>
-
 
   </div>
 

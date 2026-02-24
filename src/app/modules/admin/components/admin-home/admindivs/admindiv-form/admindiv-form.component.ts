@@ -15,6 +15,10 @@ export class AdmindivFormComponent {
   //from-group
   admindivForm!: FormGroup;
 
+    //list of designations
+  designationList: any = [];
+
+
   //injecting dependencies
   constructor(
     private fb: FormBuilder,
@@ -25,22 +29,34 @@ export class AdmindivFormComponent {
 
   //assigning values from form
   ngOnInit(){
+    //load object lists
+    this.getDesignations();
+
     this.admindivForm = this.fb.group({
       name:[null, [Validators.required]],
       code: [null, [Validators.required]],
       email: [null, [Validators.email]],
       telephone: [null,[Validators.pattern('^[0-9]{10}$')]],
-      address: [null]
+      address: [null],
+      responsibleDesignationId: [null, [Validators.required]]
+    });
+  }
+
+    getDesignations(){
+    this.adminService.getDesignations().subscribe(res=>{
+      this.designationList =res;
     });
   }
 
   //submit form event
   submitAdmindiv(){
+     console.log(this.admindivForm.value);
     this.adminService.createAdmindiv(this.admindivForm.value)
       .subscribe({
 
         next: (res)=>{
           if(res.id!=null){
+
             //show success message
             this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router

@@ -19,7 +19,7 @@ export class SubdivListComponent {
   subdivList: any[] = [];
 
   // column names in an array
-  displayedColumns: string[] = ['name','code','email', 'telephone', 'address','admindivName','actions'];
+  displayedColumns: string[] = ['admindivName','name','code','email', 'telephone', 'address','actions'];
 
   //  - with the filter & sort - need an instance
   dataSource = new MatTableDataSource<any>([]);

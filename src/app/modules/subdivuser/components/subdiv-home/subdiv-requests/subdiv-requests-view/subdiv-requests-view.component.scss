@@ -5,8 +5,24 @@
   justify-content: center;
   margin-top: 24px;
   padding: 0 8px;
+  // align-items: flex-start;
 
 }
+
+@media (max-width: 1100px)
+{
+  .request-details
+  {
+    width: 100%;
+    /* stack vertically */
+  }
+
+  .request-list
+  {
+    flex-direction: column;
+  }
+}
+
 
 /* wrapper */
 .request-list
@@ -15,6 +31,7 @@
   display: flex;
   justify-content: center;
   gap: 24px;
+  align-items: flex-start;
 
 }
 
@@ -28,6 +45,8 @@
   box-sizing: border-box;
   border: 2px solid rgba(0, 82, 37, 0.322);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  background-color: rgba(20, 120, 67, 0.089);
+  margin-bottom: 24px;
 }
 
 .request-details
@@ -41,7 +60,7 @@
 {
   margin-bottom: 8px;
   font-weight: 500;
-  color: rgb(20, 120, 67);
+  color: rgb(11, 61, 34);
 }
 
 .request-description
@@ -63,7 +82,7 @@
 {
   display: flex;
   width: 100%;
-  justify-content: start;
+  // justify-content: start;
   margin-bottom: 8px;
 }
 
@@ -78,9 +97,51 @@
   color: #444;
 }
 
+.approved-icon
+{
+  color: rgb(20, 120, 67);
+  padding-right: 28px;
+  padding-top: 4px;
+}
+
+.approved-title
+{
+  padding-right: 4px;
+  font-variant: small-caps;
+  color: rgb(20, 120, 67);
+}
+
+.reject-icon
+{
+  color: rgb(95, 3, 3);
+  padding-right: 32px;
+  padding-top: 3.5px;
+}
+
+.rejected-title
+{
+  padding-right: 4px;
+  color: rgb(95, 3, 3);
+  font-family: Tahoma;
+}
+
 .created-details
 {
   font-size: 14px;
+  // background-color: gray;
+
+}
+
+
+.created-details-label
+{
+  font-weight: 200;
+  font-size: 12px;
+}
+
+.created-details-value-user
+{
+  padding-top: 4px;
 }
 
 @media (max-width: 600px)
@@ -100,8 +161,9 @@
 
 .reject-card
 {
-  // background-color: rgba(247, 154, 154, 0.281);
+  background-color: white;
   border: 2px solid rgb(158, 5, 5);
+
 }
 
 .reject-title
@@ -109,75 +171,24 @@
   color: black;
 }
 
+.reject-content
+{
+  color: rgb(95, 3, 3);
+}
+
 .approval-card
 {
-  // background-color: rgba(20, 120, 67, 0.342);
+  background-color: white;
   border: 2px solid rgb(20, 120, 67);
 }
 
-
-// status formatting
-//for status styling
-.status-badge
+.approval-content
 {
-
-  padding: 4px;
-  text-align: center;
-  border-radius: 12px;
-  font-size: 12px;
-  font-style: italic;
-  font-weight: 500;
-  display: inline-block;
-
+  color: rgb(20, 120, 67);
 }
 
-/* Pending */
-.status-supplies-pending
-{
-  background-color: #fff3cd;
-  color: #856404;
-}
 
-/* Admin Pending */
-.status-admin-pending
-{
-  background-color: #cce5ff;
-  color: #004085;
-}
 
-/* Rejected */
-.status-admin-rejected
-{
-  background-color: #f8d7da;
-  color: #721c24;
-
-}
-
-.status-supplies-rejected
-{
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-/* Approved */
-.status-pending-procurement
-{
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-procurement-created
-{
-  background-color: #abebba;
-  color: #011606;
-}
-
-/* Default */
-.status-default
-{
-  background-color: #e2e3e5;
-  color: #383d41;
-}
 
 
 
@@ -204,9 +215,17 @@
 
 .button-row
 {
-  padding-top: 8px;
-  padding-right: 8px;
-  justify-content: end;
+  display: flex;
+  // padding-top: 8px;
+  // padding-right: 8px;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 8px;
 
+}
 
+.decline-button
+{
+  color: #D64545;
+  margin-left: 16px;
 }

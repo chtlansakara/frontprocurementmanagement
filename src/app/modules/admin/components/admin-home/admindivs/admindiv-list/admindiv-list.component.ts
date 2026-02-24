@@ -18,7 +18,7 @@ export class admindivListComponent {
   admindivList: any[] =[];
 
   //column names in an array
-  displayedColumns: string[] = ['name','code','email', 'telephone', 'address','actions'];
+  displayedColumns: string[] = ['name','code','email', 'telephone', 'address', 'responsibleDesignationCode','actions'];
 
   //  - with the filter & sort - need an instance
   dataSource = new MatTableDataSource<any>([]);

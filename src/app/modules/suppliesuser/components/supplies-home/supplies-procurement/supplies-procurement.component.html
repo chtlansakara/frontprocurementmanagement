@@ -1,1 +1,21 @@
-<p>supplies-procurement works!</p>
+<div class="card-grid">
+  <!-- <button class="settings-button" mat-fab extended appearance="outlined" style="border: 2px solid #147843;"
+    [routerLinkActive]="'active'">
+    <mat-icon>add_2</mat-icon>
+    <span class="settings-title">Create New</span>
+  </button> -->
+  <button class="settings-button" mat-fab extended routerLink="/suppliesuser/home/procurement/pending"
+    appearance="outlined" [routerLinkActive]="'active'">
+    <!-- <mat-icon>list</mat-icon> -->
+    <mat-icon>task_alt</mat-icon>
+    <span class="settings-title">Requests</span>
+  </button>
+  <button class="settings-button" mat-fab extended routerLink="/suppliesuser/home/procurement/list"
+    appearance="outlined" [routerLinkActive]="'active'">
+    <mat-icon>data_thresholding</mat-icon>
+    <span class="settings-title">Procurement</span>
+  </button>
+
+</div>
+
+<router-outlet></router-outlet>

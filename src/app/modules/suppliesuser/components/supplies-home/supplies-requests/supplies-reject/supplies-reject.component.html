@@ -1,0 +1,52 @@
+<mat-card class="approval-card">
+
+  <mat-card-header>
+
+    <mat-card-title class="reject-form-title">
+      <mat-icon class="reject-icon">cancel_presentation</mat-icon>
+      Create Rejection
+    </mat-card-title>
+    <!-- <mat-card-subtitle style="padding-bottom: 8px;">Create Approval for the Request</mat-card-subtitle> -->
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <form [formGroup]="rejectForm" class="approval-form" (ngSubmit)="submitRejection()">
+
+
+
+
+
+
+      <!-- Authorized By -->
+      <mat-form-field appearance="outline">
+        <mat-label>Authorized By</mat-label>
+        <input matInput formControlName="authorizedBy">
+        <mat-error *ngIf="rejectForm.get('authorizedBy')?.hasError('required')">
+          Authorized by is required
+        </mat-error>
+      </mat-form-field>
+
+
+      <!-- Comment -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comments</mat-label>
+        <textarea matInput rows="4" formControlName="content"></textarea>
+      </mat-form-field>
+
+      <!-- Buttons -->
+      <div class="button-row">
+        <button mat-stroked-button type="reset" color="warn">
+          Reset
+        </button>
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="rejectForm.invalid">
+          Submit Decline
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>

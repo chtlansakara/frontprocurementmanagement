@@ -14,7 +14,18 @@ export class SubdivService {
   //injecting dependencies
   constructor(private http: HttpClient) { }
 
-  //requests
+
+  //procurement related
+
+  getProcurement(): Observable<any>{
+    return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement");
+  }
+
+  getProcurementById(id: number): Observable<any>{
+    return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement/"+id);
+  }
+
+  // requests related
 
   getRequestsOfSubdiv(): Observable<any>{
     return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"requests");

@@ -51,6 +51,11 @@ body
       container-height: 20px));
 
   @include mat.select-overrides((panel-background-color: white));
+  @include mat.table-overrides(( // background-color: white,
+      // header-headline-color: red
+    ));
+
+
 }
 
 

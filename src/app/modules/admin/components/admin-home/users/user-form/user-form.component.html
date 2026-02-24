@@ -100,7 +100,7 @@
             <mat-label>Select Designation</mat-label>
             <mat-select formControlName="designationId" name="designationId" required>
               <mat-option *ngFor="let designation of designationList" [value]="designation.id">
-                {{designation.title}} - {{designation.grade}}
+                {{designation.title}} | {{designation.code}}
               </mat-option>
             </mat-select>
             <!-- error message -->

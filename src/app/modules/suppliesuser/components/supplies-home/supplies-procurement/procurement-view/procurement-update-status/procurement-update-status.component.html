@@ -1,0 +1,61 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title class="form-title">Select Status</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="changeStatusForm" (ngSubmit)="submitStatus()">
+    <mat-card-content>
+      <div class="form-content">
+
+
+
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Select Status</mat-label>
+          <mat-select formControlName="procurementStatusId" name="procurementStatusId" required>
+            <mat-option *ngFor="let status of statusList" [value]="status.id">
+              {{status.name}} </mat-option>
+          </mat-select>
+          <mat-error error *ngIf="changeStatusForm.get('procurementStatusId')?.hasError('required')">
+            Status is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Date</mat-label>
+          <!-- date type input  -->
+          <input matInput [matDatepicker]="datePicker" formControlName="statusChangedOn"
+            placeholder="Add date if not today">
+          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+
+
+
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Comment</mat-label>
+          <textarea matInput rows="4" formControlName="comment" placeholder="Add comment"></textarea>
+        </mat-form-field>
+
+
+      </div>
+
+
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <div class="button-row">
+
+        <div class="right-button-container">
+          <button mat-stroked-button matTooltip="Reset Form" type="reset">
+
+            Reset
+          </button>
+          <button mat-flat-button matTooltip="Save" [disabled]="changeStatusForm.invalid">
+
+            Save
+          </button>
+        </div>
+      </div>
+    </mat-card-footer>
+  </form>
+</mat-card>

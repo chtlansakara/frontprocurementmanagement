@@ -1,0 +1,90 @@
+<div class="spinner-container" *ngIf="spinnerService.loading$  | async">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+
+<div class="center-container">
+  <div class="table-container">
+
+    <div class="filter-container">
+      <!-- filter for the table data -->
+      <mat-form-field appearance="outline" class="filter">
+        <mat-label>Enter text to filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Type a keyword to search.." #input>
+      </mat-form-field>
+      <!-- filter by status -->
+      <mat-form-field appearance="outline" class="filter-status">
+        <mat-label>Filter by Action</mat-label>
+        <mat-select (selectionChange)="applyActionFilter($event.value)">
+          <mat-option value=""> All</mat-option>
+          <mat-option *ngFor="let action of actionList" [value]="action">
+            {{action}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- table -->
+    <div class="mat-elevation-z5">
+      <table mat-table [dataSource]="datasource" matSort class="data-table table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.description}}
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
+          <td mat-cell *matCellDef="let element"> {{element.timestamp |date : 'medium'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="entityId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Procurement ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.entityId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User Account</th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="employeeId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.employeeId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let element"> {{element.action}} </td>
+        </ng-container>
+
+
+
+
+
+
+
+
+
+
+        <tr mat-header-row *matHeaderRowDef="diplayedColumns">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: diplayedColumns;" class="table-row">
+        </tr>
+
+      </table>
+      <mat-paginator class="white-background" [pageSizeOptions]="[50,100,150,200]" showFirstLastButtons
+        aria-label="Select page of procurement">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

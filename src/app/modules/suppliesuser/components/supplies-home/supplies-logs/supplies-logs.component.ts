@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuditLogComponent } from './audit-log/audit-log.component';
 
 @Component({
   selector: 'app-supplies-logs',

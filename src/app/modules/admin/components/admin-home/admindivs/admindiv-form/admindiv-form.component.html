@@ -54,6 +54,21 @@
           </mat-form-field>
         </mat-grid-tile>
 
+        <mat-grid-tile [colspan]="2">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Responsible Designation</mat-label>
+            <mat-select formControlName="responsibleDesignationId" name="responsibleDesignationId" required>
+              <mat-option *ngFor="let designation of designationList" [value]="designation.id">
+                {{designation.title}} - {{designation.code}}
+              </mat-option>
+            </mat-select>
+            <!-- error message -->
+            <mat-error error *ngIf="admindivForm.get('responsibleDesignationId')?.hasError('required')">
+              Designation is required!
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
         <mat-grid-tile [colspan]="3">
           <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
             <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>

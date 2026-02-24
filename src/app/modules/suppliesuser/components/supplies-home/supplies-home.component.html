@@ -1,28 +1,28 @@
 <mat-toolbar class="nav-bar">
 
   <!-- Logo -->
-  <a routerLink="/suppliesuser/home" matTooltip="Go to Home" class="logo-link">
+  <a routerLink="/suppliesuser/home/dashboard" matTooltip="Go to Home" class="logo-link">
     <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
   </a>
 
   <!-- LEFT NAV LINKS -->
   <div class="nav-links">
-    <button routerLink="/supplies/requests" mat-button class="main-toolbar-links" routerLinkActive="active"
-      matTooltip="Procurement Requests">
+    <button routerLink="/suppliesuser/home/requests" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Requests">
 
       <mat-icon>note_add</mat-icon>
       <!-- <mat-icon>assignment</mat-icon> -->
       <span class="link-text">Requests</span>
     </button>
 
-    <button routerLink="/supplies/procurement" mat-button class="main-toolbar-links" routerLinkActive="active"
+    <button routerLink="/suppliesuser/home/procurement" mat-button class="main-toolbar-links" routerLinkActive="active"
       matTooltip="Procurement">
 
       <mat-icon>data_thresholding</mat-icon>
       <span class="link-text">Procurement</span>
     </button>
 
-    <button routerLink="/supplies/reports" mat-button class="main-toolbar-links" routerLinkActive="active"
+    <button routerLink="/suppliesuser/home/reports" mat-button class="main-toolbar-links" routerLinkActive="active"
       matTooltip="Reports">
 
       <mat-icon>article</mat-icon>
@@ -30,8 +30,8 @@
       <span class="link-text">Reports</span>
     </button>
 
-    <button routerLink="/supplies/logs" mat-button class="main-toolbar-links" routerLinkActive="active"
-      matTooltip="Activity Logs">
+    <button routerLink="/suppliesuser/home/logs" mat-button class="main-toolbar-links" routerLinkActive="active"
+      matTooltip="Audit Logs">
 
       <mat-icon>browse_gallery</mat-icon>
       <!-- <mat-icon>history</mat-icon> -->
@@ -52,9 +52,9 @@
       <mat-icon class="main-toolbar-icon">notifications</mat-icon>
     </button>
 
-    <button routerLink="/supplies/settings" mat-icon-button matTooltip="Settings" class="main-toolbar-icon-button">
+    <!-- <button routerLink="/supplies/settings" mat-icon-button matTooltip="Settings" class="main-toolbar-icon-button">
       <mat-icon class="main-toolbar-icon">settings</mat-icon>
-    </button>
+    </button> -->
 
     <button mat-icon-button matTooltip="User profile" class="main-toolbar-icon-button">
       <mat-icon class="main-toolbar-icon">account_circle</mat-icon>

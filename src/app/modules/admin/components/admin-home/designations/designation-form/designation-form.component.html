@@ -16,17 +16,7 @@
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="1">
-          <mat-form-field appearance="outline">
-            <mat-label>Grade</mat-label>
-            <mat-select formControlName="grade" name="grade">
-              <mat-option *ngFor="let grade of listOfGrades" [value]="grade">{{grade}}</mat-option>
-            </mat-select>
-            <!-- for error message -->
-            <mat-error error *ngIf="designationForm.get('grade')?.hasError('required')">Grade is required!
-            </mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
+
 
 
         <mat-grid-tile [colspan]="1">

@@ -14,6 +14,9 @@ export class AdmindivUpdateComponent {
   //to hold id
   id: number;
 
+      //list of designations
+  designationList: any = [];
+
   //form-group
   admindivUpdateForm!: FormGroup;
 
@@ -47,12 +50,23 @@ export class AdmindivUpdateComponent {
 
   //assigning values from form
   ngOnInit(){
+    //load object lists
+    this.getDesignations();
+
+
     this.admindivUpdateForm = this.fb.group({
       name:[null, [Validators.required]],
       code: [null, [Validators.required]],
       email: [null, [Validators.email]],
       telephone: [null,[Validators.pattern('^[0-9]{10}$')]],
-      address: [null]
+      address: [null],
+      responsibleDesignationId: [null, [Validators.required]]
+    });
+  }
+
+      getDesignations(){
+    this.adminService.getDesignations().subscribe(res=>{
+      this.designationList =res;
     });
   }
 

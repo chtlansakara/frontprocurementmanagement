@@ -29,6 +29,7 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 // Material Grid List
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 
@@ -61,6 +62,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatPaginatorModule,
     MatGridListModule,
     MatCheckboxModule,
+    MatStepperModule
   ]
 })
 export class AngularmaterialModule { }

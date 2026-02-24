@@ -21,7 +21,9 @@ export interface RequestDto{
 
         "createdDate": string  | null,
 
+
         "emailCreatedBy": string,
+
 
         "userRoleCreatedBy": string,
         "admindivCodeCreatedBy": string,
@@ -31,12 +33,30 @@ export interface RequestDto{
 
         "employeeIdCreatedBy": string,
         "userIdCreatedBy": number,
-        "userNameCreatedBy": string
+        "userNameCreatedBy": string,
 
+         "lastUpdatedDate": string |null,
 
+        "emailLastUpdatedBy":string |null,
+        "employeeIdLastUpdatedBy": string|null,
+        "userIdLastUpdatedBy": number|null,
+        "userNameLastUpdatedBy": string|null,
+         "userRoleLastUpdatedBy": string|null,
+        "admindivCodeLastUpdattedBy": string|null,
+        "admindivLastUpdattedBy": string|null,
+        "subdivCodeLastUpdatedBy": string|null,
+        "subdivLastUpdatedBy": string|null,
 
         "subdivCodeList": string[],
         "subdivIdList": number[],
         "subdivNameList": string[],
+
+
+        "procurementId":number,
+        "procurementName": string |null,
+        "procurementScheduledCommenceDate":string |null,
+        "procurementExpectedCompletionDate":string |null,
+        "procurementStatusId": number,
+        "procurementStatusName":string |null,
 
 }

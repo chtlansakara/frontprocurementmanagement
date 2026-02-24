@@ -1,0 +1,139 @@
+<div class="spinner-container" *ngIf="spinnerService.loading$  | async">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div class="center-container">
+  <div class="table-container">
+
+
+    <!-- filter for the table data -->
+    <mat-form-field appearance="outline" class="filter">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Type a keyword to search.." #input>
+    </mat-form-field>
+
+
+    <!-- table -->
+    <div class="mat-elevation-z5">
+      <table mat-table [dataSource]="datasource" matSort class="data-table">
+
+
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Title</th>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            {{element.description}}
+          </td>
+        </ng-container>
+         -->
+
+
+        <ng-container matColumnDef="subdivCodeList">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub-divisions </th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            <mat-chip-set>
+              <mat-chip *ngFor="let code of element.subdivCodeList" class="subdiv-chips">
+                {{code}}
+              </mat-chip>
+            </mat-chip-set>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Q</th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+        <ng-container matColumnDef="fund">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fund</th>
+          <td mat-cell *matCellDef="let element"> {{element.fund}} </td>
+        </ng-container>
+        <ng-container matColumnDef="estimation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estimation</th>
+          <td mat-cell *matCellDef="let element"> {{element.estimation}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="authorizedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Authorized By</th>
+          <td mat-cell *matCellDef="let element"> {{element.authorizedBy}} </td>
+        </ng-container>
+        <ng-container matColumnDef="approvedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Approved Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.approvedDate |date : 'MMM d,y'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let element">
+
+            <span class="status-badge" [ngClass]="utilService.getStatusClass(element.status)">
+
+              <mat-chip>{{utilService.formatStatus(element.status)}}</mat-chip>
+            </span>
+
+          </td>
+        </ng-container>
+
+
+
+
+        <ng-container matColumnDef="previouslyPurchased">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Previously Purchased? </th>
+          <td mat-cell *matCellDef="let element"> {{utilService.formatBoolean(element.previouslyPurchased)}} </td>
+        </ng-container>
+        <ng-container matColumnDef="previousPurchaseYear">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Year</th>
+          <td mat-cell *matCellDef="let element">
+
+            {{element.previouslyPurchased === 'true' ? element.previousPurchaseYear : '-'}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="reasonForRequirement">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement Reason</th>
+          <td mat-cell *matCellDef="let element"> {{element.reasonForRequirement}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userRoleCreatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Request created by:</th>
+          <td mat-cell *matCellDef="let element">
+            <!-- <span *ngIf="element.userRoleCreatedBy == 'SUBDIVUSER'">{{element.subdivCreatedBy}}</span> -->
+            <span *ngIf="element.userRoleCreatedBy == 'SUBDIVUSER'">Sub Division</span>
+            <span *ngIf="element.userRoleCreatedBy == 'ADMINDIVUSER'">{{element.admindivCreatedBy}}</span>
+            <span *ngIf="element.userRoleCreatedBy == 'SUPPLIESUSER'">Supplies division</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="createdDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.createdDate |date : 'MMM d,y'}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="emailCreatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User Account</th>
+          <td mat-cell *matCellDef="let element"> {{element.emailCreatedBy}} </td>
+        </ng-container>
+        <ng-container matColumnDef="employeeIdCreatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.employeeIdCreatedBy}} </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="diplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: diplayedColumns;" (click)="ViewRequest(row)" class="table-row"></tr>
+
+      </table>
+      <mat-paginator class="white-background" [pageSizeOptions]="[50,100,150]" showFirstLastButtons
+        aria-label="Select page of requests">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

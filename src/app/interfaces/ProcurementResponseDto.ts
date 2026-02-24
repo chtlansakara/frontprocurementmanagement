@@ -1,0 +1,61 @@
+export interface ProcurementResponseDto{
+        "id": number,
+        "number": string |null,
+        "name" :string |null,
+        "quantity": number,
+        "estimatedAmount": number,
+        "category": string |null,
+        "source" : string |null,
+        "donorName" : string |null,
+        "method":  string |null,
+        "authorityLevel": string |null,
+        "priorityStatus": string |null,
+        "remarks":  string |null,
+        "vendorDetails": string |null,
+        "scheduledCommenceDate":  string |null,
+        "expectedCompletionDate": string |null,
+
+        "assignedToUserId": number,
+        "assignedToUserEmail": string |null,
+        "assignedToUsername": string |null,
+        "assignedToEmployeeId": string |null,
+        "assignedToUserDesignation": string |null,
+
+        "statusId":number,
+        "statusName":  string |null,
+
+        "vendorId": number,
+        "vendorName":  string |null,
+        "vendorRegisteredDate" :  string |null,
+        "vendorComments" :  string |null,
+
+        "requestIdList": number[],
+        "requestTitleList": string [],
+
+        "createdOn" : string,
+        "lastUpdatedOn" : string |null,
+
+        "userIdCreatedBy": number,
+        "emailCreatedBy":string |null,
+        "userNameCreatedBy":string |null,
+        "employeeIdCreatedBy":string |null,
+        "userRoleCreatedBy":string |null,
+        "designationCreatedBy":string |null,
+        "subdivCreatedBy":string |null,
+        "subdivCodeCreatedBy":string |null,
+        "admindivCreatedBy":string |null,
+        "admindivCodeCreatedBy":string |null,
+
+        "userIdLastUpdatedBy":number,
+        "emailLastUpdatedBy":string |null,
+        "userNameLastUpdatedBy":string |null,
+        "employeeIdLastUpdatedBy":string |null,
+        "userRoleLastUpdatedBy":string |null,
+        "designationUpdatedBy":string |null,
+        "subdivLastUpdatedBy":string |null,
+        "subdivCodeLastUpdatedBy":string |null,
+        "dmindivLastUpdatedBy":string |null,
+        "admindivCodeLastUpdatedBy":string |null,
+
+
+}

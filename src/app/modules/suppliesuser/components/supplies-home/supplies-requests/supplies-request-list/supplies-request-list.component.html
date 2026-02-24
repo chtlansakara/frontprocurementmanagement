@@ -1,0 +1,52 @@
+<!-- Tab for settings page -->
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: #005225;" class="example-tab-icon">note_add</mat-icon>
+      All Requests
+    </ng-template>
+
+    <ng-template matTabContent>
+      <app-supplies-requests-list-all></app-supplies-requests-list-all>
+    </ng-template>
+
+
+  </mat-tab>
+
+
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: #e2ba2b;" class="example-tab-icon">pending</mat-icon>
+      Pending Review
+    </ng-template>
+
+    <ng-template matTabContent>
+      <app-supplies-requests-list-pending></app-supplies-requests-list-pending>
+    </ng-template>
+  </mat-tab>
+
+
+
+  <!-- <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style="color: rgb(20, 120, 67);" class="example-tab-icon">done_outline</mat-icon>
+      Approved
+    </ng-template>
+    <ng-template matTabContent>
+      <app-supplies-requests-list-approved></app-supplies-requests-list-approved>
+    </ng-template>
+
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon style=" color: rgb(95, 3, 3); " class="example-tab-icon">cancel_presentation</mat-icon>
+      Rejected
+    </ng-template>
+    <ng-template matTabContent>
+      <app-supplies-requests-list-rejected></app-supplies-requests-list-rejected>
+    </ng-template>
+  </mat-tab> -->
+
+</mat-tab-group>

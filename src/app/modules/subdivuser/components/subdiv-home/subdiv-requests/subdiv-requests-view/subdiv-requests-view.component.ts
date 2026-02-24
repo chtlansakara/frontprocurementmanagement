@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubdivService } from '../../../../services/subdiv.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UtilService } from '../../../../../../utils/util.service';
 
 @Component({
   selector: 'app-subdiv-requests-view',
@@ -29,6 +30,7 @@ export class SubdivRequestsViewComponent {
     private subdivService: SubdivService,
     private snackbar : MatSnackBar,
     private router : Router,
+    public utilService: UtilService
   ){
     this.id = activatedRoute.snapshot.params["id"];
   }
@@ -60,14 +62,14 @@ export class SubdivRequestsViewComponent {
   getRejectCommentsByRequestId(){
     this.subdivService.getCommentsByRequestId(this.id).subscribe(res =>{
       this.comments = res;
-      console.log(this.comments);
+      // console.log(this.comments);
     });
   }
 
   getApprovalsByRequestId(){
     this.subdivService.getApprovalsByRequestId(this.id).subscribe(res =>{
       this.approvals = res;
-      console.log(this.approvals);
+      // console.log(this.approvals);
     });
   }
 
@@ -81,87 +83,20 @@ export class SubdivRequestsViewComponent {
     })
   }
 
-
-
-  //FOR HTML Formatting
-    //status formatting
-  getStatusClass(status: string): string{
-    switch(status) {
-      case 'PENDING_ADMIN_APPROVAL':
-        return 'status-admin-pending';
-
-      case 'REJECTED_ADMIN_APPROVAL':
-        return 'status-admin-rejected';
-
-      case 'PENDING_SUPPLIES_APPROVAL':
-        return 'status-supplies-pending';
-
-      case 'REJECTED_SUPPLIES_APPROVAL':
-        return 'status-supplies-rejected';
-
-      case 'PENDING_PROCUREMENT':
-        return 'status-pending-procurement';
-
-      case 'PROCUREMENT_CREATED':
-        return 'status-procuremnt-created';
-
-          //postponed request - after approved by supplies
-      // case 'PROCUREMENT_POSTPONED':
-      //   return 'status-procuremnt-created';
-
-      //   //cancelled request - after approved by supplies
-      // case 'PROCUREMENT_CANCELLED':
-      //   return 'status-procuremnt-created';
-
-      default:
-        return 'status-default';
-    }
+    mapUserRole(userrole: string): string{
+    if(userrole == "SUBDIVUSER") return this.currentRequest.subdivCreatedBy;
+    if(userrole == "ADMINDIVUSER") return this.currentRequest.admindivCreatedBy;
+    else return "Supplies Division";
   }
 
-  //format status on html
-  formatStatus(status: string): string{
-    switch(status) {
-      case 'PENDING_ADMIN_APPROVAL':
-        return 'PENDING ADMIN';
 
-      case 'REJECTED_ADMIN_APPROVAL':
-        return 'REJECTED ADMIN';
 
-        //when directed to supplies approval
-      case 'PENDING_SUPPLIES_APPROVAL':
-        return 'PENDING Supplies';
 
-      case 'REJECTED_SUPPLIES_APPROVAL':
-        return 'REJECTED Supplies';
 
-        //when approved by supplies
-      case 'PENDING_PROCUREMENT':
-        return 'APPROVED Supplies';
 
-        //when a procurement is created for the request
-      case 'PROCUREMENT_CREATED':
-        return 'In Procurment';
 
-        //postponed request - after approved by supplies
-      case 'PROCUREMENT_POSTPONED':
-        return 'Postponed';
 
-        //cancelled request - after approved by supplies
-      case 'PROCUREMENT_CANCELLED':
-        return 'Cancelled';
 
-      default:
-        return 'Not defined';
-  }
-}
-
-//format previously purchased column
-
-formatBoolean(value: boolean): string{
-  if(value == true) return 'Yes';
-  if(value == false) return 'No';
-  return ' ';
-}
 
 
 }

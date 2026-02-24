@@ -12,6 +12,7 @@ import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-req
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path:'home', component: SubdivHomeComponent, children: [
+    {path: '', redirectTo: 'requests', pathMatch: 'full'},
     {path:'dashboard', component: SubdivDashboardComponent},
     {path:'requests', component: SubdivRequestsComponent, children: [
       {path:'', redirectTo: 'list', pathMatch: 'full'},

@@ -37,7 +37,7 @@ export class DesignationUpdateFormComponent {
   ngOnInit(){
     this.designationUpdateForm = this.fb.group({
       title: [null, [Validators.required]],
-      grade: [null, [Validators.required]],
+
       code: [null, [Validators.required]]
     });
   }

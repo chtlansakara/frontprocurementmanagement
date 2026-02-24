@@ -52,18 +52,18 @@ id: number;
   getRequestById(){
     this.subdivService.getRequestById(this.id).subscribe(res =>{
      //apply to the reactive form
-     console.log(res);
+    //  console.log(res);
      this.requestSubdivForm.patchValue(res);
     })
   }
 
   //submit method - update method
   updateRequest(){
-    console.log(this.requestSubdivForm.value);
+    // console.log(this.requestSubdivForm.value);
     this.subdivService.updateRequest(this.id, this.requestSubdivForm.value).subscribe(res =>{
       if(res.id != null){
         //show success message
-            this.snackbar.open("Updated successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+            this.snackbar.open(`Request ID: ${this.id} updated successfully.`,"Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router
             this.router.navigateByUrl("/subdivuser/home/requests/list");
       }
