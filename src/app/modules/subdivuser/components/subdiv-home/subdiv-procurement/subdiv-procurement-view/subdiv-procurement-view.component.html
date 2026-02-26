@@ -1,0 +1,211 @@
+<div class="view-container">
+
+  <div class="left-container">
+    <mat-card class="procurement-card" appearance="outlined">
+
+      <mat-card-header>
+        <mat-card-title>{{currentProcurement?.id}}. {{currentProcurement?.name}}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="main-content">
+
+          <div class="content-row">
+            <span class="content-label">Request Title:</span>
+            <span class="content-description">
+              <mat-chip-set>
+                <mat-chip class="subdiv-chips" style="background-color: white;">
+                  {{currentProcurement?.requestTitle}} (ID: {{currentProcurement?.requestId}})
+                </mat-chip>
+              </mat-chip-set>
+            </span>
+          </div>
+
+          <div class="content-row">
+            <span class="content-label">Request For:</span>
+            <span class="content-description">
+              <mat-chip-set>
+                <mat-chip *ngFor="let subdiv of currentProcurement?.requestSubdivNameList">
+                  {{subdiv}} - ({{currentProcurement?.requestAdmindivName}})
+                </mat-chip>
+                <!-- <mat-chip style="background-color: rgb(250, 250, 250);"
+                  *ngFor="let requestTitle of currentProcurement?.requestTitleList" class="subdiv-chips">
+                  <b> {{requestTitle}}</b>
+                </mat-chip> -->
+              </mat-chip-set>
+            </span>
+          </div>
+
+          <div class="content-row">
+            <span class="content-label">Quantity:</span> <span
+              class="content-description">{{currentProcurement?.quantity}}</span>
+          </div>
+
+          <div class="content-row">
+            <span class="content-label">Estimated Amount:</span> <span
+              class="content-description">{{currentProcurement?.estimatedAmount}}</span>
+          </div>
+
+          <div class="content-row">
+            <span class="content-label">Category:</span> <span
+              class="content-description">{{currentProcurement?.category}}</span>
+          </div>
+          <div class="content-row">
+            <span class="content-label">Source:</span> <span
+              class="content-description">{{currentProcurement?.sourceName}}</span>
+          </div>
+          <div class="content-row">
+            <span class="content-label">Method:</span> <span
+              class="content-description">{{currentProcurement?.method}}</span>
+          </div>
+          <div class="content-row">
+            <span class="content-label">Level of Authority:</span> <span
+              class="content-description">{{currentProcurement?.authorityLevel}}</span>
+          </div>
+          <div class="content-row">
+            <span class="content-label">Status of Priority:</span> <span
+              class="content-description">{{currentProcurement?.priorityStatus}}</span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.scheduledCommenceDate">
+            <span class="content-label">Scheduled Commence Date:</span> <span
+              class="content-description">{{currentProcurement?.scheduledCommenceDate | date: 'yyyy-MMM-dd'}}</span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.expectedCompletionDate">
+            <span class="content-label">Expected Completion Date:</span> <span
+              class="content-description">{{currentProcurement?.expectedCompletionDate| date: 'yyyy-MMM-dd'}}</span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.commencedDate">
+            <span class="content-label">Commenced Date:</span> <span
+              class="content-description">{{currentProcurement?.commencedDate| date: 'yyyy-MMM-dd'}}</span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.completedDate">
+            <span class="content-label">Completion Date:</span> <span
+              class="content-description">{{currentProcurement?.completedDate| date: 'yyyy-MMM-dd'}}</span>
+          </div>
+
+          <div class="content-group" style="border: 1px solid green; border-radius: 8px; padding: 4px; margin: 4px 0;"
+            *ngIf="currentProcurement?.vendorName">
+            <div class="content-row">
+              <span class="content-label">Vendor:</span> <span
+                class="content-description">{{currentProcurement?.vendorName}}</span>
+            </div>
+            <div class="content-row">
+              <span class="content-label">Vendor Registered Date:</span> <span class="content-description"><small>
+                  {{currentProcurement?.vendorRegisteredDate | date: 'yyyy-mm-dd'}}</small></span>
+            </div>
+          </div>
+
+
+          <div class="content-row">
+            <span class="content-label">Assigned Employee:</span> <span class="content-description">
+              {{currentProcurement?.assignedToUserName}}
+              | {{currentProcurement?.assignedToUserDesignation}}
+              | {{currentProcurement?.assignedToUserEmail}}</span>
+          </div>
+          <!-- status  -->
+          <div class="content-row">
+            <span class="content-label">Current Stage:</span> <span class="content-description">
+              <mat-chip class="procurement-status"> {{
+                utilService.formatProcurementStage(currentProcurement?.procurementStage)}}
+              </mat-chip>
+            </span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.statusName">
+            <span class="content-label">Current Status:</span> <span class="content-description">
+              <mat-chip class="procurement-status"> {{currentProcurement?.statusName}}
+              </mat-chip>
+            </span>
+          </div>
+
+
+
+
+          <div class="content-row" *ngIf="currentProcurement?.donorName">
+            <span class="content-label">Donor Name:</span> <span
+              class="content-description">{{currentProcurement?.donorName}}</span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.vendorDetails">
+            <span class="content-label">Vendor Details:</span> <span
+              class="content-description">{{currentProcurement?.vendorDetails}}</span>
+          </div>
+
+
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="other-content">
+          <div class="other-row">
+            <span class="details-label">Created On</span>
+            <span class="details-description">{{currentProcurement?.createdOn | date : 'medium'}}</span>
+          </div>
+
+
+          <div class="other-row" style="display: flex; align-items: center; margin: 4px 0;">
+            <span class="details-label"><mat-icon>account_circle</mat-icon> </span>
+            <span class="details-description">
+
+              {{currentProcurement?.emailCreatedBy}} | {{currentProcurement?.userNameCreatedBy}}</span>
+          </div>
+
+
+
+          <div class="other-row" *ngIf="currentProcurement?.lastUpdatedOn">
+            <span class="details-label">Last updated On</span>
+            <span class="details-description">{{currentProcurement?.lastUpdatedOn | date : 'medium'}}</span>
+          </div>
+          <div class="other-row" *ngIf="currentProcurement?.lastUpdatedOn">
+            <span class="details-label">Updated by</span>
+            <span class="details-description">{{currentProcurement?.emailLastUpdatedBy}} |
+              {{currentProcurement?.userNameLastUpdatedBy}}</span>
+          </div>
+        </div>
+
+
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <router-outlet> </router-outlet>
+
+
+
+
+  </div>
+
+  <div class="right-container" *ngIf="statusUpdates.length">
+    <mat-card class="status-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title style="color: gray; font-size: 18px;">Status History</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+
+        <mat-stepper orientation="vertical" #stepper [linear]=false>
+          <ng-template matStepperIcon="number">
+            <mat-icon>done</mat-icon>
+          </ng-template>
+
+          <mat-step [completed]="true" [editable]="false" *ngFor="let statusUpdate of statusUpdates">
+            <ng-template matStepLabel>
+              <div>
+                <div>{{utilService.formatProcurementStage(statusUpdate.procurementStage)}}</div>
+                <span><small>{{statusUpdate.procurementStatusName}}</small></span>
+                <div><small>{{statusUpdate.statusChangedOn | date: 'medium'}}</small></div>
+                <div><small>{{statusUpdate.comment}}</small></div>
+              </div>
+            </ng-template>
+
+          </mat-step>
+
+
+
+        </mat-stepper>
+      </mat-card-content>
+
+    </mat-card>
+
+
+  </div>
+</div>

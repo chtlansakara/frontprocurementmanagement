@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+//for export table
+import * as XLSX from 'xlsx';
+import { UtilService } from '../../../../../../utils/util.service';
 
 @Component({
   selector: 'app-procurement-list',
@@ -16,8 +19,8 @@ import { MatSort } from '@angular/material/sort';
 export class ProcurementListComponent {
   //to save returned list
   procurementList : ProcurementResponseDto[] = [];
-  //to save status list
-  statusList : any[] =[];
+  //to save stages list
+  stagesList : any[] =[];
   //to show subdiv codes of each request-
     //requests List
   approvedRequestsList : any[] = [];
@@ -33,40 +36,37 @@ statusFilter = '';
     'id',
     // 'number',
     'name',
-    'requestTitleList',
-
+    'requestTitle',
+'requestAdmindivCode',
+'requestSubdivCodeList',
     'quantity',
     'estimatedAmount',
+    'procurementStage',
+    'statusName',
+   'commencedDate',
+    'completedDate',
+
     'category',
-     'source',
+     'sourceName',
 
     'method',
     'authorityLevel',
     'priorityStatus',
     'scheduledCommenceDate',
-
-
-    'statusName',
-
+    'expectedCompletionDate',
 
     'vendorName',
     'vendorRegisteredDate',
     "vendorComments",
     // 'vendorDetails',
 
-    'expectedCompletionDate',
-
     'assignedToUserEmail',
     // 'assignedToUsername',
     // 'assignedToEmployeeId',
     'assignedToUserDesignation',
 
-
     'remarks',
     'donorName',
-
-
-    // 'requestIdList',
 
     'createdOn',
     'emailCreatedBy',
@@ -80,7 +80,8 @@ statusFilter = '';
   constructor(
     public spinnerService : SpinnerService,
     private suppliesService: SuppliesService,
-    private router : Router
+    private router : Router,
+    public utilService: UtilService,
   ){}
 
   //for table - empty data source initialized
@@ -103,13 +104,17 @@ statusFilter = '';
         //text search
         const textMatch =
         !searchTerms.text ||
-        (data.name + ' ' + data.requestTitleList.join(' ')+ ' ' + data.statusName)
+        (data.name + ' ' + data.requestTitle + ' ' + data.requestAdmindivCode
+          + ' ' + data.requestAdmindivName + ' ' + data.requestSubdivCodeList.join(' ')
+          + ' ' + data.requestEstimation + ' ' + data.statusName
+          + ' ' +  this.utilService.formatProcurementStage(data.procurementStage) + ' '
+          + data.vendorName + ' ' + data.commencedDate + data.completedDate)
         .toLowerCase()
         .includes(searchTerms.text.toLowerCase());
 
-        //status search
+        //stages search
         const statusMatch =
-        !searchTerms.statusName || data.statusName?.toLowerCase() === searchTerms.statusName.toLowerCase();
+        !searchTerms.procurementStage || data.procurementStage?.toLowerCase() === searchTerms.procurementStage.toLowerCase();
 
         return textMatch && statusMatch;
       };
@@ -129,8 +134,8 @@ statusFilter = '';
 
   //to get status list
   loadStatusList(){
-    this.suppliesService.getProcurementStatus().subscribe(res => {
-      this.statusList = res;
+    this.suppliesService.getStages().subscribe(res => {
+      this.stagesList = res;
     })
   }
 
@@ -143,7 +148,7 @@ statusFilter = '';
     this.datasource.sort = this.sort;
     this.datasource.paginator = this.paginator;
   }
-// for status filter ------------------------------------------------
+// for stages filter ------------------------------------------------
   applyFilter(event: Event){
     // const filterValue = (event.target as HTMLInputElement).value;
     // this.datasource.filter = filterValue.trim().toLowerCase();
@@ -163,7 +168,7 @@ statusFilter = '';
     //filter only accepts a string
     this.datasource.filter =JSON.stringify({
       text: this.searchFilter,
-      statusName: this.statusFilter
+      procurementStage: this.statusFilter
     });
 
      //reset paiginator to first page
@@ -202,6 +207,43 @@ statusFilter = '';
       return this.requestsMap.get(id);
     }
 
+    //button click event method to export file
+    executeExportExcel(){
+      this.exportToExcel("procurement-table","procurement");
+    }
+    executeExportCSV(){
+      this.exportToCsv("procurement-table","procurement");
+    }
 
+    //function to export table as Excel file - passing table #id and the file name as arguments
+    exportToExcel(tableId: string, name?:string){
+      //getting timestamp to name the fild
+      let timeSpan = new Date().toISOString();
+      let prefix = name || "ExportResult";
+      let fileName = `${prefix}-${timeSpan}`;
+      //get table from id value
+      let targetTableElement = document.getElementById(tableId);
+      if(targetTableElement != null){
+        //creating a work-book
+        let wb = XLSX.utils.table_to_book(targetTableElement, <XLSX.Table2SheetOpts>{sheet: prefix});
+        XLSX.writeFile(wb, `${fileName}.xlsx`)
+      }
+    }
+
+    exportToCsv(tableId: string, name?: string) {
+  let timeSpan = new Date().toISOString().replace(/[:.]/g, "-");
+  let prefix = name || "ExportResult";
+  let fileName = `${prefix}-${timeSpan}`;
+
+  let targetTableElement = document.getElementById(tableId);
+
+  if (targetTableElement != null) {
+    let wb = XLSX.utils.table_to_book(targetTableElement, { sheet: prefix });
+
+    XLSX.writeFile(wb, `${fileName}.csv`, {
+      bookType: "csv"
+    });
+  }
+}
 
 }

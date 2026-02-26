@@ -5,7 +5,7 @@ export interface ProcurementCreateDto{
         "quantity": number,
         "estimatedAmount": number,
         "category": string |null,
-        "source" : string |null,
+
         "donorName" : string |null,
         "method":  string |null,
         "authorityLevel": string |null,
@@ -17,13 +17,11 @@ export interface ProcurementCreateDto{
 
         "assignedToUserId": number,
 
-
-        "statusId":number,
-
+        "sourceId": number,
 
         "vendorId": number,
 
-        "requestIdList": number[]
+        "requestId": number,
 
 
 }

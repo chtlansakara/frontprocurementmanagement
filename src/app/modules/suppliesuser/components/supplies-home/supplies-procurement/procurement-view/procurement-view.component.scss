@@ -14,6 +14,11 @@
   }
 }
 
+.subdiv-chips
+{
+  background-color: rgb(250, 250, 250);
+}
+
 .left-container
 {
   // background-color: pink;
@@ -40,6 +45,8 @@
   .content-row
   {
 
+    padding: 2px 0;
+
     .content-label
     {
       font-size: 14px;
@@ -48,8 +55,7 @@
 
     .content-description
     {
-      font-style: 18px;
-
+      font-size: 16px;
     }
   }
 }

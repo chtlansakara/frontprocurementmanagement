@@ -51,12 +51,12 @@ export interface RequestDto{
         "subdivIdList": number[],
         "subdivNameList": string[],
 
+        "admindivId" :number,
+        "admindivName":string,
+        "admindivCode":string,
+        "admindivResponsible":string,
 
-        "procurementId":number,
-        "procurementName": string |null,
-        "procurementScheduledCommenceDate":string |null,
-        "procurementExpectedCompletionDate":string |null,
-        "procurementStatusId": number,
-        "procurementStatusName":string |null,
+
+
 
 }

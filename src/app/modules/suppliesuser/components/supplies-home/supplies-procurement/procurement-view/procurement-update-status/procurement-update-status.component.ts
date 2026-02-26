@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuppliesService } from '../../../../../services/supplies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UtilService } from '../../../../../../../utils/util.service';
 
 @Component({
   selector: 'app-procurement-update-status',
@@ -17,6 +18,8 @@ export class ProcurementUpdateStatusComponent {
   changeStatusForm !: FormGroup;
   //to load status
   statusList: any[] = [];
+  //load stages list
+  procurementStagesList : any[] = [];
   currentProcurement: any;
 
   constructor(
@@ -24,20 +27,23 @@ export class ProcurementUpdateStatusComponent {
     private fb: FormBuilder,
     private suppliesService: SuppliesService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    public utilsService: UtilService
   ){
     this.id = this.activatedRoute.snapshot.params["id"];
   }
 
   ngOnInit(){
     this.changeStatusForm = this.fb.group({
-      procurementStatusId : [null, [Validators.required]],
+      procurementStage: [null, [Validators.required]],
+      procurementStatusId : [null],
       statusChangedOn : [null],
       comment: [null]
     });
 
 
      this.loadStatusList();
+     this.loadStagesList();
      //to filter out current status from the list
      this.getProcurementById();
   }
@@ -49,6 +55,18 @@ export class ProcurementUpdateStatusComponent {
       if(this.currentProcurement){
          //remove current status from the status list
           this.removeCurrentStatusList();
+      }
+    });
+
+  }
+
+    loadStagesList(){
+    this.suppliesService.getStages().subscribe(res=>{
+      this.procurementStagesList = res;
+
+      if(this.currentProcurement){
+         //remove current status from the status list
+          this.removeCurrentStage();
       }
     });
 
@@ -67,9 +85,14 @@ export class ProcurementUpdateStatusComponent {
   }
 
   removeCurrentStatusList(){
-    console.log(this.currentProcurement);
+
     this.statusList = this.statusList.filter((status:any)=> status.id !== this.currentProcurement.statusId);
-    console.log(this.statusList);
+  }
+
+    removeCurrentStage(){
+
+    this.procurementStagesList = this.procurementStagesList.filter((status:any)=> status !== this.currentProcurement.procurementStage);
+    console.log(this.procurementStagesList);
   }
 
 

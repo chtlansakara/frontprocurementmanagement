@@ -1,6 +1,6 @@
 <mat-card class="example-card" appearance="outlined">
   <mat-card-header>
-    <mat-card-title class="form-title">Select Status</mat-card-title>
+    <mat-card-title class="form-title">Update Procurement Status</mat-card-title>
   </mat-card-header>
   <form [formGroup]="changeStatusForm" (ngSubmit)="submitStatus()">
     <mat-card-content>
@@ -10,14 +10,22 @@
 
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Select Status</mat-label>
-          <mat-select formControlName="procurementStatusId" name="procurementStatusId" required>
+          <mat-label>Select Procurement Stage</mat-label>
+          <mat-select formControlName="procurementStage" name="procurementStage" required>
+            <mat-option *ngFor="let stage of procurementStagesList" [value]="stage">
+              {{utilsService.formatProcurementStage(stage)}} </mat-option>
+          </mat-select>
+          <mat-error error *ngIf="changeStatusForm.get('procurementStage')?.hasError('required')">
+            Stage is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Select Status (if needed)</mat-label>
+          <mat-select formControlName="procurementStatusId" name="procurementStatusId">
             <mat-option *ngFor="let status of statusList" [value]="status.id">
               {{status.name}} </mat-option>
           </mat-select>
-          <mat-error error *ngIf="changeStatusForm.get('procurementStatusId')?.hasError('required')">
-            Status is required!
-          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">

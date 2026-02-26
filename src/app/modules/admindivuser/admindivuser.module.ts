@@ -17,6 +17,8 @@ import { AdmindivRejectedComponent } from './components/admindiv-home/admindiv-r
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AdmindivApproveComponent } from './components/admindiv-home/admindiv-requests/admindiv-approve/admindiv-approve.component';
 import { AdmindivRejectComponent } from './components/admindiv-home/admindiv-requests/admindiv-reject/admindiv-reject.component';
+import { AdmindivProcurementListComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-list/admindiv-procurement-list.component';
+import { AdmindivProcurementViewComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-view/admindiv-procurement-view.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { AdmindivRejectComponent } from './components/admindiv-home/admindiv-req
     AdmindivApprovedComponent,
     AdmindivRejectedComponent,
     AdmindivApproveComponent,
-    AdmindivRejectComponent
+    AdmindivRejectComponent,
+    AdmindivProcurementListComponent,
+    AdmindivProcurementViewComponent
   ],
   imports: [
     CommonModule,

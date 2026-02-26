@@ -17,7 +17,8 @@
         <p class="request-description">{{currentRequest.description}}</p>
         <div class="info-row">
           <mat-chip-set>
-            <mat-chip *ngFor="let subdiv of currentRequest.subdivNameList" class="subdiv-chips">
+            <mat-chip *ngFor="let subdiv of currentRequest.subdivNameList"
+              style="background-color: rgb(250, 250, 250);">
               {{subdiv}}
             </mat-chip>
           </mat-chip-set>

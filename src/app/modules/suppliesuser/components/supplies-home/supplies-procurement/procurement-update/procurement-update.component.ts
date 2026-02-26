@@ -21,6 +21,8 @@ export class ProcurementUpdateComponent {
   vendorsList : any[] = [];
   //users list
   usersList : any[] = [];
+  //sources list
+  sourcesList : any[] = [];
   //requests List
   updateRequestList : any[] = [];
   //fast look up for add/remove chips
@@ -44,16 +46,17 @@ export class ProcurementUpdateComponent {
       this.loadVendors();
       this.loadUsers();
       this.loadRequests();
+      this.loadSources();
 
 
     //load form values
     this.procurementForm = this.fb.group({
       name: [null, [Validators.required]],
       quantity : [null, [Validators.required]],
-      requestIdList : [[], [Validators.required]],
+      requestId : [null, [Validators.required]],
       estimatedAmount: [null, [Validators.required]],
       category : [null, [Validators.required]],
-      source : [null, [Validators.required]],
+      sourceId : [null, [Validators.required]],
       // donorName : [null],
       method : [null, [Validators.required]],
       authorityLevel : [null, [Validators.required]],
@@ -88,26 +91,31 @@ export class ProcurementUpdateComponent {
     this.suppliesService.getRequestsForUpdateProcurement().subscribe(res => {
       this.updateRequestList = res;
 
-    // Only filter if currentProcurement is already loaded
+    // Only filter if currentProcurement is already loaded - filter to include only the request chosen
+    //with the staus -'PROCUREMENT_CREATED'
     if (this.currentProcurement) {
       this.filterRequests();
     }
-
-
       //build the request map
       this.buildRequestMap();
+    })
+  }
+
+   loadSources(){
+    this.suppliesService.getSources().subscribe(res=>{
+      this.sourcesList = res;
     })
   }
 
   filterRequests(){
     //get request ids of the current procurement
     if (!this.currentProcurement || !this.updateRequestList) return;
-    const currentRequestIds = this.currentProcurement.requestIdList || [];
+    const currentRequestId = this.currentProcurement.requestId;
 
     this.updateRequestList = this.updateRequestList.filter(request => {
-      return request.status !== 'PROCUREMENT_CREATED' || currentRequestIds.includes(request.id);
+      return request.status !== 'PROCUREMENT_CREATED' || request.id === currentRequestId;
     });
-    console.log(this.updateRequestList);
+
 
     //build rhte request map after filtering
     this.buildRequestMap();
@@ -128,11 +136,8 @@ export class ProcurementUpdateComponent {
   }
 
    updateProcurement(){
-   //remove 0 if it is there & assign (when selected all option selected)
-   const formValue = this.procurementForm.value;
-   formValue.requestIdList = formValue.requestIdList.filter((id:number)=> id !== 0);
-    // console.log(formValue);
-      this.suppliesService.updateProcurement(this.id, formValue).subscribe(res =>{
+
+      this.suppliesService.updateProcurement(this.id,this.procurementForm.value).subscribe(res =>{
         if( res.id != null){
           //show success message
           this.snackbar.open(`Updated procuremenet with ID:${this.id} successfully.`,"Close",{duration:5000, panelClass:"snackbar-success"});

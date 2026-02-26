@@ -25,7 +25,25 @@ export class SubdivService {
     return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement/"+id);
   }
 
-  // requests related
+    getStatusUpdates(id: number): Observable<any>{
+    return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement-status/"+id);
+  }
+
+   getProcurementStatus():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement-status");
+  }
+
+  getRequestsForProcurement():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement-requests");
+  }
+
+
+  getStages():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement-stages");
+  }
+
+
+  // requests related------------------------------------------------------------
 
   getRequestsOfSubdiv(): Observable<any>{
     return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"requests");

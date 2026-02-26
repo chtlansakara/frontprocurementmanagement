@@ -18,8 +18,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class ProcurementPendingComponent {
 //to save returned list
   requestsList : RequestDto[] = [];
-//to select rows of the table
-  selection = new SelectionModel<RequestDto>(true, []);
+//to select rows of the table (only one row can be selected so 'false')
+  selection = new SelectionModel<RequestDto>(false, []);
 
   diplayedColumns: string[] = [
         'select',
@@ -85,7 +85,7 @@ export class ProcurementPendingComponent {
 
   //to view each row on click event
 ViewRequest(row: RequestDto){
-  this.router.navigateByUrl("/suppliesuser/home/requests/view/"+row.id);
+  this.router.navigateByUrl("/suppliesuser/home/procurement/request-view/"+row.id);
 }
 
 
@@ -120,8 +120,12 @@ ViewRequest(row: RequestDto){
   sendSelectedRequests(){
     // const selectedIds = this.selection.selected.map(row => row.id);
     const selectedRequests = this.selection.selected;
-    console.log(selectedRequests);
+    if(selectedRequests.length === 0) return;
 
-    this.router.navigate(['/suppliesuser/home/procurement/form'],{state: {requests : selectedRequests}});
+    //select first request from selection
+    const request = selectedRequests[0];
+    console.log(request);
+
+    this.router.navigate(['/suppliesuser/home/procurement/form'],{state: {request : request}});
   }
 }

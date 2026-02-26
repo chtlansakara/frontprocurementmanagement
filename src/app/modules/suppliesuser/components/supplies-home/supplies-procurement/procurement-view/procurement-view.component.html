@@ -1,7 +1,7 @@
 <div class="view-container">
 
   <div class="left-container">
-    <mat-card class="example-card" appearance="outlined">
+    <mat-card class="procurement-card" appearance="outlined">
 
       <mat-card-header>
         <mat-card-title>{{currentProcurement?.id}}. {{currentProcurement?.name}}</mat-card-title>
@@ -10,21 +10,22 @@
       <mat-card-content>
 
         <div class="main-content">
+          <div class="content-row">
+            <span class="content-label">Request Title:</span>
+            <span class="content-description">
+              <mat-chip style="background-color: white;">
+                {{currentProcurement?.requestTitle}} (ID: {{currentProcurement?.requestId}})
+              </mat-chip>
+            </span>
+          </div>
 
           <div class="content-row">
-            <span class="content-label">Request Titles:</span>
+            <span class="content-label">Request For:</span>
             <span class="content-description">
               <mat-chip-set>
-                <mat-chip *ngFor="let id of currentProcurement.requestIdList" class="subdiv-chips">
-                  @if(getRequestById(id)){
-                  {{getRequestById(id)?.title}}
-                  <small *ngFor="let subdivCode of getRequestById(id)?.subdivCodeList"> | ({{subdivCode}}) |</small>
-
-                  }
-
+                <mat-chip *ngFor="let subdiv of currentProcurement?.requestSubdivNameList">
+                  {{subdiv}} - ({{currentProcurement?.requestAdmindivName}})
                 </mat-chip>
-
-
                 <!-- <mat-chip style="background-color: rgb(250, 250, 250);"
                   *ngFor="let requestTitle of currentProcurement?.requestTitleList" class="subdiv-chips">
                   <b> {{requestTitle}}</b>
@@ -49,7 +50,7 @@
           </div>
           <div class="content-row">
             <span class="content-label">Source:</span> <span
-              class="content-description">{{currentProcurement?.source}}</span>
+              class="content-description">{{currentProcurement?.sourceName}}</span>
           </div>
           <div class="content-row">
             <span class="content-label">Method:</span> <span
@@ -63,24 +64,25 @@
             <span class="content-label">Status of Priority:</span> <span
               class="content-description">{{currentProcurement?.priorityStatus}}</span>
           </div>
-          <div class="content-row">
+          <div class="content-row" *ngIf="currentProcurement?.scheduledCommenceDate">
             <span class="content-label">Scheduled Commence Date:</span> <span
               class="content-description">{{currentProcurement?.scheduledCommenceDate | date: 'yyyy-MMM-dd'}}</span>
           </div>
-          <div class="content-row">
+          <div class="content-row" *ngIf="currentProcurement?.expectedCompletionDate">
             <span class="content-label">Expected Completion Date:</span> <span
               class="content-description">{{currentProcurement?.expectedCompletionDate| date: 'yyyy-MMM-dd'}}</span>
           </div>
-          <div class="content-row">
+          <div class="content-row" *ngIf="currentProcurement?.commencedDate">
             <span class="content-label">Commenced Date:</span> <span
               class="content-description">{{currentProcurement?.commencedDate| date: 'yyyy-MMM-dd'}}</span>
           </div>
-          <div class="content-row">
+          <div class="content-row" *ngIf="currentProcurement?.completedDate">
             <span class="content-label">Completion Date:</span> <span
               class="content-description">{{currentProcurement?.completedDate| date: 'yyyy-MMM-dd'}}</span>
           </div>
 
-          <div class="content-group" style="border: 1px solid green; border-radius: 8px; padding: 4px; margin: 4px 0;">
+          <div *ngIf="currentProcurement?.vendorName" class="content-group"
+            style="border: 1px solid green; border-radius: 8px; padding: 4px; margin: 4px 0;">
             <div class="content-row">
               <span class="content-label">Vendor:</span> <span
                 class="content-description">{{currentProcurement?.vendorName}}</span>
@@ -104,6 +106,13 @@
           </div>
           <!-- status  -->
           <div class="content-row">
+            <span class="content-label">Current Stage:</span> <span class="content-description">
+              <mat-chip class="procurement-status"> {{
+                utilService.formatProcurementStage(currentProcurement?.procurementStage)}}
+              </mat-chip>
+            </span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.statusName">
             <span class="content-label">Current Status:</span> <span class="content-description">
               <mat-chip class="procurement-status"> {{currentProcurement?.statusName}}
               </mat-chip>
@@ -121,7 +130,7 @@
             <span class="content-label">Vendor Details:</span> <span
               class="content-description">{{currentProcurement?.vendorDetails}}</span>
           </div>
-          <div class="content-row">
+          <div class="content-row" *ngIf="currentProcurement?.remarks">
             <span class="content-label">Remarks:</span> <span
               class="content-description">{{currentProcurement?.remarks}}</span>
           </div>
@@ -159,17 +168,18 @@
 
 
       </mat-card-content>
-      <mat-card-footer class="example-card-footer">
+      <mat-card-footer class="example-card-footer"
+        *ngIf="currentProcurement?.assignedToUserId == this.userId  && currentProcurement?.completedDate == null">
         <!-- only show  update and delete buttons if the user is the assigned employee & when the status id is 2 (not commenced yet)-->
         <div class="button-row">
           <button mat-icon-button class="delete-button" (click)="deleteProcurement()"
-            *ngIf="currentProcurement?.assignedToUserId == this.userId && currentProcurement?.statusId==2">
+            *ngIf="currentProcurement?.assignedToUserId == this.userId">
             <mat-icon matTooltip="Delete Procurement">delete</mat-icon>
           </button>
           <div class="right-button-container">
             <button mat-stroked-button matTooltip="Update details"
               routerLink="/suppliesuser/home/procurement/update/{{currentProcurement.id}}"
-              *ngIf="currentProcurement?.assignedToUserId == this.userId && currentProcurement?.statusId==2">
+              *ngIf="currentProcurement?.assignedToUserId == this.userId  && currentProcurement?.completedDate == null">
 
               <mat-icon>edit</mat-icon>
               Update details
@@ -209,7 +219,8 @@
           <mat-step [completed]="true" [editable]="false" *ngFor="let statusUpdate of statusUpdates">
             <ng-template matStepLabel>
               <div>
-                <span>{{statusUpdate.procurementStatusName}}</span>
+                <div>{{utilService.formatProcurementStage(statusUpdate.procurementStage)}}</div>
+                <span><small>{{statusUpdate.procurementStatusName}}</small></span>
                 <div><small>{{statusUpdate.statusChangedOn | date: 'medium'}}</small></div>
                 <div><small>{{statusUpdate.comment}}</small></div>
               </div>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SuppliesService } from '../../../../services/supplies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StorageService } from '../../../../../../auth/services/storage.service';
+import { UtilService } from '../../../../../../utils/util.service';
 
 @Component({
   selector: 'app-procurement-view',
@@ -38,12 +39,12 @@ export class ProcurementViewComponent {
     private activatedRoute : ActivatedRoute,
     private suppliesService: SuppliesService,
     private snackbar : MatSnackBar,
-    private router: Router
+    private router: Router,
+    public utilService: UtilService
 
   ){
     this.id = activatedRoute.snapshot.params["id"];
     this.userId =Number.parseInt(StorageService.getUserId());
-    console.log(`logged user id is: ${this.userId}`);
   }
 
   ngOnInit(){
@@ -60,6 +61,7 @@ export class ProcurementViewComponent {
     this.suppliesService.getProcurementById(this.id).subscribe(res=>{
       //save to variable
       this.currentProcurement = res;
+      console.log(this.currentProcurement);
     });
   }
 
@@ -104,7 +106,6 @@ export class ProcurementViewComponent {
     getRequestById(id:number){
       return this.requestsMap.get(id);
     }
-
 
 
 

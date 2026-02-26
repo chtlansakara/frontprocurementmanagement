@@ -20,7 +20,7 @@
 
 
       <!-- Authorized By -->
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Authorized By</mat-label>
         <input matInput formControlName="authorizedBy">
         <mat-error *ngIf="rejectForm.get('authorizedBy')?.hasError('required')">

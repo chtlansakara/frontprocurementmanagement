@@ -19,12 +19,14 @@ import { ProcurementViewComponent } from './components/supplies-home/supplies-pr
 import { ProcurementUpdateStatusComponent } from './components/supplies-home/supplies-procurement/procurement-view/procurement-update-status/procurement-update-status.component';
 import { ProcurementUpdateComponent } from './components/supplies-home/supplies-procurement/procurement-update/procurement-update.component';
 import { AuditLogComponent } from './components/supplies-home/supplies-logs/audit-log/audit-log.component';
+import { ProcurementRequestViewComponent } from './components/supplies-home/supplies-procurement/procurement-request-view/procurement-request-view.component';
+import { ReportFormComponent } from './components/supplies-home/supplies-reports/report-form/report-form.component';
 
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path: "home", component: SuppliesHomeComponent, children:[
-    {path:'', redirectTo:'requests', pathMatch:"full"},
+    {path:'', redirectTo:'dashboard', pathMatch:"full"},
     {path: "dashboard", component: SuppliesDashboardComponent},
     {path: 'requests' , component: SuppliesRequestsComponent, children:[
       {path: '', redirectTo: 'list', pathMatch: 'full'},
@@ -41,12 +43,16 @@ const routes: Routes = [
       {path:'list', component: ProcurementListComponent},
       {path: 'form', component: ProcurementFormComponent},
       {path: 'pending', component: ProcurementPendingComponent},
+      {path: 'request-view/:id', component: ProcurementRequestViewComponent},
       {path: 'view/:id', component: ProcurementViewComponent, children:[
         {path:"updateStatus/:id", component: ProcurementUpdateStatusComponent}
       ]},
       {path:'update/:id', component: ProcurementUpdateComponent}
     ]},
-    {path: 'reports', component: SuppliesReportsComponent},
+    {path: 'reports', component: SuppliesReportsComponent, children:[
+       {path: '', redirectTo: 'form', pathMatch: 'full'},
+      {path: 'form', component: ReportFormComponent}
+    ]},
     {path: 'logs', component: SuppliesLogsComponent}
   ]},
   {path: "**", redirectTo: 'home/dashboard'}

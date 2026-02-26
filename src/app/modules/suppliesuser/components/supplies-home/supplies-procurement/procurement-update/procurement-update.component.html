@@ -19,37 +19,19 @@
 
         <mat-grid-tile [colspan]="2">
           <mat-form-field appearance="outline">
-            <mat-label>Select Request/s</mat-label>
-            <mat-select formControlName="requestIdList" name="requestIdList" multiple required>
-
-              <mat-select-trigger>
-                <mat-chip-set>
-                  <ng-container *ngFor="let id of procurementForm.get('requestIdList')?.value">
-                    <mat-chip removable="true" (removed)="removeRequest(id)" *ngIf="getRequestById(id)">
-                      {{getRequestById(id)?.title}}
-                      <small *ngFor="let subdivCode of getRequestById(id)?.subdivCodeList"> | ({{subdivCode}}) |</small>
-
-                      <button matChipRemove><mat-icon>close</mat-icon></button>
-
-                    </mat-chip>
-                  </ng-container>
-                </mat-chip-set>
-              </mat-select-trigger>
-
-              <!-- select all option -->
-              <mat-option (onSelectionChange)="toggleSelectAll()" [value]="0">
-                {{allSelected ? 'Deselect All' : 'Select All'}}
-              </mat-option>
+            <mat-label>Select Request</mat-label>
+            <mat-select formControlName="requestId" name="requestId" required>
 
               <mat-option *ngFor="let request of updateRequestList" [value]="request.id">
                 {{request.id}} . {{request.title}}
+                <small> ( Q:{{request.quantity}} - Est.{{request.estimation |number}}) </small>
                 <small *ngFor="let subdivCode of request.subdivCodeList"> | ({{subdivCode}}) |</small>
               </mat-option>
 
 
             </mat-select>
-            <mat-error error *ngIf="procurementForm.get('requestIdList')?.hasError('required')">
-              Requests are required!
+            <mat-error error *ngIf="procurementForm.get('requestId')?.hasError('required')">
+              Request is required!
             </mat-error>
           </mat-form-field>
         </mat-grid-tile>
@@ -80,8 +62,10 @@
         <mat-grid-tile [colspan]="2">
           <mat-form-field appearance="outline">
             <mat-label>Source of Financing</mat-label>
-            <input matInput type="text" formControlName="source" required="">
-            <mat-error error *ngIf="procurementForm.get('source')?.hasError('required')">
+            <mat-select formControlName="sourceId" name="sourceId" required>
+              <mat-option *ngFor="let source of sourcesList" [value]="source.id">{{source.name}}</mat-option>
+            </mat-select>
+            <mat-error error *ngIf="procurementForm.get('sourceId')?.hasError('required')">
               Source is required!
             </mat-error>
           </mat-form-field>

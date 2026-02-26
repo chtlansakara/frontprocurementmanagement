@@ -1,7 +1,7 @@
 <mat-toolbar class="nav-bar">
 
   <!-- Logo -->
-  <a routerLink="/suppliesuser/home/dashboard" matTooltip="Go to Home" class="logo-link">
+  <a routerLink="/suppliesuser/home/dashboard" matTooltip="Go to Dashboard" class="logo-link">
     <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
   </a>
 
@@ -44,9 +44,13 @@
   <!-- RIGHT ICON BUTTONS -->
   <div class="example-button-container">
 
-    <button mat-icon-button matTooltip="Contact support" class="main-toolbar-icon-button">
+    <button mat-icon-button matTooltip="Contact support" class="main-toolbar-icon-button"
+      [matMenuTriggerFor]="supportMenu">
       <mat-icon class="main-toolbar-icon">contact_support</mat-icon>
     </button>
+    <mat-menu #supportMenu="matMenu">
+      <button mat-menu-item>Send support request</button>
+    </mat-menu>
 
     <button mat-icon-button matTooltip="Notifications" class="main-toolbar-icon-button">
       <mat-icon class="main-toolbar-icon">notifications</mat-icon>
@@ -56,9 +60,14 @@
       <mat-icon class="main-toolbar-icon">settings</mat-icon>
     </button> -->
 
-    <button mat-icon-button matTooltip="User profile" class="main-toolbar-icon-button">
+    <button mat-icon-button class="main-toolbar-icon-button" [matMenuTriggerFor]="userUpdateMenu"
+      [matTooltip]="loggedUser" matTooltipClass="multi-line-tooltip">
       <mat-icon class="main-toolbar-icon">account_circle</mat-icon>
     </button>
+    <mat-menu #userUpdateMenu="matMenu">
+      <button mat-menu-item>Update account</button>
+      <button mat-menu-item>Change password</button>
+    </mat-menu>
 
     <button routerLink="/login" mat-icon-button matTooltip="Sign out" class="main-toolbar-icon-button"
       (click)="logout()">

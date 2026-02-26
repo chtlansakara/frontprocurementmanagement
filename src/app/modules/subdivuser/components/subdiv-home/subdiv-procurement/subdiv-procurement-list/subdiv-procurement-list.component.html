@@ -1,0 +1,225 @@
+<div class="spinner-container" *ngIf="spinnerService.loading$  | async">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+
+<div class="center-container">
+  <div class="table-container">
+
+    <div class="filter-container">
+      <!-- filter for the table data -->
+      <mat-form-field appearance="outline" class="filter">
+        <mat-label>Enter text to filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Type a keyword to search.." #input>
+      </mat-form-field>
+      <!-- filter by status -->
+      <mat-form-field appearance="outline" class="filter-status">
+        <mat-label>Filter by Stages</mat-label>
+        <mat-select (selectionChange)="applyStatusFilter($event.value)">
+          <mat-option value=""> All</mat-option>
+          <mat-option *ngFor="let stage of stagesList" [value]="stage">
+            {{utilService.formatProcurementStage(stage)}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- table -->
+    <div class="mat-elevation-z5">
+      <table mat-table [dataSource]="datasource" matSort class="data-table table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Number</th>
+          <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.name}}
+          </td>
+        </ng-container>
+
+        <!-- as chips -->
+        <ng-container matColumnDef="requestTitle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Request </th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            <mat-chip-set>
+              <mat-chip class="subdiv-chips">
+                {{element.requestId}}. {{element.requestTitle}}
+              </mat-chip>
+            </mat-chip-set>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="requestAdmindivCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Admin-division </th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            {{element.requestAdmindivCode}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="requestSubdivCodeList">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub-divisions</th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            <mat-chip-set>
+
+              <mat-chip class="subdiv-chips" *ngFor="let subdivcode of element.requestSubdivCodeList">
+                {{subdivcode}}
+              </mat-chip>
+
+            </mat-chip-set>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Q</th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estimatedAmount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimation</th>
+          <td mat-cell *matCellDef="let element"> {{element.estimatedAmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="sourceName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
+          <td mat-cell *matCellDef="let element"> {{element.sourceName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="method">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Method</th>
+          <td mat-cell *matCellDef="let element"> {{element.method}} </td>
+        </ng-container>
+        <ng-container matColumnDef="authorityLevel">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Authority Level</th>
+          <td mat-cell *matCellDef="let element"> {{element.authorityLevel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="priorityStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.priorityStatus}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="scheduledCommenceDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled To</th>
+          <td mat-cell *matCellDef="let element"> {{element.scheduledCommenceDate |date : 'MMM d,y'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="expectedCompletionDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Expect.Completion</th>
+          <td mat-cell *matCellDef="let element"> {{element.expectedCompletionDate |date : 'MMM d,y'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="commencedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Commenced Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.commencedDate|date : 'MMM d,y'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="completedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Completed Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.completedDate |date : 'MMM d,y'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="procurementStage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Stage</th>
+          <td mat-cell *matCellDef="let element">
+
+            <span class="status-badge">
+              <mat-chip> {{utilService.formatProcurementStage(element.procurementStage)}}</mat-chip>
+            </span>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="statusName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
+        </ng-container>
+
+
+
+
+
+        <ng-container matColumnDef="vendorName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor name </th>
+          <td mat-cell *matCellDef="let element"> {{element.vendorName}} </td>
+          <!-- <td mat-cell *matCellDef="let element"> {{utilService.formatBoolean(element.previouslyPurchased)}} </td> -->
+        </ng-container>
+        <ng-container matColumnDef="vendorRegisteredDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered On</th>
+          <td mat-cell *matCellDef="let element"> {{element.vendorRegisteredDate |date : 'MMM d,y'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="vendorComments">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments</th>
+          <td mat-cell *matCellDef="let element"> {{element.vendorComments}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignedToUserEmail">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Account</th>
+          <td mat-cell *matCellDef="let element"> {{element.assignedToUserEmail}} </td>
+        </ng-container>
+        <ng-container matColumnDef="assignedToUserDesignation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Role</th>
+          <td mat-cell *matCellDef="let element"> {{element.assignedToUserDesignation}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Remarks</th>
+          <td mat-cell *matCellDef="let element"> {{element.remarks}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="donorName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Donor Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.donorName}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="createdOn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On</th>
+          <td mat-cell *matCellDef="let element"> {{element.createdOn |date : 'MMM d,y'}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="emailCreatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created by</th>
+          <td mat-cell *matCellDef="let element"> {{element.emailCreatedBy}} </td>
+        </ng-container>
+        <ng-container matColumnDef="designationCreatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+          <td mat-cell *matCellDef="let element"> {{element.designationCreatedBy}} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="lastUpdatedOn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated on</th>
+          <td mat-cell *matCellDef="let element"> {{element.lastUpdatedOn |date : 'MMM d,y'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="emailLastUpdatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated by</th>
+          <td mat-cell *matCellDef="let element"> {{element.emailLastUpdatedBy}} </td>
+        </ng-container>
+        <ng-container matColumnDef="designationUpdatedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+          <td mat-cell *matCellDef="let element"> {{element.designationUpdatedBy}} </td>
+        </ng-container> -->
+
+
+
+        <tr mat-header-row *matHeaderRowDef="diplayedColumns"></tr>
+        <!-- <tr mat-row *matRowDef="let row; columns: diplayedColumns;" class="table-row"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: diplayedColumns;" (click)="ViewProcurement(row)" class="table-row">
+        </tr>
+
+      </table>
+      <mat-paginator class="white-background" [pageSizeOptions]="[50,100,150,200]" showFirstLastButtons
+        aria-label="Select page of procurement">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

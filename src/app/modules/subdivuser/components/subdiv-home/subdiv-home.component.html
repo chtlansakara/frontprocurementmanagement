@@ -40,7 +40,8 @@
 
 
 
-    <button mat-icon-button matTooltip="User profile" class="main-toolbar-icon-button">
+    <button mat-icon-button [matTooltip]="loggedUser" matTooltipClass="multi-line-tooltip"
+      class="main-toolbar-icon-button">
       <mat-icon class="main-toolbar-icon">account_circle</mat-icon>
     </button>
 

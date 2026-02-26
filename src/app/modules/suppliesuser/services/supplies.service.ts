@@ -48,6 +48,13 @@ getProcurementStatus():Observable<any>{
 getVendors():Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-vendors");
 }
+getSources():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-sources");
+}
+getStages():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-stages");
+}
+
 getProcurementUsers():Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-users");
 }
@@ -64,8 +71,37 @@ getRequestsForUpdateProcurement():Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement/requests");
 }
 
+
+
 // Requests -----------------------------------------------------------
- //for all requests table
+
+
+  //get subdivs of an admin div
+  getSubdivsByAdmindivId(id: number): Observable<any>{
+    return this.http.get(environment.API_URL+ environment.URL_SUPPLIESUSER + "subdivs/admindiv/"+id);
+  }
+
+  //get all subdivs
+   //get subdivs list
+    getSubdivs():Observable<any>{
+      return this.http.get(environment.API_URL+environment.URL_SUPPLIESUSER+"subdivs");
+    }
+
+
+  //get all admindivs
+      //get admindivs list
+      getAdmindivs():Observable<any>{
+        return this.http.get(environment.API_URL+environment.URL_SUPPLIESUSER+"admindivs");
+      }
+
+//get subdivs grouped by admin divs
+getGroupedSubdivList():Observable<any>{
+      return this.http.get(environment.API_URL+environment.URL_SUPPLIESUSER+"grouped-subdivs");
+    }
+
+
+
+//for all requests table
   getAllRequests():Observable<any>{
     return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER +"requests");
   }

@@ -1,0 +1,79 @@
+.example-card
+{
+  min-width: 400px;
+  margin-bottom: 16px;
+  margin-right: 16px;
+  background-color: #ddf3ea93;
+  display: inline-block;
+
+}
+
+.form-title
+{
+  color: rgb(20, 120, 67);
+  font-weight: 700;
+}
+
+.example-card-footer
+{
+  padding: 16px;
+}
+
+.button-row
+{
+  display: flex;
+  justify-content: space-between;
+
+  button
+  {
+    font-size: 16px;
+    margin-left: 16px;
+  }
+
+  .delete-button
+  {
+    color: #D64545;
+    margin: 16px;
+  }
+
+  .right-button-container
+  {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+}
+
+.form-content
+{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+
+.full-width
+{
+  grid-column: span 2;
+}
+
+
+
+/* Mobile Responsive */
+@media (max-width: 768px)
+{
+  .approval-form
+  {
+    grid-template-columns: 1fr;
+
+  }
+
+  .full-width,
+  .button-row
+  {
+    grid-column: span 1;
+  }
+}

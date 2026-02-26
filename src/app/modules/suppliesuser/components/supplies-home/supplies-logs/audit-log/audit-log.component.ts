@@ -27,8 +27,9 @@ export class AuditLogComponent {
       'id',
        'timestamp',
       'entityId',
-       'email',
+
       'description',
+      'email',
 
 
 

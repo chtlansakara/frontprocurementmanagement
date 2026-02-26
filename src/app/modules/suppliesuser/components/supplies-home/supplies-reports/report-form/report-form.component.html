@@ -1,0 +1,49 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title class="form-title">Generate Summary Report</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="createReportForm" (ngSubmit)="submitReportForm()">
+    <mat-card-content>
+      <div class="form-content">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Starting Date</mat-label>
+          <!-- date type input  -->
+          <input matInput [matDatepicker]="startDatePicker" formControlName="startingDate" required>
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+          <mat-error error *ngIf="createReportForm.get('startingDate')?.hasError('required')">
+            Required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Ending Date</mat-label>
+          <!-- date type input  -->
+          <input matInput [matDatepicker]="datePicker" formControlName="endingDate">
+          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+          <mat-error error *ngIf="createReportForm.get('endingDate')?.hasError('required')">
+            Required!
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <div class="button-row">
+
+        <div class="right-button-container">
+          <button mat-stroked-button matTooltip="Reset Form" type="reset">
+            Reset
+          </button>
+
+          <button mat-flat-button matTooltip="Generate Report" [disabled]="createReportForm.invalid">
+            Generate Report
+          </button>
+        </div>
+      </div>
+    </mat-card-footer>
+  </form>
+</mat-card>

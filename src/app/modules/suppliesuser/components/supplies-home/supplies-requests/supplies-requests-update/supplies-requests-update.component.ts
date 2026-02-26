@@ -55,7 +55,7 @@ export class SuppliesRequestsUpdateComponent {
     }
 
     loadSubdivs(){
-      this.suppliesService.getSubdivList().subscribe(res=>{
+      this.suppliesService.getGroupedSubdivList().subscribe(res=>{
         this.subdivsList = res;
         this.buildSubdivMap();
       });

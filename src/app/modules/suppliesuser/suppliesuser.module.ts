@@ -27,6 +27,8 @@ import { ProcurementPendingComponent } from './components/supplies-home/supplies
 import { ProcurementUpdateStatusComponent } from './components/supplies-home/supplies-procurement/procurement-view/procurement-update-status/procurement-update-status.component';
 import { ProcurementUpdateComponent } from './components/supplies-home/supplies-procurement/procurement-update/procurement-update.component';
 import { AuditLogComponent } from './components/supplies-home/supplies-logs/audit-log/audit-log.component';
+import { ProcurementRequestViewComponent } from './components/supplies-home/supplies-procurement/procurement-request-view/procurement-request-view.component';
+import { ReportFormComponent } from './components/supplies-home/supplies-reports/report-form/report-form.component';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import { AuditLogComponent } from './components/supplies-home/supplies-logs/audi
     ProcurementUpdateStatusComponent,
     ProcurementUpdateComponent,
     AuditLogComponent,
+    ProcurementRequestViewComponent,
+    ReportFormComponent,
   ],
   imports: [
     CommonModule,

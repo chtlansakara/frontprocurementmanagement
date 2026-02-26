@@ -27,6 +27,22 @@ export class AdmindivService {
     return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement/"+id);
   }
 
+  getStatusUpdates(id: number): Observable<any>{
+    return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement-status/"+id);
+  }
+
+  getProcurementStatus():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement-status");
+  }
+
+  getRequestsForProcurement():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement-requests");
+  }
+
+  getStages():Observable<any>{
+  return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement-stages");
+  }
+
   // requests related
 
 getRequestsToApprove(): Observable<any>{

@@ -14,19 +14,28 @@
       </mat-form-field>
       <!-- filter by status -->
       <mat-form-field appearance="outline" class="filter-status">
-        <mat-label>Filter by Status</mat-label>
+        <mat-label>Filter by Stage</mat-label>
         <mat-select (selectionChange)="applyStatusFilter($event.value)">
           <mat-option value=""> All</mat-option>
-          <mat-option *ngFor="let status of statusList" [value]="status.name">
-            {{status.name}}
+          <mat-option *ngFor="let stage of stagesList" [value]="stage">
+            {{utilService.formatProcurementStage(stage)}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <!-- <button mat-stroked-button [matMenuTriggerFor]="menu" class="table-menu-button">Export</button> -->
+      <button mat-mini-fab class="download-button" [matMenuTriggerFor]="menu"
+        matTooltip="Download Table"><mat-icon>download_2</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="executeExportExcel()"> As Excel File</button>
+        <button mat-menu-item (click)="executeExportCSV()">As .csv File</button>
+      </mat-menu>
+
     </div>
 
     <!-- table -->
     <div class="mat-elevation-z5">
-      <table mat-table [dataSource]="datasource" matSort class="data-table table">
+      <table mat-table [dataSource]="datasource" matSort class="data-table table" id="procurement-table">
+
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
@@ -46,21 +55,34 @@
         </ng-container>
 
         <!-- as chips -->
-        <ng-container matColumnDef="requestTitleList">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Requests </th>
+        <ng-container matColumnDef="requestTitle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Request </th>
           <td mat-cell *matCellDef="let element" class="request-description-table">
             <mat-chip-set>
 
-              <mat-chip *ngFor="let title of element.requestTitleList" class="subdiv-chips">
-                {{title}}
+              <mat-chip class="subdiv-chips">
+                {{element.requestId}}. {{element.requestTitle}}
               </mat-chip>
-              <!-- <mat-chip *ngFor="let id of element.requestIdList" class="subdiv-chips">
-                @if(getRequestById(id)){
-                {{getRequestById(id)?.title}}
-                <small *ngFor="let subdivCode of getRequestById(id)?.subdivCodeList"> | ({{subdivCode}}) |</small>
-                }
 
-              </mat-chip> -->
+            </mat-chip-set>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="requestAdmindivCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Admin-division </th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            {{element.requestAdmindivCode}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="requestSubdivCodeList">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub-divisions</th>
+          <td mat-cell *matCellDef="let element" class="request-description-table">
+            <mat-chip-set>
+
+              <mat-chip class="subdiv-chips" *ngFor="let subdivcode of element.requestSubdivCodeList">
+                {{subdivcode}}
+              </mat-chip>
+
             </mat-chip-set>
           </td>
         </ng-container>
@@ -71,8 +93,8 @@
         </ng-container>
 
         <ng-container matColumnDef="estimatedAmount">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimation</th>
-          <td mat-cell *matCellDef="let element"> {{element.estimatedAmount}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimation (Rs.)</th>
+          <td mat-cell *matCellDef="let element"> {{element.estimatedAmount |number}} </td>
         </ng-container>
 
         <ng-container matColumnDef="category">
@@ -81,9 +103,9 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="source">
+        <ng-container matColumnDef="sourceName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
-          <td mat-cell *matCellDef="let element"> {{element.source}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.sourceName}} </td>
         </ng-container>
         <ng-container matColumnDef="method">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Method</th>
@@ -106,13 +128,21 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Expect.Completion</th>
           <td mat-cell *matCellDef="let element"> {{element.expectedCompletionDate |date : 'MMM d,y'}} </td>
         </ng-container>
+        <ng-container matColumnDef="commencedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Commenced Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.commencedDate|date : 'MMM d,y'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="completedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Completed Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.completedDate |date : 'MMM d,y'}} </td>
+        </ng-container>
 
-        <ng-container matColumnDef="statusName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <ng-container matColumnDef="procurementStage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Stage</th>
           <td mat-cell *matCellDef="let element">
 
             <span class="status-badge">
-              <mat-chip> {{element.statusName}}</mat-chip>
+              <mat-chip> {{utilService.formatProcurementStage(element.procurementStage)}}</mat-chip>
             </span>
             <!--
             <span class="status-badge" [ngClass]="utilService.getStatusClass(element.status)">
@@ -120,6 +150,10 @@
             </span> -->
 
           </td>
+        </ng-container>
+        <ng-container matColumnDef="statusName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
         </ng-container>
 
 

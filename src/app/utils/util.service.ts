@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StorageService } from '../auth/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,36 @@ import { Injectable } from '@angular/core';
 export class UtilService {
 
   constructor() { }
+
+   //format procurement stages on html - in list tables & view pages
+  formatProcurementStage(stage: string): string{
+
+
+    switch(stage) {
+      case "PROCUREMENT_PROCESS_NOT_COMMENCED":
+        return 'Not Commenced yet';
+
+      case "PURCHASE_PROCESS_COMMENCED":
+        return 'In Purchase Process';
+
+      case "PURCHASE_ORDERS_ISSUED":
+        return 'PO Issued';
+
+      case "GOODS_RECEIVED":
+        return 'Goods Received';
+
+
+      case "PAID_AND_COMPLETED":
+        return 'Paid & Completed';
+
+      default:
+        return 'Not defined';
+    }
+  }
+
+
+
+
 
  //format request status on html - in list tables & view pages
   formatStatus(status: string): string{
@@ -29,7 +60,7 @@ export class UtilService {
 
         //when a procurement is created for the request
       case 'PROCUREMENT_CREATED':
-        return 'In Procurment';
+        return 'In Procurement';
 
         //postponed request - after approved by supplies
       case 'PROCUREMENT_POSTPONED':
@@ -63,7 +94,7 @@ export class UtilService {
       return 'status-pending-procurement';
 
     case 'PROCUREMENT_CREATED':
-      return 'status-procuremnt-created';
+      return 'status-procurement-created';
 
         //postponed request - after approved by supplies
     // case 'PROCUREMENT_POSTPONED':
@@ -87,7 +118,25 @@ formatBoolean(value: boolean): string{
 }
 
 
+//getting user info to show in the navigation bar
+getUserInfo(){
+  const user = StorageService.getUser();
 
+  let userAccount : string = '';
+
+  //getting account name by the user role
+  if(user.userRole == 'SUBDIVUSER'){userAccount = user.subdivName + ' User'; }
+  else if(user.userRole == 'ADMINDIVUSER'){userAccount = user.admindivName + ' User'; }
+  else if(user.userRole == 'SUPPLIESUSER'){userAccount =  'Supplies User'; }
+  else if(user.userRole == 'ADMIN'){userAccount = 'Admin User';}
+
+  const userInfo = {
+    email: user.email,
+    account: userAccount
+  };
+
+  return userInfo;
+}
 
 
 }

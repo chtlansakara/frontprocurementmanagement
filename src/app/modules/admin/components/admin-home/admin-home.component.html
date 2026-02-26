@@ -38,7 +38,10 @@
 
 
     <span class="example-spacer"></span>
-
+    <button mat-icon-button [matTooltip]="loggedUser" matTooltipClass="multi-line-tooltip" style="margin-right: 16px;"
+      class="main-toolbar-icon-button">
+      <mat-icon class="main-toolbar-icon">account_circle</mat-icon>
+    </button>
 
     <button mat-icon-button class="main-toolbar-icon-button" aria-label="Icon button for sign out" matTooltip="Sign out"
       (click)="logout()">

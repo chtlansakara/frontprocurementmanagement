@@ -21,6 +21,12 @@ export class SuppliesRequestsFormComponent {
   //sub-div list
   subdivsList : any[]= [];
 
+  //filtered sub-divs list
+  filteredSubdivList : any =[];
+
+  //list of admin - divisions
+  admindivList : any = [];
+
   //boolean flag for select all
   allSelected = false;
 
@@ -33,12 +39,14 @@ export class SuppliesRequestsFormComponent {
 
   ngOnInit(){
     //load form lists
-    this.loadGroupedSubdivs();
+    this.getAdmindivs();
+    this.getSubdivs();
 
     //load form values
     this.requestSuppliesForm = this.fb.group({
       title :[null, [Validators.required]],
-      description: [null, [Validators.required]],
+      description: [null],
+      admindivId: [null, [Validators.required]],
       subdivIdList: [[],[Validators.required]],
       quantity: [null, [Validators.required]],
       fund: [null],
@@ -50,15 +58,61 @@ export class SuppliesRequestsFormComponent {
       reasonForRequirement:[null]
       });
 
+      //load sub-divs when admin div is selected
+      this.handleAdmindivListChange();
 
     }
 
-    loadGroupedSubdivs(){
-      this.suppliesService.getSubdivList().subscribe(res=>{
-        this.subdivsList = res;
-        this.buildSubdivMap();
+      handleAdmindivListChange(){
+    this.requestSuppliesForm.get('admindivId')?.valueChanges.subscribe((admindivId :number)=>{
+
+      //reset subdiv
+      this.requestSuppliesForm.get('subdivIdList')?.reset();
+
+      this.allSelected = false;
+
+      if(this.requestSuppliesForm.get('admindivId')?.value){
+        //get only the selected admindiv's subdivs by calling backend
+        this.suppliesService.getSubdivsByAdmindivId(admindivId).subscribe(res =>{
+          //assigning to the class array
+          this.filteredSubdivList = res;
+          //build the map from filtered list
+          this.subDivMap.clear();
+          this.filteredSubdivList.forEach((subdiv:any) =>{
+            this.subDivMap.set(subdiv.id, subdiv);
+          });
       });
-    }
+      }else{
+        this.filteredSubdivList = [];
+        this.subDivMap.clear();
+      }
+    });
+  }
+
+    getSubdivs(){
+    this.suppliesService.getSubdivs().subscribe(res=>{
+      this.subdivsList =res;
+      //not filtered yet
+      this.filteredSubdivList = [];
+      this.buildSubdivMap();
+    });
+  }
+
+  getAdmindivs(){
+    this.suppliesService.getAdmindivs().subscribe(res=>{
+      //assign to array
+      this.admindivList= res;
+    });
+  }
+
+
+
+    // loadGroupedSubdivs(){
+    //   this.suppliesService.getSubdivList().subscribe(res=>{
+    //     this.subdivsList = res;
+    //     this.buildSubdivMap();
+    //   });
+    // }
 
     //to get group name in subdiv list and for add/remove chips behavior
     //creating a map with subdiv id -> subdiv object
@@ -93,20 +147,10 @@ export class SuppliesRequestsFormComponent {
     //get ungrouped sub-div id list
     getAllSubdivIds(): number[]{
 
-      if(!Array.isArray(this.subdivsList)){
+      if(!Array.isArray(this.filteredSubdivList)){
         return [];
       }
-
-      const ids: number[] = [];
-      this.subdivsList.forEach((group:any)=>{
-        if(Array.isArray(group.subdivDtoList)){
-          group.subdivDtoList.forEach((sub:any)=>{
-            ids.push(sub.id);
-          });
-        }
-      });
-
-      return ids;
+      return this.filteredSubdivList.map(subdiv => subdiv.id);
     }
 
     toggleSelectAll(): void{

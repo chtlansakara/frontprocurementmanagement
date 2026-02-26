@@ -53,7 +53,12 @@ export class LoginComponent {
         const user = {
           id: res.id,
           userRole: res.userRole,
-          name: res.name
+          name: res.name,
+          email: res.email,
+          subdivName: res.subdivName,
+          subdivCode: res.subdivCode,
+          admindivName: res.admindivName,
+          admindivCode: res.admindivCode
         };
         //saving user details to local storage
         StorageService.saveUser(user);

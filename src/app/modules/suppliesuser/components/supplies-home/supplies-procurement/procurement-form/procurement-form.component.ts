@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './procurement-form.component.scss'
 })
 export class ProcurementFormComponent {
-  requests: any[] = [];
+  request: any ;
 
   //form-group
   procurementForm !: FormGroup;
@@ -20,6 +20,9 @@ export class ProcurementFormComponent {
   vendorsList : any[] = [];
   //users list
   usersList : any[] = [];
+  //sources list
+  sourcesList : any[] = [];
+
   //requests List
   approvedRequestsList : any[] = [];
   //fast look up for add/remove chips
@@ -41,10 +44,10 @@ export class ProcurementFormComponent {
     this.procurementForm = this.fb.group({
       name: [null, [Validators.required]],
       quantity : [null, [Validators.required]],
-      requestIdList : [[], [Validators.required]],
+      requestId : [null, [Validators.required]],
       estimatedAmount: [null, [Validators.required]],
       category : [null, [Validators.required]],
-      source : [null, [Validators.required]],
+      sourceId : [null, [Validators.required]],
       // donorName : [null],
       method : [null, [Validators.required]],
       authorityLevel : [null, [Validators.required]],
@@ -58,16 +61,14 @@ export class ProcurementFormComponent {
 
 
     //getting selected requests from table list
-     this.requests = history.state?.requests ?? [];
+      this.request = history.state?.request ?? null;
 
 
       //patch selected requests to the form's select control
-      if(this.requests.length > 0){
-        const requestIds = this.requests.map(request => request.id);
-        // console.log(requestIds);
+      if(this.request){
 
         this.procurementForm.patchValue({
-        requestIdList:requestIds
+        requestId:this.request.id
         });
       }
 
@@ -76,6 +77,7 @@ export class ProcurementFormComponent {
       this.loadVendors();
       this.loadUsers();
       this.loadRequests();
+      this.loadSources();
 
   }
 
@@ -100,12 +102,14 @@ export class ProcurementFormComponent {
     })
   }
 
+  loadSources(){
+    this.suppliesService.getSources().subscribe(res=>{
+      this.sourcesList = res;
+    })
+  }
+
   submitProcurement(){
-   //remove 0 if it is there & assign (when selected all option selected)
-   const formValue = this.procurementForm.value;
-   formValue.requestIdList = formValue.requestIdList.filter((id:number)=> id !== 0);
-    // console.log(formValue);
-      this.suppliesService.createProcurement(formValue).subscribe(res =>{
+      this.suppliesService.createProcurement(this.procurementForm.value).subscribe(res =>{
         if( res.id != null){
           //show success message
           this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});

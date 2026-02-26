@@ -10,6 +10,8 @@ import { AdmindivRequestsViewComponent } from './components/admindiv-home/admind
 import { AdmindivRequestsUpdateComponent } from './components/admindiv-home/admindiv-requests/admindiv-requests-update/admindiv-requests-update.component';
 import { AdmindivApproveComponent } from './components/admindiv-home/admindiv-requests/admindiv-approve/admindiv-approve.component';
 import { AdmindivRejectComponent } from './components/admindiv-home/admindiv-requests/admindiv-reject/admindiv-reject.component';
+import { AdmindivProcurementListComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-list/admindiv-procurement-list.component';
+import { AdmindivProcurementViewComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-view/admindiv-procurement-view.component';
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
@@ -26,7 +28,11 @@ const routes: Routes = [
       ]},
       {path: 'update/:id', component: AdmindivRequestsUpdateComponent}
     ]},
-    {path: "procurement", component: AdmindivProcurementComponent}
+    {path: "procurement", component: AdmindivProcurementComponent, children:[
+      {path: '', redirectTo:'list', pathMatch: 'full'},
+      {path: 'list', component: AdmindivProcurementListComponent},
+      {path: 'view/:id', component: AdmindivProcurementViewComponent}
+    ]}
   ]},
   {path: "**", redirectTo:'home/dashboard'}
 
