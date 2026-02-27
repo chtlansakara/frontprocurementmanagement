@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SuppliesService } from '../../../../services/supplies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UtilService } from '../../../../../../utils/util.service';
+import { ReportServiceService } from '../../../../services/report-service.service';
 
 @Component({
   selector: 'app-report-form',
@@ -15,6 +16,8 @@ export class ReportFormComponent {
 
   //form-group
   createReportForm !: FormGroup;
+  //spinner-submit button while loading
+  isLoading  = false;
 
 
   constructor(
@@ -23,6 +26,7 @@ export class ReportFormComponent {
     private suppliesService: SuppliesService,
     private snackbar: MatSnackBar,
     private router: Router,
+    private reportService : ReportServiceService
 
   ){
 
@@ -30,24 +34,62 @@ export class ReportFormComponent {
 
   ngOnInit(){
     this.createReportForm = this.fb.group({
-      startingDate: [null, [Validators.required]],
-      endingDate : [null, [Validators.required]],
+      startDate: [null, [Validators.required]],
+      endDate : [null, [Validators.required]],
+      format: [null, [Validators.required]]
     });
 
   }
 
+
+   private triggerDownload(blob: Blob, format: string):void{
+    const extension = (format === 'excel')? 'xlsx' : 'pdf';
+    const filename = `summary_report.${extension}`;
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href= url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+  private formatDate(date: Date): string {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
   submitReportForm(){
     console.log(this.createReportForm.value);
-    // this.suppliesService.updateStatus(this.id, this.createReportForm.value).subscribe(res=>{
-    //   if( res.id != null){
-    //       //show success message
-    //       this.snackbar.open("Updated successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
-    //       //navigate by router & refresh at the same time
-    //         // this.router.navigateByUrl("/suppliesuser/home/procurement/view/"+ this.id);
-    //         this.router.navigateByUrl('/',{skipLocationChange: true}).then(()=> {
-    //           this.router.navigate(['/suppliesuser/home/procurement/view/'+ this.id])
-    //         });
-    //     }
-    // })
+
+     const { startDate, endDate, format } = this.createReportForm.value;
+
+     const formattedStart = this.formatDate(startDate);
+     const formattedEnd = this.formatDate(endDate);
+
+     this.isLoading= true;
+
+    this.reportService.downloadSummaryReport(formattedStart, formattedEnd, format).subscribe((blob: Blob)=>{
+          this.triggerDownload(blob, format);
+          //show success message
+          this.snackbar.open("Report downloded successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+
+          this.isLoading= false;
+          this.createReportForm.reset();
+    });
   }
+
+
+
+
 }
+
+
+
+
+

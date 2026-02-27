@@ -7,26 +7,40 @@
       <div class="form-content">
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Starting Date</mat-label>
+          <mat-label>Start Date</mat-label>
           <!-- date type input  -->
-          <input matInput [matDatepicker]="startDatePicker" formControlName="startingDate" required>
+          <input matInput [matDatepicker]="startDatePicker" formControlName="startDate" required>
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #startDatePicker></mat-datepicker>
-          <mat-error error *ngIf="createReportForm.get('startingDate')?.hasError('required')">
+          <mat-error error *ngIf="createReportForm.get('startDate')?.hasError('required')">
             Required!
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Ending Date</mat-label>
+          <mat-label>End Date</mat-label>
           <!-- date type input  -->
-          <input matInput [matDatepicker]="datePicker" formControlName="endingDate">
+          <input matInput [matDatepicker]="datePicker" formControlName="endDate">
           <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
           <mat-datepicker #datePicker></mat-datepicker>
-          <mat-error error *ngIf="createReportForm.get('endingDate')?.hasError('required')">
+          <mat-error error *ngIf="createReportForm.get('endDate')?.hasError('required')">
             Required!
           </mat-error>
         </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>File Format</mat-label>
+          <mat-select formControlName="format" name="format" required>
+            <mat-option value="pdf">PDF</mat-option>
+            <mat-option value="excel">Excel</mat-option>
+          </mat-select>
+          <mat-error error *ngIf="createReportForm.get('format')?.hasError('required')">
+            Required!
+          </mat-error>
+        </mat-form-field>
+
 
       </div>
 
@@ -39,8 +53,8 @@
             Reset
           </button>
 
-          <button mat-flat-button matTooltip="Generate Report" [disabled]="createReportForm.invalid">
-            Generate Report
+          <button mat-flat-button matTooltip="Generate Report" [disabled]="createReportForm.invalid || isLoading">
+            {{isLoading? 'Generating...' :'Download Report'}}
           </button>
         </div>
       </div>
