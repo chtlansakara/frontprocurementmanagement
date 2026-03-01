@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { NotificationService } from './notification.service';
 
 const TOKEN = "token";
 const USER = "user";
@@ -8,6 +9,7 @@ const USER = "user";
   providedIn: 'root'
 })
 export class StorageService {
+
 
   constructor() { }
 
@@ -113,6 +115,8 @@ export class StorageService {
   static logout():void{
     window.localStorage.removeItem(TOKEN);
     window.localStorage.removeItem(USER);
+
+
   }
 
 

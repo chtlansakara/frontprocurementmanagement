@@ -26,7 +26,7 @@ import { ReportFormComponent } from './components/supplies-home/supplies-reports
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path: "home", component: SuppliesHomeComponent, children:[
-    {path:'', redirectTo:'dashboard', pathMatch:"full"},
+    {path:'', redirectTo:'requests', pathMatch:"full"},
     {path: "dashboard", component: SuppliesDashboardComponent},
     {path: 'requests' , component: SuppliesRequestsComponent, children:[
       {path: '', redirectTo: 'list', pathMatch: 'full'},
@@ -39,7 +39,7 @@ const routes: Routes = [
       {path: 'update/:id', component: SuppliesRequestsUpdateComponent}
     ]},
     {path: 'procurement', component: SuppliesProcurementComponent, children:[
-      {path: '', redirectTo: 'pending', pathMatch: 'full'},
+      {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path:'list', component: ProcurementListComponent},
       {path: 'form', component: ProcurementFormComponent},
       {path: 'pending', component: ProcurementPendingComponent},

@@ -130,3 +130,13 @@ mat-toolbar
     gap: 4px;
   }
 }
+
+//for notification panel
+
+::ng-deep .notification-menu.mat-mdc-menu-panel
+{
+  max-width: none !important;
+  width: 400px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}

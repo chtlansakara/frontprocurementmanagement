@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
+
+
   //form-group
   loginForm!: FormGroup;
   //show-hide password
@@ -23,6 +27,7 @@ export class LoginComponent {
     private authService: AuthService,
     private snackbar: MatSnackBar,
     private router: Router,
+    private notificationService: NotificationService
   ){}
 
   //initializing form with inputs
@@ -63,6 +68,10 @@ export class LoginComponent {
         //saving user details to local storage
         StorageService.saveUser(user);
         StorageService.saveToken(res.jwt);
+
+        //connect to sse
+        this.notificationService.connect();
+
 
         // navigating to the user role's dashboard
         const userRole = StorageService.getUserRole();

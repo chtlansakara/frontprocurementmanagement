@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
@@ -30,7 +31,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 // Material Grid List
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatStepperModule} from '@angular/material/stepper';
-
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatPaginatorModule,
     MatGridListModule,
     MatCheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    MatBadgeModule
   ]
 })
 export class AngularmaterialModule { }

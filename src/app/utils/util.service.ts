@@ -139,4 +139,28 @@ getUserInfo(){
 }
 
 
+//for notifications
+  getDotClass(type: string): string {
+    const map: Record<string, string> = {
+      'REQUEST_SUBMITTED':            'dot-yellow',
+      'REQUEST_APPROVED_BY_ADMIN':    'dot-green',
+      'REQUEST_REJECTED_BY_ADMIN':    'dot-red',
+      'REQUEST_APPROVED_BY_SUPPLIES': 'dot-green',
+      'REQUEST_REJECTED_BY_SUPPLIES': 'dot-red',
+      'PROCUREMENT_CREATED':          'dot-blue',
+      'PROCUREMENT_STATUS_UPDATE':    'dot-purple',
+    };
+    return map[type] ?? 'dot-gray';
+  }
+
+  getToastIcon(type: string): string {
+    const map: Record<string, string> = {
+      success: 'check_circle',
+      error:   'error',
+      warning: 'warning',
+      info:    'info'
+    };
+    return map[type] ?? 'info';
+  }
+
 }

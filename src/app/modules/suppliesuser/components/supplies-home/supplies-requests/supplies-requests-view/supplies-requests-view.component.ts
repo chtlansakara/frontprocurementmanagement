@@ -38,8 +38,13 @@ export class SuppliesRequestsViewComponent {
     public utilService: UtilService
   ){
     this.id = activatedRoute.snapshot.params["id"];
+
   }
 
+
+  loadRequest(id:number){
+     this.id = id;
+  }
 
   ngOnInit(){
     //load subdivs
