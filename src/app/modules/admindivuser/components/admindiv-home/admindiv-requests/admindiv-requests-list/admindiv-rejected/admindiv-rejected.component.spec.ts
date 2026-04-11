@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmindivRejectedComponent } from './admindiv-rejected.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdmindivRejectedComponent', () => {
   let component: AdmindivRejectedComponent;
@@ -8,7 +10,11 @@ describe('AdmindivRejectedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivRejectedComponent]
+      declarations: [AdmindivRejectedComponent],
+       providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

@@ -10,6 +10,7 @@ import { SubdivProcurementComponent } from './components/subdiv-home/subdiv-proc
 import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-view/subdiv-requests-view.component';
 import { SubdivProcurementListComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-list/subdiv-procurement-list.component';
 import { SubdivProcurementViewComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-view/subdiv-procurement-view.component';
+import { SubdivProcurementReportComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-report/subdiv-procurement-report.component';
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
@@ -26,6 +27,7 @@ const routes: Routes = [
     {path:'procurement', component:SubdivProcurementComponent, children: [
       {path:'', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: SubdivProcurementListComponent},
+      {path: 'report', component: SubdivProcurementReportComponent},
       {path: 'view/:id', component: SubdivProcurementViewComponent}
     ]}
   ]},

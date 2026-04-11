@@ -1,4 +1,4 @@
-/* Main container centers everything */
+// /* Main container centers everything */
 .card-container
 {
   display: flex;
@@ -55,12 +55,25 @@
 
 }
 
+.request-header
+{
+  display: flex;
+  align-items: center;
+
+  button
+  {
+    margin-top: 8px;
+  }
+}
+
 /* optional styling */
 .request-name
 {
+  flex: 1;
   margin-bottom: 8px;
   font-weight: 500;
   color: rgb(11, 61, 34);
+
 }
 
 .request-description
@@ -89,6 +102,14 @@
 .info-label
 {
   font-weight: 500;
+  width: 200px;
+
+}
+
+.info-details-label
+{
+  font-weight: 500;
+
 }
 
 .info-value
@@ -192,9 +213,9 @@
 
 
 
-//update delete buttons
+// //update delete buttons
 
-// buttons styles in the table
+// // buttons styles in the table
 .warn-button
 {
   // background-color: rgb(236, 37, 37);

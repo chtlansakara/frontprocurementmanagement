@@ -1,8 +1,8 @@
 <mat-card class="example-card" appearance="outlined">
   <mat-card-header>
-    <mat-card-title class="form-title">Generate Summary Report</mat-card-title>
+    <mat-card-title class="form-title">Generate Procurement Reports</mat-card-title>
   </mat-card-header>
-  <form [formGroup]="createReportForm" (ngSubmit)="submitReportForm()">
+  <form [formGroup]="createReportForm">
     <mat-card-content>
       <div class="form-content">
 
@@ -30,6 +30,17 @@
 
 
 
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Report Type</mat-label>
+          <mat-select formControlName="type" name="type" required>
+            <mat-option value="summary">Summary Report</mat-option>
+            <mat-option value="procurement">Progress Report</mat-option>
+          </mat-select>
+          <mat-error error *ngIf="createReportForm.get('type')?.hasError('required')">
+            Required!
+          </mat-error>
+        </mat-form-field>
+
         <mat-form-field appearance="outline">
           <mat-label>File Format</mat-label>
           <mat-select formControlName="format" name="format" required>
@@ -53,8 +64,9 @@
             Reset
           </button>
 
-          <button mat-flat-button matTooltip="Generate Report" [disabled]="createReportForm.invalid || isLoading">
-            {{isLoading? 'Generating...' :'Download Report'}}
+          <button mat-flat-button matTooltip="Generate Report" [disabled]="createReportForm.invalid || isLoading"
+            type="button" (click)="submitReportForm()">
+            {{isLoading? 'Generating...' :'Generate Report'}}
           </button>
         </div>
       </div>

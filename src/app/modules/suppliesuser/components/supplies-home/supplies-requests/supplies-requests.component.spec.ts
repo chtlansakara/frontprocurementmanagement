@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SuppliesRequestsComponent } from './supplies-requests.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SuppliesRequestsComponent', () => {
   let component: SuppliesRequestsComponent;
@@ -8,7 +9,8 @@ describe('SuppliesRequestsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SuppliesRequestsComponent]
+      declarations: [SuppliesRequestsComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

@@ -14,8 +14,9 @@
 
 .mat-column-title
 {
-  padding-left: 16px;
+
   font-weight: 500;
+  width: 200px;
   // text-align: center;
   // font-size: 20px;
 }
@@ -58,7 +59,7 @@
   border-radius: 12px;
   // overflow-x: scroll;
   // overflow-y: scroll;
-  // background-color: white;
+  background-color: white;
 }
 
 .table-container

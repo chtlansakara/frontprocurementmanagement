@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -18,6 +18,22 @@ export class AdmindivService {
   ) { }
 
   //procurement related
+
+
+    downloadAdmindivProcurementReport(
+      startDate: string,
+      endDate:string,
+      format: string): Observable<Blob>{
+      const params = new HttpParams()
+                        .set('startDate', startDate)
+                        .set('endDate', endDate)
+                        .set('format',format);
+
+      return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement-report/",{
+        params,
+        responseType: 'blob'
+    });
+  }
 
   getProcurement(): Observable<any>{
     return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "procurement");
@@ -44,6 +60,12 @@ export class AdmindivService {
   }
 
   // requests related
+
+ downloadPrintRequest(requestId: number): Observable<Blob>{
+    return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "print-request/"+requestId, {
+      responseType: 'blob'
+    });
+  }
 
 getRequestsToApprove(): Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER+ "requests/review");

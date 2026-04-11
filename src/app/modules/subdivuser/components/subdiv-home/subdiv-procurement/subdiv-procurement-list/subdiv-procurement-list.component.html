@@ -130,7 +130,8 @@
           <td mat-cell *matCellDef="let element">
 
             <span class="status-badge">
-              <mat-chip> {{utilService.formatProcurementStage(element.procurementStage)}}</mat-chip>
+              <mat-chip [ngClass]="utilService.getProcurementStageClass(element.procurementStage)">
+                {{utilService.formatProcurementStage(element.procurementStage)}}</mat-chip>
             </span>
 
           </td>

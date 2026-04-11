@@ -13,7 +13,13 @@
 
     <mat-card class="request-card">
       <div class="request-details">
-        <h2 class="request-name"> {{ currentRequest.id + " | "+ currentRequest.title}}</h2>
+        <div class="request-header">
+          <h2 class="request-name"> {{ currentRequest.id + " | "+ currentRequest.title}}</h2>
+          <button mat-mini-fab class="success-button" (click)="printRequest()">
+            <mat-icon matTooltip="Print Request">print</mat-icon>
+          </button>
+        </div>
+
         <p class="request-description">{{currentRequest.description}}</p>
         <div class="info-row">
           <mat-chip-set>
@@ -70,13 +76,13 @@
         <div class="request-info">
 
           <div class="info-row created-details">
-            <span class="info-label created-details-label">Created by:</span>
+            <span class="info-details-label created-details-label">Created by:</span>
             <span class="info-value">
               {{mapUserRole(currentRequest.userRoleCreatedBy)}}
             </span>
           </div>
           <div class="info-row created-details" *ngIf="currentRequest.createdDate">
-            <span class="info-label created-details-label">Created on</span>
+            <span class="info-details-label created-details-label">Created on</span>
             <span class="info-value">
               {{currentRequest.createdDate | date: 'medium'}}</span>
           </div>
@@ -97,13 +103,13 @@
 
         <div class="request-info">
           <div class="info-row created-details" *ngIf="currentRequest.lastUpdatedDate">
-            <span class="info-label created-details-label">Last updated on</span>
+            <span class="info-details-label created-details-label">Last updated on</span>
             <span class="info-value">
               {{currentRequest.lastUpdatedDate | date: 'medium'}}</span>
           </div>
 
           <div class="info-row created-details">
-            <span class="info-label created-details-label">Updated by:</span>
+            <span class="info-details-label created-details-label">Updated by:</span>
             <span class="info-value ">
               {{currentRequest.emailLastUpdatedBy+" | " + currentRequest.employeeIdLastUpdatedBy +" | "
               +currentRequest.subdivLastUpdatedBy+" | " + currentRequest.admindivLastUpdatedBy}}
@@ -129,8 +135,8 @@
           </a>
           <a>
             <!-- trigger the click event method in class -->
-            <button mat-fab class="warn-button">
-              <mat-icon matTooltip="Delete" (click)="deleteRequest(currentRequest.id)">delete</mat-icon>
+            <button mat-fab class="warn-button" (click)="deleteRequest(currentRequest.id)">
+              <mat-icon matTooltip="Delete">delete</mat-icon>
             </button>
           </a>
         </span>
@@ -189,13 +195,13 @@
           <div class="request-info">
 
             <div class="info-row created-details">
-              <span class="info-label created-details-label">Created by:</span>
+              <span class="info-details-label created-details-label">Created by:</span>
               <span class="info-value">
                 {{mapUserRole(comment.userRoleCreatedBy)}}
               </span>
             </div>
             <div class="info-row created-details" *ngIf="comment.createdDate">
-              <span class="info-label created-details-label">Created on</span>
+              <span class="info-details-label created-details-label">Created on</span>
               <span class="info-value">
                 {{comment.createdDate | date: 'medium'}}</span>
             </div>
@@ -224,7 +230,7 @@
 
           <h2 class="request-name reject-title">
 
-            <mat-icon class="approved-icon">done_outline</mat-icon>
+            <!-- <mat-icon class="approved-icon">done_outline</mat-icon> -->
             <span class="approved-title">Approved by:</span>
 
             {{(approval.type=='ADMIN_DIV')? approval.admindivCreatedBy :'Supplies Division'}}
@@ -265,13 +271,13 @@
           <div class="request-info">
 
             <div class="info-row created-details">
-              <span class="info-label created-details-label">Created by:</span>
+              <span class="info-details-label created-details-label">Created by:</span>
               <span class="info-value">
                 {{mapUserRole(approval.userRoleCreatedBy)}}
               </span>
             </div>
             <div class="info-row created-details" *ngIf="approval.createdDate">
-              <span class="info-label created-details-label">Created on</span>
+              <span class="info-details-label created-details-label">Created on</span>
               <span class="info-value">
                 {{approval.createdDate | date: 'medium'}}</span>
             </div>

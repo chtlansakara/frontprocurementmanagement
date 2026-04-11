@@ -11,7 +11,7 @@
 
         <div class="main-content">
           <div class="content-row">
-            <span class="content-label">Request Title:</span>
+            <span class="content-label-no-gap">Request Title:</span>
             <span class="content-description">
               <mat-chip style="background-color: white;">
                 {{currentProcurement?.requestTitle}} (ID: {{currentProcurement?.requestId}})
@@ -20,7 +20,7 @@
           </div>
 
           <div class="content-row">
-            <span class="content-label">Request For:</span>
+            <span class="content-label-no-gap">Request For:</span>
             <span class="content-description">
               <mat-chip-set>
                 <mat-chip *ngFor="let subdiv of currentProcurement?.requestSubdivNameList">
@@ -107,7 +107,7 @@
           <!-- status  -->
           <div class="content-row">
             <span class="content-label">Current Stage:</span> <span class="content-description">
-              <mat-chip class="procurement-status"> {{
+              <mat-chip [ngClass]="utilService.getProcurementStageClass(currentProcurement?.procurementStage)"> {{
                 utilService.formatProcurementStage(currentProcurement?.procurementStage)}}
               </mat-chip>
             </span>
@@ -177,7 +177,7 @@
             <mat-icon matTooltip="Delete Procurement">delete</mat-icon>
           </button>
           <div class="right-button-container">
-            <button mat-stroked-button matTooltip="Update details"
+            <button mat-stroked-button matTooltip="Update details" class="update-details-button"
               routerLink="/suppliesuser/home/procurement/update/{{currentProcurement.id}}"
               *ngIf="currentProcurement?.assignedToUserId == this.userId  && currentProcurement?.completedDate == null">
 
@@ -185,7 +185,7 @@
               Update details
             </button>
             <!-- only show update-status button if it's the assigned user and the procurement is not completed (by date) -->
-            <button mat-stroked-button matTooltip="Update status"
+            <button mat-stroked-button matTooltip="Update status" class="change-status-button"
               routerLink="/suppliesuser/home/procurement/view/{{currentProcurement.id}}/updateStatus/{{currentProcurement.id}}"
               *ngIf="currentProcurement?.assignedToUserId== this.userId && currentProcurement?.completedDate == null">
               <mat-icon>commit</mat-icon>

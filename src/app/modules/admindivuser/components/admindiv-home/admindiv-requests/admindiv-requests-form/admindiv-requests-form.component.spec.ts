@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmindivRequestsFormComponent } from './admindiv-requests-form.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdmindivRequestsFormComponent', () => {
   let component: AdmindivRequestsFormComponent;
@@ -8,7 +10,11 @@ describe('AdmindivRequestsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivRequestsFormComponent]
+      declarations: [AdmindivRequestsFormComponent],
+         providers: [
+        provideHttpClient(),
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

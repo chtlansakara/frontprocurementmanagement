@@ -1,14 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmindivApproveComponent } from './admindiv-approve.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AdmindivApproveComponent', () => {
   let component: AdmindivApproveComponent;
   let fixture: ComponentFixture<AdmindivApproveComponent>;
 
+  const mockId = 1;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivApproveComponent]
+      declarations: [AdmindivApproveComponent],
+      providers: [
+        provideHttpClient(),
+        {provide: ActivatedRoute, useValue: {snapshot: {params: {id: mockId}}}}
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

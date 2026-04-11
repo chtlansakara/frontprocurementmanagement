@@ -35,7 +35,7 @@
 
         <mat-grid-tile [colspan]="4">
           <mat-form-field appearance="outline">
-            <mat-label>Description</mat-label>
+            <mat-label>Specifications</mat-label>
             <textarea matInput formControlName="description" required></textarea>
             <mat-error error *ngIf="requestAdmindivForm.get('description')?.hasError('required')">
               Required field!

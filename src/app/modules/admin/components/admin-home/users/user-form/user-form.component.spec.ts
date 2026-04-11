@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserFormComponent } from './user-form.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('UserFormComponent', () => {
   let component: UserFormComponent;
@@ -8,7 +10,9 @@ describe('UserFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserFormComponent]
+      declarations: [UserFormComponent],
+        providers: [provideHttpClient()],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

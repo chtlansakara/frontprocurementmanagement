@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-requests/subdiv-requests-view/subdiv-requests-view.component';
 import { SubdivProcurementListComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-list/subdiv-procurement-list.component';
 import { SubdivProcurementViewComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-view/subdiv-procurement-view.component';
+import { SubdivProcurementReportComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-report/subdiv-procurement-report.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SubdivProcurementViewComponent } from './components/subdiv-home/subdiv-
     SubdivRequestsUpdateComponent,
     SubdivRequestsViewComponent,
     SubdivProcurementListComponent,
-    SubdivProcurementViewComponent
+    SubdivProcurementViewComponent,
+    SubdivProcurementReportComponent
   ],
   imports: [
     CommonModule,

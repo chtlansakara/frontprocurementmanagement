@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SuppliesRequestsListAllComponent } from './supplies-requests-list-all.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SuppliesRequestsListAllComponent', () => {
   let component: SuppliesRequestsListAllComponent;
@@ -8,7 +10,9 @@ describe('SuppliesRequestsListAllComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SuppliesRequestsListAllComponent]
+      declarations: [SuppliesRequestsListAllComponent],
+      providers: [provideHttpClient()],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-vendors',

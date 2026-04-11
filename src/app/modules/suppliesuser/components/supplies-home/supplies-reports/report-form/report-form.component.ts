@@ -36,6 +36,7 @@ export class ReportFormComponent {
     this.createReportForm = this.fb.group({
       startDate: [null, [Validators.required]],
       endDate : [null, [Validators.required]],
+      type: [null, [Validators.required]],
       format: [null, [Validators.required]]
     });
 
@@ -45,6 +46,20 @@ export class ReportFormComponent {
    private triggerDownload(blob: Blob, format: string):void{
     const extension = (format === 'excel')? 'xlsx' : 'pdf';
     const filename = `summary_report.${extension}`;
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href= url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+     private triggerDownloadProcurementReport(blob: Blob, format: string):void{
+    const extension = (format === 'excel')? 'xlsx' : 'pdf';
+    const filename = `procurement_report.${extension}`;
 
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -67,21 +82,36 @@ export class ReportFormComponent {
   submitReportForm(){
     console.log(this.createReportForm.value);
 
-     const { startDate, endDate, format } = this.createReportForm.value;
+     const { startDate, endDate, format, type } = this.createReportForm.value;
 
      const formattedStart = this.formatDate(startDate);
      const formattedEnd = this.formatDate(endDate);
 
      this.isLoading= true;
 
-    this.reportService.downloadSummaryReport(formattedStart, formattedEnd, format).subscribe((blob: Blob)=>{
+     if(type =='summary'){
+        this.reportService.downloadSummaryReport(formattedStart, formattedEnd, format).subscribe((blob: Blob)=>{
           this.triggerDownload(blob, format);
           //show success message
           this.snackbar.open("Report downloded successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
 
           this.isLoading= false;
           this.createReportForm.reset();
-    });
+        });
+    }
+
+    if(type =='procurement'){
+        this.reportService.downloadProcurementReport(formattedStart, formattedEnd, format).subscribe((blob: Blob)=>{
+          this.triggerDownloadProcurementReport(blob, format);
+          //show success message
+          this.snackbar.open("Report downloded successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+
+          this.isLoading= false;
+          this.createReportForm.reset();
+        });
+    }
+
+
   }
 
 

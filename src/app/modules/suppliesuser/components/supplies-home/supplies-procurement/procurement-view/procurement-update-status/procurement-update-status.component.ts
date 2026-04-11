@@ -4,6 +4,7 @@ import { SuppliesService } from '../../../../../services/supplies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilService } from '../../../../../../../utils/util.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-procurement-update-status',
@@ -41,71 +42,42 @@ export class ProcurementUpdateStatusComponent {
       comment: [null]
     });
 
+    //to filter out the current status from the list - loading parallel
+    forkJoin({
+      statuses : this.suppliesService.getProcurementStatus(),
+      stages: this.suppliesService.getStages(),
+      current: this.suppliesService.getProcurementById(this.id)
+    }).subscribe(({statuses, stages, current})=> {
 
-     this.loadStatusList();
-     this.loadStagesList();
-     //to filter out current status from the list
-     this.getProcurementById();
-  }
+      this.currentProcurement = current;
+      this.procurementStagesList = stages;
 
-  loadStatusList(){
-    this.suppliesService.getProcurementStatus().subscribe(res=>{
-      this.statusList = res;
+      //filter current status
+      this.statusList = statuses.filter( (s:any) => s.id !== current.statusId);
 
-      if(this.currentProcurement){
-         //remove current status from the status list
-          this.removeCurrentStatusList();
-      }
+       //patch current values to form
+      this.changeStatusForm.patchValue({
+      procurementStage: current.procurementStage
+      });
     });
 
-  }
-
-    loadStagesList(){
-    this.suppliesService.getStages().subscribe(res=>{
-      this.procurementStagesList = res;
-
-      if(this.currentProcurement){
-         //remove current status from the status list
-          this.removeCurrentStage();
-      }
-    });
-
-  }
 
 
-    getProcurementById(){
-    this.suppliesService.getProcurementById(this.id).subscribe(res=>{
-      //save to variable
-      this.currentProcurement = res;
-
-      if(this.statusList.length){
-        this.removeCurrentStatusList();
-      }
-    });
-  }
-
-  removeCurrentStatusList(){
-
-    this.statusList = this.statusList.filter((status:any)=> status.id !== this.currentProcurement.statusId);
-  }
-
-    removeCurrentStage(){
-
-    this.procurementStagesList = this.procurementStagesList.filter((status:any)=> status !== this.currentProcurement.procurementStage);
-    console.log(this.procurementStagesList);
   }
 
 
   submitStatus(){
+    if(this.changeStatusForm.invalid) return;
+
     this.suppliesService.updateStatus(this.id, this.changeStatusForm.value).subscribe(res=>{
       if( res.id != null){
           //show success message
           this.snackbar.open("Updated successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
           //navigate by router & refresh at the same time
-            // this.router.navigateByUrl("/suppliesuser/home/procurement/view/"+ this.id);
-            this.router.navigateByUrl('/',{skipLocationChange: true}).then(()=> {
-              this.router.navigate(['/suppliesuser/home/procurement/view/'+ this.id])
-            });
+          // this.router.navigateByUrl("/suppliesuser/home/procurement/view/"+ this.id);
+          this.router.navigateByUrl('/',{skipLocationChange: true}).then(()=> {
+            this.router.navigate(['/suppliesuser/home/procurement/view/'+ this.id])
+          });
         }
     })
   }

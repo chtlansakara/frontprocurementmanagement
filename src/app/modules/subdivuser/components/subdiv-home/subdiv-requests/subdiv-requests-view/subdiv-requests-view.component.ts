@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubdivService } from '../../../../services/subdiv.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UtilService } from '../../../../../../utils/util.service';
+import { ReportServiceService } from '../../../../../suppliesuser/services/report-service.service';
+import { SpinnerService } from '../../../../../../common/services/spinner.service';
 
 @Component({
   selector: 'app-subdiv-requests-view',
@@ -30,7 +32,8 @@ export class SubdivRequestsViewComponent {
     private subdivService: SubdivService,
     private snackbar : MatSnackBar,
     private router : Router,
-    public utilService: UtilService
+    public utilService: UtilService,
+    public spinnerService: SpinnerService
   ){
     this.id = activatedRoute.snapshot.params["id"];
   }
@@ -77,7 +80,7 @@ export class SubdivRequestsViewComponent {
   deleteRequest(id: number){
     this.subdivService.deleteRequest(id).subscribe(res =>{
       //show message
-      this.snackbar.open("Deleted successfully","Close",{duration:5000, panelClass:"snackbar-success"});
+      this.snackbar.open(`Request ID:${id } deleted successfully`,"Close",{duration:5000, panelClass:"snackbar-success"});
       //navigate back to list
       this.router.navigateByUrl("/subdivuser/home/requests/list");
     })
@@ -88,6 +91,32 @@ export class SubdivRequestsViewComponent {
     if(userrole == "ADMINDIVUSER") return this.currentRequest.admindivCreatedBy;
     else return "Supplies Division";
   }
+
+
+
+    private triggerDownload(blob: Blob):void{
+
+    const filename = `request${this.id}.pdf`;
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href= url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+
+  printRequest(){
+
+    this.subdivService.downloadPrintRequest(this.id).subscribe((blob: Blob) =>{
+      this.triggerDownload(blob);
+      this.snackbar.open("Report downloded successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+    });
+  }
+
 
 
 

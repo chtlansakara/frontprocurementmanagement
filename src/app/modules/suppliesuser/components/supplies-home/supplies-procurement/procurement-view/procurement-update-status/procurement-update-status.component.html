@@ -58,7 +58,7 @@
 
             Reset
           </button>
-          <button mat-flat-button matTooltip="Save" [disabled]="changeStatusForm.invalid">
+          <button mat-flat-button matTooltip="Save" [disabled]="changeStatusForm.invalid && changeStatusForm.pristine">
 
             Save
           </button>

@@ -55,15 +55,31 @@
 {
   min-width: 300px;
 
+
+}
+
+.request-header
+{
+  display: flex;
+  align-items: center;
+
+  button
+  {
+    margin-top: 8px;
+  }
 }
 
 /* optional styling */
 .request-name
 {
+  flex: 1;
   margin-bottom: 8px;
   font-weight: 500;
   color: rgb(11, 61, 34);
+
 }
+
+
 
 .request-description
 {
@@ -88,9 +104,18 @@
   margin-bottom: 8px;
 }
 
+
 .info-label
 {
   font-weight: 500;
+  width: 200px;
+
+}
+
+.info-details-label
+{
+  font-weight: 500;
+
 }
 
 .info-value

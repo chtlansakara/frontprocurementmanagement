@@ -20,8 +20,30 @@ export class ReportServiceService {
     .set('endDate', endDate)
     .set('format',format);
 
+    return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "summary-report/",{
+      params,
+      responseType: 'blob'
+    });
+  }
+
+    downloadProcurementReport(
+    startDate: string,
+    endDate:string,
+    format: string
+  ): Observable<Blob>{
+    const params = new HttpParams()
+    .set('startDate', startDate)
+    .set('endDate', endDate)
+    .set('format',format);
+
     return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-report/",{
       params,
+      responseType: 'blob'
+    });
+  }
+
+  downloadPrintRequest(requestId: number): Observable<Blob>{
+    return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "print-request/"+requestId, {
       responseType: 'blob'
     });
   }

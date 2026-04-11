@@ -33,7 +33,7 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
       const reader = new FileReader();
       reader.onload = () => {
         const errorMessage = reader.result as string;
-        matsnackbar.open(errorMessage || "No prcurement data available for that period.", "Close", {
+        matsnackbar.open(errorMessage || "Error generating report!.", "Close", {
           duration: 5000,
           panelClass: ['snackbar-error']
         });

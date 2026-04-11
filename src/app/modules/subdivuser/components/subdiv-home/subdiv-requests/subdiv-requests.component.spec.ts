@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubdivRequestsComponent } from './subdiv-requests.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SubdivRequestsComponent', () => {
   let component: SubdivRequestsComponent;
@@ -8,7 +9,8 @@ describe('SubdivRequestsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SubdivRequestsComponent]
+      declarations: [SubdivRequestsComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

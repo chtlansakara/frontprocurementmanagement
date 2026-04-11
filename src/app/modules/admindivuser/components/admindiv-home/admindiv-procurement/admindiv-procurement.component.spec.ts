@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmindivProcurementComponent } from './admindiv-procurement.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdmindivProcurementComponent', () => {
   let component: AdmindivProcurementComponent;
@@ -8,7 +9,8 @@ describe('AdmindivProcurementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivProcurementComponent]
+      declarations: [AdmindivProcurementComponent],
+         schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

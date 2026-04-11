@@ -70,13 +70,13 @@
         <div class="request-info">
 
           <div class="info-row created-details">
-            <span class="info-label created-details-label">Created by:</span>
+            <span class="info-details-label created-details-label">Created by:</span>
             <span class="info-value">
               {{mapUserRole(currentRequest.userRoleCreatedBy)}}
             </span>
           </div>
           <div class="info-row created-details" *ngIf="currentRequest.createdDate">
-            <span class="info-label created-details-label">Created on</span>
+            <span class="info-details-label created-details-label">Created on</span>
             <span class="info-value">
               {{currentRequest.createdDate | date: 'medium'}}</span>
           </div>
@@ -97,13 +97,13 @@
 
         <div class="request-info">
           <div class="info-row created-details" *ngIf="currentRequest.lastUpdatedDate">
-            <span class="info-label created-details-label">Last updated on</span>
+            <span class="info-details-label created-details-label">Last updated on</span>
             <span class="info-value">
               {{currentRequest.lastUpdatedDate | date: 'medium'}}</span>
           </div>
 
           <div class="info-row created-details">
-            <span class="info-label created-details-label">Updated by:</span>
+            <span class="info-details-label created-details-label">Updated by:</span>
             <span class="info-value ">
               {{currentRequest.emailLastUpdatedBy+" | " + currentRequest.employeeIdLastUpdatedBy +" | "
               +currentRequest.subdivLastUpdatedBy+" | " + currentRequest.admindivLastUpdatedBy}}
@@ -189,13 +189,13 @@
           <div class="request-info">
 
             <div class="info-row created-details">
-              <span class="info-label created-details-label">Created by:</span>
+              <span class="info-details-label created-details-label">Created by:</span>
               <span class="info-value">
                 {{mapUserRole(comment.userRoleCreatedBy)}}
               </span>
             </div>
             <div class="info-row created-details" *ngIf="comment.createdDate">
-              <span class="info-label created-details-label">Created on</span>
+              <span class="info-details-label created-details-label">Created on</span>
               <span class="info-value">
                 {{comment.createdDate | date: 'medium'}}</span>
             </div>
@@ -265,13 +265,13 @@
           <div class="request-info">
 
             <div class="info-row created-details">
-              <span class="info-label created-details-label">Created by:</span>
+              <span class="info-details-label created-details-label">Created by:</span>
               <span class="info-value">
                 {{mapUserRole(approval.userRoleCreatedBy)}}
               </span>
             </div>
             <div class="info-row created-details" *ngIf="approval.createdDate">
-              <span class="info-label created-details-label">Created on</span>
+              <span class="info-details-label created-details-label">Created on</span>
               <span class="info-value">
                 {{approval.createdDate | date: 'medium'}}</span>
             </div>

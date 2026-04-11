@@ -7,6 +7,7 @@ import { ToastService } from '../../../../auth/services/toast.service';
 import { AppNotification } from '../../../../interfaces/NotificationDto';
 import { MatMenuTrigger } from '@angular/material/menu';
 
+
 @Component({
   selector: 'app-supplies-home',
   standalone: false,
@@ -58,6 +59,7 @@ export class SuppliesHomeComponent {
 
     //to remove user details from local storage
     StorageService.logout();
+
     //navigate to login page
     this.router.navigateByUrl("/login");
   }
@@ -91,28 +93,7 @@ export class SuppliesHomeComponent {
   }
 
 
-  getDotClass(type: string): string {
-    const map: Record<string, string> = {
-      'REQUEST_SUBMITTED':            'dot-yellow',
-      'REQUEST_APPROVED_BY_ADMIN':    'dot-green',
-      'REQUEST_REJECTED_BY_ADMIN':    'dot-red',
-      'REQUEST_APPROVED_BY_SUPPLIES': 'dot-green',
-      'REQUEST_REJECTED_BY_SUPPLIES': 'dot-red',
-      'PROCUREMENT_CREATED':          'dot-blue',
-      'PROCUREMENT_STATUS_UPDATE':    'dot-purple',
-    };
-    return map[type] ?? 'dot-gray';
-  }
 
-  getToastIcon(type: string): string {
-    const map: Record<string, string> = {
-      success: 'check_circle',
-      error:   'error',
-      warning: 'warning',
-      info:    'info'
-    };
-    return map[type] ?? 'info';
-  }
 
   doMarkAllRead(){
     this.notificationService.markAllRead();

@@ -215,7 +215,7 @@ body
 
 
 
-// status styles
+// request status styles
 //for status styling
 .status-badge
 {
@@ -341,12 +341,25 @@ body
 
 }
 
+.request-header
+{
+  display: flex;
+  align-items: center;
+
+  button
+  {
+    margin-top: 8px;
+  }
+}
+
 /* optional styling */
 .request-name
 {
+  flex: 1;
   margin-bottom: 8px;
   font-weight: 500;
-  color: rgb(20, 120, 67);
+  color: rgb(11, 61, 34);
+
 }
 
 .request-description
@@ -375,6 +388,14 @@ body
 .info-label
 {
   font-weight: 500;
+  width: 200px;
+
+}
+
+.info-details-label
+{
+  font-weight: 500;
+
 }
 
 .info-value
@@ -721,21 +742,39 @@ body
   margin-top: 16px;
   margin-bottom: 8px;
 
+
   .content-row
   {
+
     padding: 2px 0;
 
-    .content-label
+    .content-label-no-gap
     {
       font-size: 14px;
       margin-right: 8px;
+    }
 
+    .content-label
+    {
+      display: inline-block;
+      width: 180px;
+      font-size: 14px;
+      margin-right: 8px;
     }
 
     .content-description
     {
-      font-size: large;
 
+      font-size: 14px;
+      color: #555;
+
+      // removing extra-gap
+      // ::ng-deep mat-chip-set
+      // {
+      //   display: inline-flex;
+      //   padding: 0;
+      //   margin: 0;
+      // }
     }
   }
 }
@@ -1076,4 +1115,37 @@ body
   width: 400px !important;
   overflow: hidden !important;
   padding: 0 !important;
+}
+
+
+//procurement stage styles mat-chip
+
+.chip-not-commenced
+{
+  background-color: #D3D1C7 !important;
+  color: #444441 !important;
+}
+
+.chip-commenced
+{
+  background-color: #B5D4F4 !important;
+  color: #0C447C !important;
+}
+
+.chip-orders-issued
+{
+  background-color: #FAC775 !important;
+  color: #633806 !important;
+}
+
+.chip-goods-received
+{
+  background-color: #C0DD97 !important;
+  color: #27500A !important;
+}
+
+.chip-paid-completed
+{
+  background-color: #1D9E75 !important;
+  color: #E1F5EE !important;
 }

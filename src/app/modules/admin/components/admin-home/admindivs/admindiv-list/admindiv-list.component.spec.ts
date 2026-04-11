@@ -1,18 +1,23 @@
+import { provideHttpClient } from '@angular/common/http';
+import { admindivListComponent } from './admindiv-list.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdmindivListComponent } from './admindiv-list.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdmindivListComponent', () => {
-  let component: AdmindivListComponent;
-  let fixture: ComponentFixture<AdmindivListComponent>;
+  let component: admindivListComponent;
+  let fixture: ComponentFixture<admindivListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivListComponent]
+      declarations: [admindivListComponent],
+      providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdmindivListComponent);
+    fixture = TestBed.createComponent(admindivListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

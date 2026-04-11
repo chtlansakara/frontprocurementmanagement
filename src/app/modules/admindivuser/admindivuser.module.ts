@@ -19,6 +19,7 @@ import { AdmindivApproveComponent } from './components/admindiv-home/admindiv-re
 import { AdmindivRejectComponent } from './components/admindiv-home/admindiv-requests/admindiv-reject/admindiv-reject.component';
 import { AdmindivProcurementListComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-list/admindiv-procurement-list.component';
 import { AdmindivProcurementViewComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-view/admindiv-procurement-view.component';
+import { AdmindivProcurementReportComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-report/admindiv-procurement-report.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AdmindivProcurementViewComponent } from './components/admindiv-home/adm
     AdmindivApproveComponent,
     AdmindivRejectComponent,
     AdmindivProcurementListComponent,
-    AdmindivProcurementViewComponent
+    AdmindivProcurementViewComponent,
+    AdmindivProcurementReportComponent
   ],
   imports: [
     CommonModule,

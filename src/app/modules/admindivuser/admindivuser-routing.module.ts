@@ -12,6 +12,7 @@ import { AdmindivApproveComponent } from './components/admindiv-home/admindiv-re
 import { AdmindivRejectComponent } from './components/admindiv-home/admindiv-requests/admindiv-reject/admindiv-reject.component';
 import { AdmindivProcurementListComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-list/admindiv-procurement-list.component';
 import { AdmindivProcurementViewComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-view/admindiv-procurement-view.component';
+import { AdmindivProcurementReportComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-report/admindiv-procurement-report.component';
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
@@ -31,6 +32,7 @@ const routes: Routes = [
     {path: "procurement", component: AdmindivProcurementComponent, children:[
       {path: '', redirectTo:'list', pathMatch: 'full'},
       {path: 'list', component: AdmindivProcurementListComponent},
+       {path: 'report', component: AdmindivProcurementReportComponent},
       {path: 'view/:id', component: AdmindivProcurementViewComponent}
     ]}
   ]},

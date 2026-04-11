@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubdivRequestsListComponent } from './subdiv-requests-list.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SubdivRequestsListComponent', () => {
   let component: SubdivRequestsListComponent;
@@ -8,7 +10,11 @@ describe('SubdivRequestsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SubdivRequestsListComponent]
+      declarations: [SubdivRequestsListComponent],
+      providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

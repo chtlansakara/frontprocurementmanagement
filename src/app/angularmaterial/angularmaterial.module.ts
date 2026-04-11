@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { MatTab, MatTabsModule } from '@angular/material/tabs';
+
 import { MatIcon } from '@angular/material/icon';
 //Material Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -64,7 +65,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatGridListModule,
     MatCheckboxModule,
     MatStepperModule,
-    MatBadgeModule
+    MatBadgeModule,
   ]
 })
 export class AngularmaterialModule { }

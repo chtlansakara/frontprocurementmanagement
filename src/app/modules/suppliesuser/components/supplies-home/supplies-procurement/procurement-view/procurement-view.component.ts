@@ -61,7 +61,6 @@ export class ProcurementViewComponent {
     this.suppliesService.getProcurementById(this.id).subscribe(res=>{
       //save to variable
       this.currentProcurement = res;
-      console.log(this.currentProcurement);
     });
   }
 

@@ -10,8 +10,6 @@ export class UtilService {
 
    //format procurement stages on html - in list tables & view pages
   formatProcurementStage(stage: string): string{
-
-
     switch(stage) {
       case "PROCUREMENT_PROCESS_NOT_COMMENCED":
         return 'Not Commenced yet';
@@ -34,6 +32,29 @@ export class UtilService {
     }
   }
 
+  // procurement stage formatting classes
+  getProcurementStageClass(stage: string): string{
+  switch(stage) {
+   case "PROCUREMENT_PROCESS_NOT_COMMENCED":
+        return 'chip-not-commenced';
+
+      case "PURCHASE_PROCESS_COMMENCED":
+        return 'chip-commenced';
+
+      case "PURCHASE_ORDERS_ISSUED":
+        return 'chip-orders-issued';
+
+      case "GOODS_RECEIVED":
+        return 'chip-goods-received';
+
+
+      case "PAID_AND_COMPLETED":
+        return 'chip-paid-completed';
+
+      default:
+        return 'chip-not-commenced';
+    }
+  }
 
 
 
@@ -96,7 +117,7 @@ export class UtilService {
     case 'PROCUREMENT_CREATED':
       return 'status-procurement-created';
 
-        //postponed request - after approved by supplies
+    //     //postponed request - after approved by supplies
     // case 'PROCUREMENT_POSTPONED':
     //   return 'status-procuremnt-created';
 
@@ -113,8 +134,7 @@ export class UtilService {
   //format 'is previously purchased' column for requests
 formatBoolean(value: boolean): string{
   if(value == true) return 'Yes';
-  if(value == false) return 'No';
-  return ' ';
+  else return 'No';
 }
 
 

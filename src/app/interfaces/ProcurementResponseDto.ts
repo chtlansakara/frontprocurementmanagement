@@ -74,9 +74,9 @@ export interface ProcurementResponseDto{
         "requestTitle": string | null,
         "requestApprovedBy": string,
         "requestApprovedDate": string,
-        "requestSubdivIdList": [],
-        "requestSubdivNameList": [],
-        "requestSubdivCodeList": [],
+        "requestSubdivIdList": any[],
+        "requestSubdivNameList": any[],
+        "requestSubdivCodeList": any[],
         "requestEstimation": string,
         "requestFund": string | null,
 

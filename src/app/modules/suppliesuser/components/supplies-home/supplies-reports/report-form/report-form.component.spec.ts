@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportFormComponent } from './report-form.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ReportFormComponent', () => {
   let component: ReportFormComponent;
@@ -8,7 +10,11 @@ describe('ReportFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ReportFormComponent]
+      declarations: [ReportFormComponent],
+      providers: [
+        provideHttpClient(),
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

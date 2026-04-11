@@ -12,7 +12,7 @@
         <div class="main-content">
 
           <div class="content-row">
-            <span class="content-label">Request Title:</span>
+            <span class="content-label-no-gap">Request Title:</span>
             <span class="content-description">
               <mat-chip-set>
                 <mat-chip class="subdiv-chips" style="background-color: white;">
@@ -23,7 +23,7 @@
           </div>
 
           <div class="content-row">
-            <span class="content-label">Request For:</span>
+            <span class="content-label-no-gap">Request For:</span>
             <span class="content-description">
               <mat-chip-set>
                 <mat-chip *ngFor="let subdiv of currentProcurement?.requestSubdivNameList">
@@ -106,7 +106,8 @@
           <!-- status  -->
           <div class="content-row">
             <span class="content-label">Current Stage:</span> <span class="content-description">
-              <mat-chip class="procurement-status"> {{
+              <mat-chip class="procurement-status"
+                [ngClass]="utilService.getProcurementStageClass(currentProcurement?.procurementStage)"> {{
                 utilService.formatProcurementStage(currentProcurement?.procurementStage)}}
               </mat-chip>
             </span>

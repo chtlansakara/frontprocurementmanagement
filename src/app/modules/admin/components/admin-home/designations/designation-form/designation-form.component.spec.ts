@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DesignationFormComponent } from './designation-form.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DesignationFormComponent', () => {
   let component: DesignationFormComponent;
@@ -8,7 +10,11 @@ describe('DesignationFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DesignationFormComponent]
+      declarations: [DesignationFormComponent],
+      providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

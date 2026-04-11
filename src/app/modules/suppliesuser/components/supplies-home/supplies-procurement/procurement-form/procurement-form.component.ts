@@ -109,6 +109,8 @@ export class ProcurementFormComponent {
   }
 
   submitProcurement(){
+      if(this.procurementForm.invalid) return;
+
       this.suppliesService.createProcurement(this.procurementForm.value).subscribe(res =>{
         if( res.id != null){
           //show success message
@@ -120,6 +122,7 @@ export class ProcurementFormComponent {
   }
 
    //method called to remove selected subdivs as chips
+   //not used
     removeRequest(id:number){
       const control = this.procurementForm.get('requestIdList');
       //filter id values which is not the id of the selected

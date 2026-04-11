@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmindivRequestsPendingComponent } from './admindiv-requests-pending.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdmindivRequestsPendingComponent', () => {
   let component: AdmindivRequestsPendingComponent;
@@ -8,7 +10,11 @@ describe('AdmindivRequestsPendingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivRequestsPendingComponent]
+      declarations: [AdmindivRequestsPendingComponent],
+      providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

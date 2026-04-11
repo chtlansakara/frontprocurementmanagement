@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -16,6 +16,22 @@ export class SubdivService {
 
 
   //procurement related
+
+
+    downloadSubdivProcurementReport(
+      startDate: string,
+      endDate:string,
+      format: string): Observable<Blob>{
+      const params = new HttpParams()
+                        .set('startDate', startDate)
+                        .set('endDate', endDate)
+                        .set('format',format);
+
+      return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement-report/",{
+        params,
+        responseType: 'blob'
+    });
+  }
 
   getProcurement(): Observable<any>{
     return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "procurement");
@@ -44,6 +60,12 @@ export class SubdivService {
 
 
   // requests related------------------------------------------------------------
+
+   downloadPrintRequest(requestId: number): Observable<Blob>{
+    return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "print-request/"+requestId, {
+      responseType: 'blob'
+    });
+  }
 
   getRequestsOfSubdiv(): Observable<any>{
     return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"requests");
