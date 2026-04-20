@@ -43,7 +43,8 @@
           <mat-form-field appearance="outline">
             <mat-label>Add new password</mat-label>
             <input matInput [type]="hidePassword? 'password':'text'" formControlName="password">
-            <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+            <button class="visibility-button" type="button" mat-icon-button matSuffix
+              (click)="togglePasswordVisibility()">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
@@ -86,10 +87,7 @@
             <input matInput [matDatepicker]="birthdatePicker" formControlName="birthdate">
             <mat-datepicker-toggle matSuffix [for]="birthdatePicker"></mat-datepicker-toggle>
             <mat-datepicker #birthdatePicker></mat-datepicker>
-            <!-- for error message -->
-            <mat-error *ngIf="userUpdateForm.get('birthdate')?.hasError('required')">
-              Due date is required!
-            </mat-error>
+
           </mat-form-field>
         </mat-grid-tile>
 
@@ -109,7 +107,7 @@
             <mat-label>Select Designation</mat-label>
             <mat-select formControlName="designationId" name="designationId" required>
               <mat-option *ngFor="let designation of designationList" [value]="designation.id">
-                {{designation.title}} - {{designation.grade}}
+                {{designation.title}} - {{designation.code}}
               </mat-option>
             </mat-select>
             <!-- error message -->

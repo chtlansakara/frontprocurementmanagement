@@ -11,11 +11,15 @@ import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-req
 import { SubdivProcurementListComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-list/subdiv-procurement-list.component';
 import { SubdivProcurementViewComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-view/subdiv-procurement-view.component';
 import { SubdivProcurementReportComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-report/subdiv-procurement-report.component';
+import { ChangePasswordSubdivComponent } from './components/subdiv-home/change-password-subdiv/change-password-subdiv.component';
+import { UserUpdateSubdivComponent } from './components/subdiv-home/user-update-subdiv/user-update-subdiv.component';
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path:'home', component: SubdivHomeComponent, children: [
     {path: '', redirectTo: 'requests', pathMatch: 'full'},
+    {path: 'password', component: ChangePasswordSubdivComponent},
+    {path: 'update', component: UserUpdateSubdivComponent},
     {path:'dashboard', component: SubdivDashboardComponent},
     {path:'requests', component: SubdivRequestsComponent, children: [
       {path:'', redirectTo: 'list', pathMatch: 'full'},
@@ -31,7 +35,7 @@ const routes: Routes = [
       {path: 'view/:id', component: SubdivProcurementViewComponent}
     ]}
   ]},
-  {path:'**', redirectTo:"home/dashboard"}
+  {path:'**', redirectTo:"home"}
 ];
 
 @NgModule({

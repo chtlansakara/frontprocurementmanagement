@@ -29,6 +29,8 @@ import { ProcurementUpdateComponent } from './components/supplies-home/supplies-
 import { AuditLogComponent } from './components/supplies-home/supplies-logs/audit-log/audit-log.component';
 import { ProcurementRequestViewComponent } from './components/supplies-home/supplies-procurement/procurement-request-view/procurement-request-view.component';
 import { ReportFormComponent } from './components/supplies-home/supplies-reports/report-form/report-form.component';
+import { ChangePasswordFormComponent } from './components/supplies-home/change-password-form/change-password-form.component';
+import { UserUpdateFormComponent } from './components/supplies-home/user-update-form/user-update-form.component';
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { ReportFormComponent } from './components/supplies-home/supplies-reports
     AuditLogComponent,
     ProcurementRequestViewComponent,
     ReportFormComponent,
+    ChangePasswordFormComponent,
+    UserUpdateFormComponent,
   ],
   imports: [
     CommonModule,

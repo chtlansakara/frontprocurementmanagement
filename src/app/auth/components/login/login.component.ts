@@ -95,6 +95,11 @@ export class LoginComponent {
       }});
   }
 
+  showMessage(){
+        //show success message
+        this.snackbar.open("Please send an email to admin@test.com to reset your password.","Close",{duration:5000, panelClass:"snackbar-info"});
+  }
+
 }
 
 

@@ -21,12 +21,17 @@ import { ProcurementUpdateComponent } from './components/supplies-home/supplies-
 import { AuditLogComponent } from './components/supplies-home/supplies-logs/audit-log/audit-log.component';
 import { ProcurementRequestViewComponent } from './components/supplies-home/supplies-procurement/procurement-request-view/procurement-request-view.component';
 import { ReportFormComponent } from './components/supplies-home/supplies-reports/report-form/report-form.component';
+import { ChangePasswordFormComponent } from './components/supplies-home/change-password-form/change-password-form.component';
+import { UserUpdateComponent } from '../admin/components/admin-home/users/user-update/user-update.component';
+import { UserUpdateFormComponent } from './components/supplies-home/user-update-form/user-update-form.component';
 
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path: "home", component: SuppliesHomeComponent, children:[
     {path:'', redirectTo:'requests', pathMatch:"full"},
+    {path: 'password', component: ChangePasswordFormComponent},
+    {path: 'update', component: UserUpdateFormComponent},
     {path: "dashboard", component: SuppliesDashboardComponent},
     {path: 'requests' , component: SuppliesRequestsComponent, children:[
       {path: '', redirectTo: 'list', pathMatch: 'full'},

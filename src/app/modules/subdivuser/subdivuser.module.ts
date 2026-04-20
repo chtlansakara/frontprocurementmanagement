@@ -14,6 +14,8 @@ import { SubdivRequestsViewComponent } from './components/subdiv-home/subdiv-req
 import { SubdivProcurementListComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-list/subdiv-procurement-list.component';
 import { SubdivProcurementViewComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-view/subdiv-procurement-view.component';
 import { SubdivProcurementReportComponent } from './components/subdiv-home/subdiv-procurement/subdiv-procurement-report/subdiv-procurement-report.component';
+import { ChangePasswordSubdivComponent } from './components/subdiv-home/change-password-subdiv/change-password-subdiv.component';
+import { UserUpdateSubdivComponent } from './components/subdiv-home/user-update-subdiv/user-update-subdiv.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { SubdivProcurementReportComponent } from './components/subdiv-home/subdi
     SubdivRequestsViewComponent,
     SubdivProcurementListComponent,
     SubdivProcurementViewComponent,
-    SubdivProcurementReportComponent
+    SubdivProcurementReportComponent,
+    ChangePasswordSubdivComponent,
+    UserUpdateSubdivComponent
   ],
   imports: [
     CommonModule,

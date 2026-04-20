@@ -47,8 +47,8 @@
       <mat-icon class="main-toolbar-icon">account_circle</mat-icon>
     </button>
     <mat-menu #userUpdateMenu="matMenu">
-      <button mat-menu-item>Update account</button>
-      <button mat-menu-item>Change password</button>
+      <button mat-menu-item routerLink="/admindivuser/home/update">Update user details</button>
+      <button mat-menu-item routerLink="/admindivuser/home/password">Change password</button>
     </mat-menu>
 
     <button routerLink="/login" mat-icon-button matTooltip="Sign out" class="main-toolbar-icon-button"

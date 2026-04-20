@@ -5,6 +5,7 @@ export const environment = {
   URL_SUBDIVUSER : "api/subdiv/",
   URL_ADMINDIVUSER: "api/admindiv/",
   URL_SUPPLIESUSER: "api/supplies/",
-  URL_NOTIFICATIONS: "api/notifications"
+  URL_NOTIFICATIONS: "api/notifications",
+  URL_USER:"api/user"
 };
 

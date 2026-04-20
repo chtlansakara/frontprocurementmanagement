@@ -13,11 +13,15 @@ import { AdmindivRejectComponent } from './components/admindiv-home/admindiv-req
 import { AdmindivProcurementListComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-list/admindiv-procurement-list.component';
 import { AdmindivProcurementViewComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-view/admindiv-procurement-view.component';
 import { AdmindivProcurementReportComponent } from './components/admindiv-home/admindiv-procurement/admindiv-procurement-report/admindiv-procurement-report.component';
+import { ChangePasswordAdmindivComponent } from './components/admindiv-home/change-password-admindiv/change-password-admindiv.component';
+import { UserUpdateAdmindivComponent } from './components/admindiv-home/user-update-admindiv/user-update-admindiv.component';
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path:'home', component: AdmindivHomeComponent, children: [
     {path: '', redirectTo: 'requests', pathMatch: 'full'},
+    {path: 'password',component: ChangePasswordAdmindivComponent},
+    {path: 'update', component: UserUpdateAdmindivComponent},
     {path: "dashboard", component: AdmindivDashboardComponent},
     {path: "requests", component: AdmindivRequestsComponent, children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
@@ -36,7 +40,7 @@ const routes: Routes = [
       {path: 'view/:id', component: AdmindivProcurementViewComponent}
     ]}
   ]},
-  {path: "**", redirectTo:'home/dashboard'}
+  {path: "**", redirectTo:'home'}
 
 ];
 

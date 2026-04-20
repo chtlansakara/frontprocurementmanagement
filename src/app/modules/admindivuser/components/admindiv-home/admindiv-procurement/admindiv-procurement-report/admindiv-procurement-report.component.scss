@@ -1,3 +1,10 @@
+.centered-form
+{
+  display: flex;
+  justify-content: center;
+}
+
+
 .example-card
 {
   min-width: 400px;
@@ -10,8 +17,9 @@
 
 .form-title
 {
-  color: rgb(20, 120, 67);
-  font-weight: 500;
+  color: rgb(16, 94, 52);
+  font-size: 18px;
+  // font-weight: 500;
 }
 
 .example-card-footer
@@ -65,15 +73,15 @@
 /* Mobile Responsive */
 @media (max-width: 768px)
 {
-  .approval-form
-  {
-    grid-template-columns: 1fr;
+  // .approval-form
+  // {
+  //   grid-template-columns: 1fr;
 
-  }
+  // }
 
-  .full-width,
-  .button-row
-  {
-    grid-column: span 1;
-  }
+  // .full-width,
+  // .button-row
+  // {
+  //   grid-column: span 1;
+  // }
 }
