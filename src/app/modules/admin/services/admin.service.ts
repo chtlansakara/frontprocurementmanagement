@@ -131,4 +131,92 @@ export class AdminService {
   }
 
 
+  //vendors ----------------------------------------------------------------------------
+
+  //get vendors list
+  getVendors():Observable<any>{
+    return this.http.get(environment.API_URL+URL_ADMIN+"vendors");
+  }
+
+  //get vendor by id
+  getVendorById(id: number):Observable<any>{
+    return this.http.get(environment.API_URL+ URL_ADMIN+ "vendors/"+id);
+  }
+
+  //post vendor
+  createVendor(vendorDto:any):Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN+"vendors", vendorDto);
+  }
+
+  //update vendor
+  updateVendor(id: number, vendorDto:any):Observable<any>{
+    return this.http.put(environment.API_URL+ URL_ADMIN +"vendors/"+id, vendorDto);
+  }
+
+  //delete vendor
+  deleteVendor(id: number):Observable<any>{
+    return this.http.delete(environment.API_URL+ URL_ADMIN+"vendors/"+id);
+  }
+
+
+  //sources ----------------------------------------------------------------------------
+
+  //get sources list
+  getSources():Observable<any>{
+    return this.http.get(environment.API_URL+URL_ADMIN+"sources");
+  }
+
+  //get source by id
+  getSourceById(id: number):Observable<any>{
+    return this.http.get(environment.API_URL+ URL_ADMIN+ "sources/"+id);
+  }
+
+  //post source
+  createSource(sourceDto:any):Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN+"sources", sourceDto);
+  }
+
+  //update source
+  updateSource(id: number, sourceDto:any):Observable<any>{
+    return this.http.put(environment.API_URL+ URL_ADMIN +"sources/"+id, sourceDto);
+  }
+
+  //delete source
+  deleteSource(id: number):Observable<any>{
+    return this.http.delete(environment.API_URL+ URL_ADMIN+"sources/"+id);
+  }
+
+
+
+  //sources ----------------------------------------------------------------------------
+
+  //get status list
+  getStatus():Observable<any>{
+    return this.http.get(environment.API_URL+URL_ADMIN+"status");
+  }
+
+  //get status by id
+  getStatusById(id: number):Observable<any>{
+    return this.http.get(environment.API_URL+ URL_ADMIN+ "status/"+id);
+  }
+
+  //post status
+  createStatus(statusDto:any):Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN+"status", statusDto);
+  }
+
+  //update status
+  updateStatus(id: number, statusDto:any):Observable<any>{
+    return this.http.put(environment.API_URL+ URL_ADMIN +"status/"+id, statusDto);
+  }
+
+  //delete status
+  deleteStatus(id: number):Observable<any>{
+    return this.http.delete(environment.API_URL+ URL_ADMIN+"status/"+id);
+  }
+
+
+
+
+
 }

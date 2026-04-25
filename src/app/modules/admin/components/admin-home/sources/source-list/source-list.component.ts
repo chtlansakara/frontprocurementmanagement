@@ -7,17 +7,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-vendor-list',
+  selector: 'app-source-list',
   standalone: false,
-  templateUrl: './vendor-list.component.html',
-  styleUrl: './vendor-list.component.scss'
+  templateUrl: './source-list.component.html',
+  styleUrl: './source-list.component.scss'
 })
-export class VendorListComponent {
-  //returned list
-  vendorList: any[] = [];
+export class SourceListComponent {
+
+    //returned list
+  sourcesList: any[] = [];
 
   //column names
-  displayedColumns : String[] = ['name', 'registeredDate', 'comments', 'actions'];
+  displayedColumns : String[] = ['name', 'description', 'actions'];
 
 
   //with the filter & sort - need an instance
@@ -36,14 +37,14 @@ export class VendorListComponent {
 
   ngOnInit(){
     //call when the component is initiated
-    this.getVendors();
+    this.getSources();
   }
 
   //get from backend
-  getVendors(){
-    this.adminService.getVendors().subscribe(res=>{
+  getSources(){
+    this.adminService.getSources().subscribe(res=>{
       //assign to class array
-      this.vendorList = res;
+      this.sourcesList = res;
       this.dataSource.data= res;
     })
   }
@@ -63,10 +64,10 @@ export class VendorListComponent {
 
   //delete vendor method
   deleteVendor(id: number){
-    this.adminService.deleteVendor(id).subscribe({
+    this.adminService.deleteSource(id).subscribe({
           next: () => {
     this.snackbar.open("Deleted successfully","Close",{duration:5000, panelClass:"snackbar-success"});
-    setTimeout(() => this.getVendors(), 200); // small delay ensures snackbar is visible
+    setTimeout(() => this.getSources(), 200); // small delay ensures snackbar is visible
   },
   error: () => {
     // this.snackbar.open("Error deleting designation!","Close",{duration:5000, panelClass:"snackbar-error"});
@@ -74,5 +75,4 @@ export class VendorListComponent {
 
     })
   }
-
 }

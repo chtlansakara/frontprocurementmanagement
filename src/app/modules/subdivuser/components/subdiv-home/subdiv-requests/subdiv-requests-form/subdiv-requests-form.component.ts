@@ -37,7 +37,6 @@ export class SubdivRequestsFormComponent {
     });
   }
 
-
   //submit method
   submitRequest(){
     // console.log(this.requestSubdivForm.value);

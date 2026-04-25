@@ -1,6 +1,6 @@
 <mat-card appearance="outlined">
 
-  <form [formGroup]="vendorForm" (ngSubmit)="submitVendor()">
+  <form [formGroup]="sourceForm" (ngSubmit)="updateSource()">
 
     <mat-card-content>
 
@@ -8,33 +8,23 @@
 
         <mat-grid-tile [colspan]="2">
           <mat-form-field appearance="outline">
-            <mat-label>Vendor Name</mat-label>
+            <mat-label>Procurement Source Name</mat-label>
             <input matInput type="text" formControlName="name" required>
             <!-- for error message -->
-            <mat-error error *ngIf="vendorForm.get('name')?.hasError('required')">Name is required!
-            </mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-
-        <mat-grid-tile [colspan]="2">
-          <mat-form-field appearance="outline">
-            <mat-label>Registered Date</mat-label>
-            <input matInput [matDatepicker]="datePicker" formControlName="registeredDate">
-            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-            <mat-datepicker #datePicker></mat-datepicker>
-            <!-- for error message -->
-            <mat-error error *ngIf="vendorForm.get('registeredDate')?.hasError('required')">Date is required!
+            <mat-error error *ngIf="sourceForm.get('name')?.hasError('required')">Name is required!
             </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
 
 
+
+
         <mat-grid-tile [colspan]="2">
           <mat-form-field appearance="outline">
-            <mat-label>Comments</mat-label>
+            <mat-label>Description</mat-label>
             <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5" formControlName="comments"> </textarea>
+              cdkAutosizeMaxRows="5" formControlName="description"> </textarea>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -42,7 +32,7 @@
           <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
             <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>
             <button type="submit" mat-flat-button class="form-button" color="primary"
-              [disabled]="vendorForm.invalid">Save</button>
+              [disabled]="sourceForm.invalid || sourceForm.pristine">Update</button>
           </div>
         </mat-grid-tile>
 

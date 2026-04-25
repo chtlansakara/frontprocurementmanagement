@@ -1,6 +1,6 @@
 <mat-card appearance="outlined">
 
-  <form [formGroup]="vendorForm" (ngSubmit)="submitVendor()">
+  <form [formGroup]="vendorForm" (ngSubmit)="updateVendor()">
 
     <mat-card-content>
 
@@ -42,7 +42,7 @@
           <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
             <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>
             <button type="submit" mat-flat-button class="form-button" color="primary"
-              [disabled]="vendorForm.invalid">Save</button>
+              [disabled]="vendorForm.invalid || vendorForm.pristine">Update</button>
           </div>
         </mat-grid-tile>
 

@@ -1,24 +1,14 @@
-<!-- Tab for settings page -->
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+<div class="card-grid">
+  <button class="settings-button" mat-fab extended routerLink="/adminuser/home/vendors/form" appearance="outlined"
+    [routerLinkActive]="'active'">
+    <mat-icon>add_2</mat-icon>
+    <span class="settings-title">Add New</span>
+  </button>
+  <button class="settings-button" mat-fab extended routerLink="/adminuser/home/vendors/list" appearance="outlined"
+    [routerLinkActive]="'active'">
+    <mat-icon>category</mat-icon>
+    <span class="settings-title">Vendors</span>
+  </button>
 
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">category</mat-icon>
-      Vendors List
-    </ng-template>
-    <!-- component  -->
-    <app-vendor-list></app-vendor-list>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">add_circle_outline</mat-icon>
-      Add New Vendor
-    </ng-template>
-    <!-- component  -->
-    <app-vendor-form></app-vendor-form>
-  </mat-tab>
-
-
-
-</mat-tab-group>
+</div>
+<router-outlet></router-outlet>

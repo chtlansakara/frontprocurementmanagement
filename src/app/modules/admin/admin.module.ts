@@ -30,6 +30,15 @@ import { VendorsComponent } from './components/admin-home/vendors/vendors.compon
 import { VendorListComponent } from './components/admin-home/vendors/vendor-list/vendor-list.component';
 import { VendorFormComponent } from './components/admin-home/vendors/vendor-form/vendor-form.component';
 import { AdminDashboardComponent } from './components/admin-home/admin-dashboard/admin-dashboard.component';
+import { SourcesComponent } from './components/admin-home/sources/sources.component';
+import { SourceFormComponent } from './components/admin-home/sources/source-form/source-form.component';
+import { SourceListComponent } from './components/admin-home/sources/source-list/source-list.component';
+import { SourceUpdateFormComponent } from './components/admin-home/sources/source-update-form/source-update-form.component';
+import { VendorUpdateFromComponent } from './components/admin-home/vendors/vendor-update-from/vendor-update-from.component';
+import { StatusComponent } from './components/admin-home/status/status.component';
+import { StatusFormComponent } from './components/admin-home/status/status-form/status-form.component';
+import { StatusListComponent } from './components/admin-home/status/status-list/status-list.component';
+import { StatusUpdateFormComponent } from './components/admin-home/status/status-update-form/status-update-form.component';
 
 
 
@@ -55,7 +64,16 @@ import { AdminDashboardComponent } from './components/admin-home/admin-dashboard
     SubdivUpdateComponent,
     VendorListComponent,
     VendorFormComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    SourcesComponent,
+    SourceFormComponent,
+    SourceListComponent,
+    SourceUpdateFormComponent,
+    VendorUpdateFromComponent,
+    StatusComponent,
+    StatusFormComponent,
+    StatusListComponent,
+    StatusUpdateFormComponent
 
   ],
   imports: [

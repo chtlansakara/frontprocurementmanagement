@@ -20,12 +20,23 @@ import { SubdivUpdateComponent } from './components/admin-home/subdivs/subdiv-up
 import { VendorsComponent } from './components/admin-home/vendors/vendors.component';
 import { UsersComponent } from './components/admin-home/users/users.component';
 import { AdminDashboardComponent } from './components/admin-home/admin-dashboard/admin-dashboard.component';
+import { VendorListComponent } from './components/admin-home/vendors/vendor-list/vendor-list.component';
+import { VendorFormComponent } from './components/admin-home/vendors/vendor-form/vendor-form.component';
+import { VendorUpdateFromComponent } from './components/admin-home/vendors/vendor-update-from/vendor-update-from.component';
+import { SourcesComponent } from './components/admin-home/sources/sources.component';
+import { SourceListComponent } from './components/admin-home/sources/source-list/source-list.component';
+import { SourceFormComponent } from './components/admin-home/sources/source-form/source-form.component';
+import { SourceUpdateFormComponent } from './components/admin-home/sources/source-update-form/source-update-form.component';
+import { StatusComponent } from './components/admin-home/status/status.component';
+import { StatusListComponent } from './components/admin-home/status/status-list/status-list.component';
+import { StatusFormComponent } from './components/admin-home/status/status-form/status-form.component';
+import { StatusUpdateFormComponent } from './components/admin-home/status/status-update-form/status-update-form.component';
 
 
 const routes: Routes = [
   {path:'', redirectTo:"home", pathMatch: "full"},
   {path: "home", component:AdminHomeComponent, children:[
-            {path:'', redirectTo:"users", pathMatch: "full"},
+            {path:'', redirectTo:"dashboard", pathMatch: "full"},
             {path: "dashboard", component: AdminDashboardComponent},
             {path: "users", component: UsersComponent ,children:[
               {path:'', redirectTo:"list", pathMatch: "full"},
@@ -51,7 +62,24 @@ const routes: Routes = [
               {path: "form", component: SubdivFormComponent},
               {path:"update/:id", component: SubdivUpdateComponent}
             ]},
-            {path: "vendors", component: VendorsComponent},
+            {path: "vendors", component: VendorsComponent, children:[
+              {path: '' , redirectTo: "list", pathMatch: "full"},
+              {path: "list", component: VendorListComponent},
+              {path: "form", component: VendorFormComponent},
+              {path: "update/:id", component: VendorUpdateFromComponent}
+            ]},
+             {path: "sources", component: SourcesComponent, children:[
+              {path: '' , redirectTo: "list", pathMatch: "full"},
+              {path: "list", component: SourceListComponent},
+              {path: "form", component: SourceFormComponent},
+              {path: "update/:id", component: SourceUpdateFormComponent}
+            ]},
+             {path: "status", component: StatusComponent, children:[
+              {path: '' , redirectTo: "list", pathMatch: "full"},
+              {path: "list", component: StatusListComponent},
+              {path: "form", component: StatusFormComponent},
+              {path: "update/:id", component: StatusUpdateFormComponent}
+            ]},
 
         ]
       },

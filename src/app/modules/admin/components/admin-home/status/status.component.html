@@ -1,0 +1,14 @@
+<div class="card-grid">
+  <button class="settings-button" mat-fab extended routerLink="/adminuser/home/status/form" appearance="outlined"
+    [routerLinkActive]="'active'">
+    <mat-icon>add_2</mat-icon>
+    <span class="settings-title">Add New</span>
+  </button>
+  <button class="settings-button" mat-fab extended routerLink="/adminuser/home/status/list" appearance="outlined"
+    [routerLinkActive]="'active'">
+    <mat-icon>timeline</mat-icon>
+    <span class="settings-title">Status List</span>
+  </button>
+
+</div>
+<router-outlet></router-outlet>

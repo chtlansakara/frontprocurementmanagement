@@ -15,18 +15,8 @@
 
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor Name </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status Name </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="registeredDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered Date</th>
-          <td mat-cell *matCellDef="let element"> {{element.registeredDate | date: 'yyyy-MM-dd'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="comments">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments</th>
-          <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
         </ng-container>
 
 
@@ -39,13 +29,13 @@
               <div class="example-button-container">
 
                 <a>
-                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/vendors/update/
+                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/status/update/
                   {{element.id}}">
                     <mat-icon matTooltip="Edit">edit</mat-icon>
                   </button>
                 </a>
                 <a>
-                  <button mat-mini-fab class="warn-button" (click)="deleteVendor(element.id)">
+                  <button mat-mini-fab class="warn-button" (click)="deleteStatus(element.id)">
                     <mat-icon matTooltip="Delete">delete</mat-icon>
                   </button>
                 </a>

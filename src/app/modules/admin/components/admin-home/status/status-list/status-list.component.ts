@@ -6,18 +6,19 @@ import { AdminService } from '../../../../services/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-vendor-list',
+  selector: 'app-status-list',
   standalone: false,
-  templateUrl: './vendor-list.component.html',
-  styleUrl: './vendor-list.component.scss'
+  templateUrl: './status-list.component.html',
+  styleUrl: './status-list.component.scss'
 })
-export class VendorListComponent {
+export class StatusListComponent {
   //returned list
-  vendorList: any[] = [];
+  statusList: any[] = [];
 
   //column names
-  displayedColumns : String[] = ['name', 'registeredDate', 'comments', 'actions'];
+  displayedColumns : String[] = ['name', 'actions'];
 
 
   //with the filter & sort - need an instance
@@ -36,14 +37,14 @@ export class VendorListComponent {
 
   ngOnInit(){
     //call when the component is initiated
-    this.getVendors();
+    this.getStatus();
   }
 
   //get from backend
-  getVendors(){
-    this.adminService.getVendors().subscribe(res=>{
+  getStatus(){
+    this.adminService.getStatus().subscribe(res=>{
       //assign to class array
-      this.vendorList = res;
+      this.statusList = res;
       this.dataSource.data= res;
     })
   }
@@ -62,11 +63,11 @@ export class VendorListComponent {
 
 
   //delete vendor method
-  deleteVendor(id: number){
-    this.adminService.deleteVendor(id).subscribe({
+  deleteStatus(id: number){
+    this.adminService.deleteStatus(id).subscribe({
           next: () => {
     this.snackbar.open("Deleted successfully","Close",{duration:5000, panelClass:"snackbar-success"});
-    setTimeout(() => this.getVendors(), 200); // small delay ensures snackbar is visible
+    setTimeout(() => this.getStatus(), 200); // small delay ensures snackbar is visible
   },
   error: () => {
     // this.snackbar.open("Error deleting designation!","Close",{duration:5000, panelClass:"snackbar-error"});
@@ -74,5 +75,4 @@ export class VendorListComponent {
 
     })
   }
-
 }

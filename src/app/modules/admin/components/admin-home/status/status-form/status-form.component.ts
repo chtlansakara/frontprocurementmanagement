@@ -5,14 +5,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-vendor-form',
+  selector: 'app-status-form',
   standalone: false,
-  templateUrl: './vendor-form.component.html',
-  styleUrl: './vendor-form.component.scss'
+  templateUrl: './status-form.component.html',
+  styleUrl: './status-form.component.scss'
 })
-export class VendorFormComponent {
-  //form-group
-  vendorForm !:FormGroup;
+export class StatusFormComponent {
+   //form-group
+  statusForm !:FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -23,22 +23,18 @@ export class VendorFormComponent {
 
 
   ngOnInit(){
-    this.vendorForm = this.fb.group({
-      name: [null, [Validators.required]],
-      registeredDate: [null, [Validators.required]],
-      comments: [null]
+    this.statusForm = this.fb.group({
+      name: [null, [Validators.required]]
     });
   }
 
-  submitVendor(){
-    this.adminService.createVendor(this.vendorForm.value)
+  submitStatus(){
+    this.adminService.createStatus(this.statusForm.value)
       .subscribe(res =>{
         if(res.id != null){
           this.snackbar.open("Created successfully.", "Close", {duration: 5000, panelClass:"snackbar-success"});
-          this.router.navigateByUrl("/adminuser/home/vendors/list");
+          this.router.navigateByUrl("/adminuser/home/status/list");
         }
       })
   }
-
-
 }

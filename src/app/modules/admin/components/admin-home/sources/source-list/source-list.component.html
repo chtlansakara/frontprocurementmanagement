@@ -19,14 +19,10 @@
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="registeredDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered Date</th>
-          <td mat-cell *matCellDef="let element"> {{element.registeredDate | date: 'yyyy-MM-dd'}} </td>
-        </ng-container>
 
-        <ng-container matColumnDef="comments">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments</th>
-          <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
 
@@ -39,7 +35,7 @@
               <div class="example-button-container">
 
                 <a>
-                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/vendors/update/
+                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/sources/update/
                   {{element.id}}">
                     <mat-icon matTooltip="Edit">edit</mat-icon>
                   </button>
