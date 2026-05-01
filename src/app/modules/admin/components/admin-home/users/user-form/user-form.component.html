@@ -139,6 +139,24 @@
         </mat-grid-tile>
 
 
+        <!-- <mat-grid-tile [colspan]="2">
+          <mat-form-field appearance="outline">
+            <mat-label>Recommendation Letter (Optional)</mat-label>
+            <ngx-mat-file-input formControlName="recommendationFile" accept=".pdf, .png,.jpg,.jpeg, .doc, .docx">
+            </ngx-mat-file-input>
+            <mat-icon matSuffix>attach_file</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile> -->
+
+        <mat-grid-tile [colspan]="2">
+          <div style="width:100%;  display: flex; justify-content: start">
+            <mat-icon matPrefix>attach_file</mat-icon>
+            <mat-label style="margin-right: 16px;">Recommendation Letter (Optional)</mat-label>
+            <input type="file" accept=".pdf" (change)="onFileChange($event)">
+          </div>
+        </mat-grid-tile>
+
+
         <mat-grid-tile [colspan]="4">
           <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
             <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>

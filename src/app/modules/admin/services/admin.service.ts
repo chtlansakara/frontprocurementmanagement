@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -30,13 +30,15 @@ export class AdminService {
   }
 
   //post user
-  createUser(userDto:any):Observable<any>{
-    return this.http.post(environment.API_URL+ URL_ADMIN+"users", userDto);
+   createUser(formData: FormData):Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN+"users", formData);
   }
+  // createUser(userDto:any):Observable<any>{
+  //   return this.http.post(environment.API_URL+ URL_ADMIN+"users", userDto);
+  // }
 
-  //update user
-  updateUser(id: number, userDto:any):Observable<any>{
-    return this.http.put(environment.API_URL+ URL_ADMIN +"users/"+id, userDto);
+  updateUser( id: number, formData:any):Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN +"users/"+id, formData);
   }
 
   //delete user

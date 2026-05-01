@@ -146,6 +146,36 @@
         </mat-grid-tile>
 
 
+        <mat-grid-tile [colspan]="2">
+          <div style="width:100%;  display: flex; flex-direction: column;gap: 8px;">
+            <!-- existing file indicator -->
+            <div *ngIf="hasExistingFile" style="display:flex; align-items:center; gap:8px; color: gray;">
+              <mat-icon>description</mat-icon>
+              <a [href]="downloadExistingFile" [download]="existingFileName" mat-stroked-button>
+                <mat-icon>download</mat-icon>
+                {{ existingFileName }}
+              </a>
+              <button matFab aria-label="delete file" (click)="removeFile()" type="button">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            <!-- new file selected indicator -->
+            <div *ngIf="selectedFile" style="display:flex; align-items:center; gap:8px; color: gray;">
+              <mat-icon>description</mat-icon>
+              <span>{{ selectedFile.name }} &nbsp; (new)</span>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:8px;">
+              <mat-icon>attach_file</mat-icon>
+              <mat-label>{{ hasExistingFile ? 'Replace Recommendation' : 'Recommendation Letter (Optional)'
+                }}</mat-label>
+              <input type="file" accept=".pdf" (change)="onFileChange($event)">
+            </div>
+          </div>
+        </mat-grid-tile>
+
+
         <mat-grid-tile [colspan]="4">
           <div style="text-align: left;  width: 100%; display: flex; justify-content: start">
             <button type="reset" class="form-button" mat-stroked-button style="margin-right: 16px;">Reset</button>

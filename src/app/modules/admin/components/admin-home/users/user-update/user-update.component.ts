@@ -11,6 +11,15 @@ import { AdminService } from '../../../../services/admin.service';
   styleUrl: './user-update.component.scss'
 })
 export class UserUpdateComponent {
+  //to hold the selected File
+  selectedFile : File |null = null;
+
+  //for existing attachments
+  existingFileName: string = '';
+  hasExistingFile : boolean = false;
+  downloadExistingFile : string | null = null;
+  existingFileType: string = 'application/pdf';
+
   //to hold id
   id: number;
 
@@ -52,15 +61,28 @@ export class UserUpdateComponent {
   getUserById(){
     this.adminService.getUserById(this.id).subscribe({
         next: (res) => {
-          console.log(res);
+          // console.log(res);
           //assign to form
           this.userUpdateForm.patchValue(res);
+
+
+          //show if recommendatin exists
+          if(res.recommendation){
+            this.hasExistingFile = true;
+            this.existingFileName = `${res.name}_recommendation`;
+
+            //setting as downloadable
+            const byteArray = Uint8Array.from(atob(res.recommendation), c => c.charCodeAt(0));
+            const blob = new Blob([byteArray], {type: this.existingFileType});
+            this.downloadExistingFile = URL.createObjectURL(blob);
+          }
         },
         error: (err) =>{
           console.log(err);
         }
       });
   }
+
 
 
   //assigning values from form
@@ -140,8 +162,33 @@ export class UserUpdateComponent {
 
 
     //submit form event
+  // updateUser(){
+  //   this.adminService.updateUser(this.id, this.userUpdateForm.value)
+  //     .subscribe({
+
+  //       next: (res)=>{
+  //         if(res.id!=null){
+  //           //show success message
+  //           this.snackbar.open("Updated successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+  //           //navigate by router
+  //           this.router.navigateByUrl("/adminuser/home/users/list");
+  //           }
+  //       },
+
+  //       error: (err)=>{
+  //         //show error message
+  //         // this.snackbar.open("Existing email!","Close",{duration:5000, panelClass:"snackbar-error"});
+  //       }
+
+  //     });
+  // }
+
+
+        //submit form event with file
   updateUser(){
-    this.adminService.updateUser(this.id, this.userUpdateForm.value)
+    const formData : FormData = this.buildFormData();
+
+    this.adminService.updateUser(this.id, formData)
       .subscribe({
 
         next: (res)=>{
@@ -161,6 +208,74 @@ export class UserUpdateComponent {
       });
   }
 
+  buildFormData(): FormData{
+    const formData = new FormData();
+    const val = this.userUpdateForm.value;
+
+
+    formData.append('name', val.name);
+    formData.append('email', val.email);
+    formData.append('nic', val.nic);
+    formData.append('employeeId', val.employeeId);
+    formData.append('subdivId', val.subdivId);
+    formData.append('admindivId', val.admindivId);
+    formData.append('designationId', val.designationId);
+    formData.append('userRole', val.userRole);
+
+    if (val.password) {
+      formData.append('password', val.password);
+    }
+    if(val.birthdate){
+      formData.append('birthdate', val.birthdate);
+    }
+    if(val.telephone){
+      formData.append('telephone', val.telephone);
+    }
+   //need to have value for this
+    if(this.selectedFile){
+      formData.append('recommendationFile', this.selectedFile);
+    }else {
+      formData.append('recommendationFile', new Blob([], { type: 'application/pdf' }), '');
+    }
+    return formData;
+  }
+
+   removeFile(){
+    this.selectedFile = null;
+    this.hasExistingFile = false;
+    this.userUpdateForm.markAsDirty();
+  }
+
+
+  //handling file changes - replacing the existing
+  onFileChange(event: any){
+    const file = event.target.files[0];
+    if(file){
+        if (file.type !== 'application/pdf') {
+          this.snackbar.open("Only PDF files are allowed!", "Close", {
+            duration: 3000,
+            panelClass: "snackbar-error"
+          });
+          event.target.value = ''; // reset the input
+          this.selectedFile = null;
+          return;
+        }
+            // size validation - 5MB
+        if (file.size > 5 * 1024 * 1024) {
+          this.snackbar.open("File size must be less than 5MB!", "Close", {
+            duration: 3000,
+            panelClass: "snackbar-error"
+          });
+          event.target.value = '';
+          this.selectedFile = null;
+          return;
+        }
+      this.selectedFile = file;
+      this.hasExistingFile = false;
+      this.userUpdateForm.markAsDirty();
+    }
+  }
+
 
   formatDateOnly(date: any): string | null {
   if (!date) return null;
@@ -172,4 +287,11 @@ export class UserUpdateComponent {
 
   return `${year}-${month}-${day}`;
 }
+
+
+//to avoid memory leaks with ObjectURLs
+ngOnDestroy() {
+  if (this.downloadExistingFile) {
+    URL.revokeObjectURL(this.downloadExistingFile);
+  }}
 }

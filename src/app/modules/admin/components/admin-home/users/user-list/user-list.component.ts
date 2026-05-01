@@ -16,11 +16,13 @@ import { AdminService } from '../../../../services/admin.service';
 export class UserListComponent implements AfterViewInit{
   //to save returned list
   usersList: any[] = [];
+  //map to store pre-converted links
+  downloadLinks: Map<number, string> = new Map();
 
   // column names in an array
   displayedColumns: string[] = ['name','email', 'userRole',
     'employeeId','birthdate',
-    'subdivName', 'subdivCode','admindivName','nic','designationCode','actions'];
+    'subdivName', 'subdivCode','admindivName','nic','designationCode','recommendation', 'actions'];
 
   //without the filter or sort - table data from an external array
   //dataSource = usersList;
@@ -52,9 +54,22 @@ export class UserListComponent implements AfterViewInit{
       this.usersList = res;
       //set table data source
       this.dataSource.data = res;
-    })
+
+      //converting recommendation to links
+      res.forEach((user: any) => {
+        if(user.recommendation){
+          const byteArray = Uint8Array.from(atob(user.recommendation), c => c.charCodeAt(0));
+          const blob = new Blob([byteArray], {type: 'application/pdf'});
+         this.downloadLinks.set(user.id, URL.createObjectURL(blob));
+        }
+      });
+    });
   }
 
+  //to clean up memory leaks
+  ngOnDestroy(){
+  this.downloadLinks.forEach(url => URL.revokeObjectURL(url));
+  }
   //life cycle hook for sort and pagination
   ngAfterViewInit(): void {
       this.dataSource.sort = this.sort;
@@ -78,6 +93,13 @@ export class UserListComponent implements AfterViewInit{
         // this.snackbar.open("Error deleting user!","Close",{duration:5000, panelClass:"snackbar-error"});
       }
     });
+  }
+
+
+  convertToLink(file: any): any{
+      const byteArray = Uint8Array.from(atob(file), c => c.charCodeAt(0));
+            const blob = new Blob([byteArray], {type: 'application/pdf'});
+            return URL.createObjectURL(blob);
   }
 
 }
