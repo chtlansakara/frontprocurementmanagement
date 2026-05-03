@@ -143,6 +143,7 @@
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="2">
+
           <div style="width:100%;  display: flex; flex-direction: column;gap: 8px;">
             <!-- existing file indicator -->
             <div *ngIf="hasExistingFile" style="display:flex; align-items:center; gap:8px; color: gray;">
@@ -151,7 +152,7 @@
                 <mat-icon>download</mat-icon>
                 {{ existingFileName }}
               </a>
-              <button mat-mini-fab aria-label="delete file" (click)="removeFile()" class="attachment-warn-button"
+              <button mat-mini-fab aria-label="delete file" (click)="openDeleteDialog()" class="attachment-warn-button"
                 type="button" matTooltip="Delete File">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -163,12 +164,23 @@
               <span>{{ file.name }} &nbsp; (new)</span>
             </div>
 
-            <div style="display:flex; align-items:center; gap:8px;">
-              <mat-icon>attach_file</mat-icon>
-              <mat-label>{{ hasExistingFile ? 'Replace Document' : 'Approval Document (Optional)'
-                }}</mat-label>
+
+            <div style="display: flex; align-items: center; gap: 6px;" class="full-width">
+              <mat-icon style="font-size: 20px; height: 20px; width: 20px; line-height: 20px;">
+                attach_file
+              </mat-icon>
+              <mat-label style="font-size: 15px;">
+                {{ hasExistingFile ? 'Upload PDF File' : 'Approval Document (Optional)'
+                }} <small>(PDF: Less than 5MB)</small>
+              </mat-label>
               <input type="file" accept=".pdf" (change)="onFileChange($event)">
             </div>
+            <!-- <div style="display:flex; align-items:center; gap:8px;">
+              <mat-icon>attach_file</mat-icon>
+              <mat-label>{{ hasExistingFile ? 'Upload PDF File' : 'Approval Document (Optional)'
+                }}</mat-label>
+              <input type="file" accept=".pdf" (change)="onFileChange($event)">
+            </div> -->
           </div>
         </mat-grid-tile>
 

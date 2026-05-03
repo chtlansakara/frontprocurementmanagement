@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuppliesService } from '../../../../services/supplies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-supplies-requests-update',
@@ -11,6 +13,22 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './supplies-requests-update.component.scss'
 })
 export class SuppliesRequestsUpdateComponent {
+  readonly dialog = inject(MatDialog);
+
+  openDeleteDialog():void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'document'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.removeFile();
+      }
+    });
+  }
+
   //to hold id
   id: number;
 
@@ -178,6 +196,8 @@ export class SuppliesRequestsUpdateComponent {
       this.file = file;
       //backend call to add attachment change
       this.uploadFile();
+
+
     }
   }
 
@@ -197,5 +217,8 @@ export class SuppliesRequestsUpdateComponent {
             // this.router.navigateByUrl("/suppliesuser/home/requests/list");
         }
       });
+
+      this.getRequestAttachment();
+      this.hasExistingFile = true;
   }
 }

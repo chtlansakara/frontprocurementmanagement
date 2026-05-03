@@ -1,15 +1,18 @@
-// /* Main container centers everything */
+/* Main container centers everything */
 .card-container
 {
   display: flex;
   justify-content: center;
   margin-top: 24px;
   padding: 0 8px;
+
   // align-items: flex-start;
 
 }
 
-@media (max-width: 1100px)
+
+
+@media (max-width: 1300px)
 {
   .request-details
   {
@@ -20,9 +23,14 @@
   .request-list
   {
     flex-direction: column;
+
+  }
+
+  .request-card
+  {
+    margin-bottom: 8px;
   }
 }
-
 
 /* wrapper */
 .request-list
@@ -40,6 +48,7 @@
 {
   width: 100%;
   max-width: 600px;
+  min-width: 400px;
   /* prevents card from being too wide */
   padding: 16px;
   box-sizing: border-box;
@@ -47,11 +56,13 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   background-color: rgba(20, 120, 67, 0.089);
   margin-bottom: 24px;
+
 }
 
 .request-details
 {
   min-width: 300px;
+
 
 }
 
@@ -76,6 +87,8 @@
 
 }
 
+
+
 .request-description
 {
   margin-bottom: 16px;
@@ -98,6 +111,7 @@
   // justify-content: start;
   margin-bottom: 8px;
 }
+
 
 .info-label
 {
@@ -128,7 +142,6 @@
 .approved-title
 {
   padding-right: 4px;
-  font-variant: small-caps;
   color: rgb(20, 120, 67);
 }
 
@@ -143,14 +156,12 @@
 {
   padding-right: 4px;
   color: rgb(95, 3, 3);
-  font-family: Tahoma;
+  // font-family: Tahoma;
 }
 
 .created-details
 {
   font-size: 14px;
-  // background-color: gray;
-
 }
 
 
@@ -190,6 +201,8 @@
 .reject-title
 {
   color: black;
+  font-size: 20px;
+  margin-bottom: 16px;
 }
 
 .reject-content
@@ -211,11 +224,9 @@
 
 
 
+//update delete buttons
 
-
-// //update delete buttons
-
-// // buttons styles in the table
+// buttons styles in the table
 .warn-button
 {
   // background-color: rgb(236, 37, 37);

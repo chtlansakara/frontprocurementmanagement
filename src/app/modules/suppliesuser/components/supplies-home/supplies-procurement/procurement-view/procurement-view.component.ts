@@ -201,13 +201,13 @@ export class ProcurementViewComponent {
           //show success message
           this.snackbar.open("Document deleted successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router
-            // this.router.navigateByUrl("/suppliesuser/home/requests/list");
+           this.router.navigateByUrl("/suppliesuser/home/", {skipLocationChange: true}).then(() =>{
+             this.router.navigateByUrl("/suppliesuser/home/procurement/view/"+this.id);
+           });
       });
     }
 
-    addDocument(){
 
-    }
 
 
 

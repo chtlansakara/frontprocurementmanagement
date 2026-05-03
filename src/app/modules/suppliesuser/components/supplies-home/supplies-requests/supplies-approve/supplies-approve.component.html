@@ -3,8 +3,8 @@
   <mat-card-header>
 
     <mat-card-title class="approval-form-title">
-      <!-- <mat-icon class="approved-icon">done_outline</mat-icon> -->
-      Create Approval
+      <mat-icon class="approved-icon">approval</mat-icon>
+      Approval Form
     </mat-card-title>
     <!-- <mat-card-subtitle style="padding-bottom: 8px;">Create Approval for the Request</mat-card-subtitle> -->
   </mat-card-header>
@@ -63,11 +63,21 @@
       </mat-form-field>
 
 
+      <div style="display: flex; align-items: center; gap: 6px;" class="full-width">
+        <mat-icon style="font-size: 20px; height: 20px; width: 20px; line-height: 20px;">
+          attach_file
+        </mat-icon>
+        <mat-label style="font-size: 15px;">
+          Document <small>(PDF: Less than 5MB)</small>
+        </mat-label>
+        <input type="file" accept=".pdf" (change)="onFileChange($event)">
+      </div>
+
 
       <!-- Comment -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Approval Comment</mat-label>
-        <textarea matInput rows="4" formControlName="comment"></textarea>
+        <textarea matInput rows="2" formControlName="comment"></textarea>
       </mat-form-field>
 
       <!-- Buttons -->

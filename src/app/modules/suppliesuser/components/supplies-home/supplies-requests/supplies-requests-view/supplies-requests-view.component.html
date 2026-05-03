@@ -183,14 +183,14 @@
 
 
     <!-- comments (if any) -->
-    <div *ngIf="comments">
+    <div *ngIf="comments && comments.length>0">
       <mat-card class="request-card reject-card" *ngFor="let comment of comments">
         <div class="request-details">
 
           <h2 class="request-name reject-title">
 
             <mat-icon class="reject-icon">cancel_presentation</mat-icon>
-            <span class="rejected-title">Declined by:</span>
+            <span class="rejected-title">Rejected by:</span>
             {{(comment.type ==
             'ADMIN_DIV')?
             currentRequest.admindivCreatedBy :
@@ -240,13 +240,13 @@
     </div>
 
     <!-- approvals (if any) -->
-    <div *ngIf="approvals">
+    <div *ngIf="approvals && approvals.length>0">
       <mat-card class="request-card approval-card" *ngFor="let approval of approvals">
         <div class="request-details">
 
           <h2 class="request-name reject-title">
 
-            <!-- <mat-icon class="approved-icon">done_outline</mat-icon> -->
+            <mat-icon class="approved-icon">approval</mat-icon>
             <span class="approved-title">Approved by:</span>
 
             {{(approval.type=='ADMIN_DIV')? approval.admindivCreatedBy :'Supplies Division'}}
@@ -331,11 +331,9 @@
 
 
 
-
-
-
-
     <router-outlet></router-outlet>
+
+
 
   </div>
 

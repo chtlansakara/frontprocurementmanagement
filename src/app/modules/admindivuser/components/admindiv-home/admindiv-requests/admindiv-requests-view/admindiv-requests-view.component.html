@@ -69,6 +69,19 @@
           </div>
         </div>
 
+        @if (requestAttachment!== null) {
+        <div class="info-row">
+          <span class="info-label">Approval Document:</span>
+          <span class="info-value">
+            <button (click)="downloadAttachment(requestAttachment.id, requestAttachment.originalName)" mat-raised-button
+              matTooltip="Download Document">
+              <mat-icon>download</mat-icon>
+              {{ requestAttachment.originalName}}
+            </button>
+          </span>
+        </div>
+
+        }
 
         <mat-divider></mat-divider>
 
@@ -133,7 +146,7 @@
           </a>
           <a>
             <!-- trigger the click event method in class -->
-            <button mat-fab class="warn-button" (click)="deleteRequest(currentRequest.id)">
+            <button mat-fab class="warn-button" (click)="openDeleteDialog(currentRequest.id)">
               <mat-icon matTooltip="Delete">delete</mat-icon>
             </button>
           </a>
@@ -172,7 +185,7 @@
           <h2 class="request-name reject-title">
 
             <mat-icon class="reject-icon">cancel_presentation</mat-icon>
-            <span class="rejected-title">Declined by:</span>
+            <span class="rejected-title">Rejected by:</span>
             {{(comment.type ==
             'ADMIN_DIV')?
             currentRequest.admindivCreatedBy :
@@ -262,6 +275,20 @@
             <span class="info-label">Approved Date: </span>
             <span class="info-value">{{approval.approvedDate | date : 'medium'}}</span>
           </div>
+
+          @if (approvalMap.get(approval.id)) {
+          <div class="info-row">
+            <span class="info-label">Document:</span>
+            <span class="info-value">
+              <button
+                (click)="downloadAttachment(approvalMap.get(approval.id).id, approvalMap.get(approval.id).originalName)"
+                mat-raised-button>
+                <mat-icon>download</mat-icon>
+                {{approvalMap.get(approval.id).originalName}}
+              </button>
+            </span>
+          </div>
+          }
 
 
           <mat-divider></mat-divider>

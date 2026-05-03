@@ -160,9 +160,12 @@ deleteRequestById(id: number):Observable<any>{
 }
 
 // to create approval & reject comments for a request
-approveRequestCreateApproval(id: number, approvalDto: ApprovalDto):Observable<any>{
+approveRequestCreateApproval(id: number, approvalDto: FormData):Observable<any>{
   return this.http.post(environment.API_URL +  environment.URL_SUPPLIESUSER+ "requests/approve/"+id, approvalDto);
 }
+// approveRequestCreateApproval(id: number, approvalDto: ApprovalDto):Observable<any>{
+//   return this.http.post(environment.API_URL +  environment.URL_SUPPLIESUSER+ "requests/approve/"+id, approvalDto);
+// }
 
 rejectRequestCreateComment(id:number, commentDto: CommentDto):Observable<any>{
     return this.http.post(environment.API_URL +  environment.URL_SUPPLIESUSER + "requests/reject/"+id, commentDto);

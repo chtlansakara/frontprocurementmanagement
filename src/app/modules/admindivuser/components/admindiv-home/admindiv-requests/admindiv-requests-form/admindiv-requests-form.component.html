@@ -121,6 +121,16 @@
           </mat-form-field>
         </mat-grid-tile>
 
+        <mat-grid-tile [colspan]="2">
+          <div style="width:100%;  display: flex; justify-content: start">
+            <mat-icon matPrefix>attach_file</mat-icon>
+            <mat-label style="margin-right: 16px;  font-size: 15px;">PDF Document (Optional)
+              <small>Less than 5MB</small>
+            </mat-label>
+            <input type="file" accept=".pdf" (change)="onFileChange($event)">
+          </div>
+        </mat-grid-tile>
+
 
 
         <mat-grid-tile [colspan]="3">

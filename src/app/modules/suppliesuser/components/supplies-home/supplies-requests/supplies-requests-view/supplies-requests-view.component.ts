@@ -35,8 +35,7 @@ export class SuppliesRequestsViewComponent {
 
   //to hold id
   id: number;
-  //to hold -approval id - approval map
-  approvalMap = new Map<number, any>();
+
 
    //fast look up for subdiv info
   subDivMap = new Map<number, any>();
@@ -52,6 +51,9 @@ export class SuppliesRequestsViewComponent {
 
   //to hold request attachment
   requestAttachment: any = null;
+
+    //to hold -approval id - approval map
+  approvalMap = new Map<number, any>();
 
   //initialize id from activated route
   constructor(
@@ -138,6 +140,7 @@ getApprovalsByRequestId(){
   this.suppliesService.getApprovalsByRequestId(this.id).subscribe(res => {
     //save to class array
     this.approvals = res;
+    //get attachments
     this.getApprovalAttachments();
   });
 }

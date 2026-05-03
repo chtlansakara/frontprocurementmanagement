@@ -1,3 +1,13 @@
+// Add this — targets content rendered inside router-outlet
+.outlet-container
+{
+  display: block;
+  padding: 0 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+
+}
+
 .view-container
 {
   // background-color: rgb(236, 235, 235);

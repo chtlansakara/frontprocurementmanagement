@@ -61,12 +61,6 @@ export class AdmindivService {
 
   // requests related
 
- downloadPrintRequest(requestId: number): Observable<Blob>{
-    return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "print-request/"+requestId, {
-      responseType: 'blob'
-    });
-  }
-
 getRequestsToApprove(): Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER+ "requests/review");
 }
@@ -85,9 +79,12 @@ getSubdivList():Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "subdivs");
 }
 
-createRequest(requestDto: RequestDto):Observable<any>{
+createRequest(requestDto: FormData):Observable<any>{
   return this.http.post(environment.API_URL + environment.URL_ADMINDIVUSER + "requests", requestDto);
 }
+// createRequest(requestDto: RequestDto):Observable<any>{
+//   return this.http.post(environment.API_URL + environment.URL_ADMINDIVUSER + "requests", requestDto);
+// }
 
 getRequestById(id: number): Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER+ "requests/"+id);
@@ -105,9 +102,12 @@ getApprovalsByRequestId(id:number):Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER+"requests/approvals/"+id);
 }
 
-approveRequestCreateApproval(id: number, approvalDto: ApprovalDto):Observable<any>{
-  return this.http.post(environment.API_URL + environment.URL_ADMINDIVUSER + "requests/approve/"+id, approvalDto);
+approveRequestCreateApproval(id: number, approvalDto: FormData):Observable<any>{
+  return this.http.post(environment.API_URL +  environment.URL_ADMINDIVUSER+ "requests/approve/"+id, approvalDto);
 }
+// approveRequestCreateApproval(id: number, approvalDto: ApprovalDto):Observable<any>{
+//   return this.http.post(environment.API_URL + environment.URL_ADMINDIVUSER + "requests/approve/"+id, approvalDto);
+// }
 
 rejectRequestCreateComment(id:number, commentDto: CommentDto):Observable<any>{
     return this.http.post(environment.API_URL + environment.URL_ADMINDIVUSER + "requests/reject/"+id, commentDto);
@@ -116,5 +116,40 @@ rejectRequestCreateComment(id:number, commentDto: CommentDto):Observable<any>{
 
 updateRequest(id:number, requestDto: RequestDto):Observable<any>{
   return this.http.put(environment.API_URL + environment.URL_ADMINDIVUSER + "requests/"+id, requestDto);
+}
+
+//print request
+ downloadPrintRequest(requestId: number): Observable<Blob>{
+    return this.http.get(environment.API_URL + environment.URL_ADMINDIVUSER + "print-request/"+requestId, {
+      responseType: 'blob'
+    });
+  }
+
+//get request attachment
+getRequestAttachment(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_ADMINDIVUSER+"request-attachment/"+id);
+}
+
+
+//get approval attachment
+getApprovalAttachment(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_ADMINDIVUSER+"approval-attachment/"+id);
+}
+
+//download request or approval attachment
+downloadAttachment(fileId:number):Observable<Blob>{
+  return this.http.get(environment.API_URL+ environment.URL_ADMINDIVUSER+"procurement-download/"+ fileId ,{
+    responseType: 'blob'
+  });
+}
+
+//upload attachment
+uploadRequestAttachment(id:number, file: FormData):Observable<any>{
+  return this.http.post(environment.API_URL + environment.URL_ADMINDIVUSER + "request-upload/" + id, file);
+}
+
+//delete attachment
+deleteRequestAttachment(fileId: number):Observable<any>{
+  return this.http.delete(environment.API_URL + environment.URL_ADMINDIVUSER + "request-attachment/"+ fileId );
 }
 }

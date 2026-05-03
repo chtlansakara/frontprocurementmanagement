@@ -61,17 +61,13 @@ export class SubdivService {
 
   // requests related------------------------------------------------------------
 
-   downloadPrintRequest(requestId: number): Observable<Blob>{
-    return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "print-request/"+requestId, {
-      responseType: 'blob'
-    });
-  }
+
 
   getRequestsOfSubdiv(): Observable<any>{
     return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"requests");
   }
 
-  createRequestForSubdiv(requestdto : RequestDto):Observable<any>{
+  createRequestForSubdiv(requestdto : FormData):Observable<any>{
     return this.http.post(environment.API_URL+ environment.URL_SUBDIVUSER + "requests", requestdto);
   }
 
@@ -103,4 +99,40 @@ export class SubdivService {
   updateRequest(id:number, requestdto: RequestDto):Observable<any>{
     return this.http.put(environment.API_URL + environment.URL_SUBDIVUSER+"requests/"+id, requestdto);
   }
+
+  //print request
+  downloadPrintRequest(requestId: number): Observable<Blob>{
+  return this.http.get(environment.API_URL + environment.URL_SUBDIVUSER + "print-request/"+requestId, {
+    responseType: 'blob'
+    });
+  }
+
+  //get request attachment
+getRequestAttachment(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"request-attachment/"+id);
+}
+
+
+//get approval attachment
+getApprovalAttachment(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"approval-attachment/"+id);
+}
+
+//download request or approval attachment
+downloadAttachment(fileId:number):Observable<Blob>{
+  return this.http.get(environment.API_URL+ environment.URL_SUBDIVUSER+"procurement-download/"+ fileId ,{
+    responseType: 'blob'
+  });
+}
+
+//upload attachment
+uploadRequestAttachment(id:number, file: FormData):Observable<any>{
+  return this.http.post(environment.API_URL + environment.URL_SUBDIVUSER + "request-upload/" + id, file);
+}
+
+//delete attachment
+deleteRequestAttachment(fileId: number):Observable<any>{
+  return this.http.delete(environment.API_URL + environment.URL_SUBDIVUSER + "request-attachment/"+ fileId );
+}
+
 }

@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubdivService } from '../../../../services/subdiv.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UtilService } from '../../../../../../utils/util.service';
 import { ReportServiceService } from '../../../../../suppliesuser/services/report-service.service';
 import { SpinnerService } from '../../../../../../common/services/spinner.service';
+import { ApprovalDto } from '../../../../../../interfaces/ApprovalDto';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-subdiv-requests-view',
@@ -13,6 +16,22 @@ import { SpinnerService } from '../../../../../../common/services/spinner.servic
   styleUrl: './subdiv-requests-view.component.scss'
 })
 export class SubdivRequestsViewComponent {
+  readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(requestId: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'request'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteRequest(requestId);
+      }
+    });
+  }
+
   //to hold id
   id: number;
 
@@ -25,6 +44,11 @@ export class SubdivRequestsViewComponent {
   comments: any = [];
   approvals: any = [];
 
+  //to hold request attachment
+  requestAttachment: any = null;
+
+  //to hold -approval id - approval map
+  approvalMap = new Map<number, any>();
 
   //initialize id from activated route
   constructor(
@@ -43,6 +67,8 @@ export class SubdivRequestsViewComponent {
     this.getRequestById();
     this.getRejectCommentsByRequestId();
     this.getApprovalsByRequestId();
+     //load attachment
+    this.getRequestAttachment();
   }
 
   //get request details from backend -& load to class variables
@@ -54,6 +80,16 @@ export class SubdivRequestsViewComponent {
       // console.log(this.currentRequest);
     })
   }
+
+  //get request attachment
+getRequestAttachment(){
+  this.subdivService.getRequestAttachment(this.id).subscribe(res =>{
+    //save to the class variable
+    if(res != null){
+    this.requestAttachment = res;
+    }
+  });
+}
 
   getSubdiv(){
     this.subdivService.getSubdiv().subscribe(res =>{
@@ -72,8 +108,20 @@ export class SubdivRequestsViewComponent {
   getApprovalsByRequestId(){
     this.subdivService.getApprovalsByRequestId(this.id).subscribe(res =>{
       this.approvals = res;
-      // console.log(this.approvals);
+       //get attachments
+    this.getApprovalAttachments();
     });
+  }
+
+  //get approval attachment
+  getApprovalAttachments(){
+    this.approvals.forEach((approval : ApprovalDto) => {
+      this.subdivService.getApprovalAttachment(approval.id).subscribe(res =>{
+      //save to the class variable
+      this.approvalMap.set(approval.id, res);
+    });
+    });
+
   }
 
   //delete request method
@@ -86,7 +134,7 @@ export class SubdivRequestsViewComponent {
     })
   }
 
-    mapUserRole(userrole: string): string{
+  mapUserRole(userrole: string): string{
     if(userrole == "SUBDIVUSER") return this.currentRequest.subdivCreatedBy;
     if(userrole == "ADMINDIVUSER") return this.currentRequest.admindivCreatedBy;
     else return "Supplies Division";
@@ -94,8 +142,7 @@ export class SubdivRequestsViewComponent {
 
 
 
-    private triggerDownload(blob: Blob):void{
-
+  private triggerDownload(blob: Blob):void{
     const filename = `request${this.id}.pdf`;
 
     const url = window.URL.createObjectURL(blob);
@@ -110,7 +157,6 @@ export class SubdivRequestsViewComponent {
 
 
   printRequest(){
-
     this.subdivService.downloadPrintRequest(this.id).subscribe((blob: Blob) =>{
       this.triggerDownload(blob);
       this.snackbar.open("Report downloded successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
@@ -118,7 +164,25 @@ export class SubdivRequestsViewComponent {
   }
 
 
+    downloadAttachment(fileId:number, fileName: string){
+      this.subdivService.downloadAttachment(fileId).subscribe((blob: Blob)=>{
+        this.triggerDownloadAttachment(blob, fileName);
+      });
+    }
 
+    private triggerDownloadAttachment(blob: Blob, fileName: string):void{
+      const extension = 'pdf';
+      const filename = fileName;
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href= url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
 
 
 
