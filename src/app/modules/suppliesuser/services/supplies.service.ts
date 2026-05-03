@@ -28,6 +28,18 @@ getProcurementById(id:number):Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement/"+id);
 }
 
+//get procurement attachment
+getProcurementAttachments(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_SUPPLIESUSER+"procurement-attachments/"+id);
+}
+
+//download attachment
+downloadAttachment(fileId:number):Observable<Blob>{
+  return this.http.get(environment.API_URL+ environment.URL_SUPPLIESUSER+"procurement-download/"+ fileId ,{
+    responseType: 'blob'
+  });
+}
+
 createProcurement(procurementCreateDto: ProcurementCreateDto):Observable<any>{
   return this.http.post(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement", procurementCreateDto);
 }
@@ -36,7 +48,15 @@ updateProcurement(id:number, procurementCreateDto: ProcurementCreateDto):Observa
    return this.http.put(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement/"+id, procurementCreateDto);
 }
 
+//upload attachment
+uploadProcurementAttachment(id:number, file: FormData):Observable<any>{
+  return this.http.post(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-upload/" + id, file);
+}
 
+//delete attachment
+deleteProcurementAttachment(fileId: number):Observable<any>{
+  return this.http.delete(environment.API_URL + environment.URL_SUPPLIESUSER + "procurement-attachment/"+ fileId );
+}
 
 deleteProcurement(id:number):Observable<any>{
    return this.http.delete(environment.API_URL +  environment.URL_SUPPLIESUSER + "procurement/"+id);
@@ -116,6 +136,16 @@ getGroupedSubdivList():Observable<any>{
     return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER + "requests/"+id);
   }
 
+  //get request attachment
+getRequestAttachment(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_SUPPLIESUSER+"request-attachment/"+id);
+}
+
+  //get approval attachment
+getApprovalAttachment(id:number):Observable<any>{
+  return this.http.get(environment.API_URL+ environment.URL_SUPPLIESUSER+"approval-attachment/"+id);
+}
+
  getCommentsByRequestId(id:number):Observable<any>{
   return this.http.get(environment.API_URL + environment.URL_SUPPLIESUSER+"requests/comments/"+id);
 }
@@ -143,12 +173,26 @@ getSubdivList():Observable<any>{
   return this.http.get(environment.API_URL +environment.URL_SUPPLIESUSER + "subdivs");
 }
 
-createRequest(requestDto: RequestDto):Observable<any>{
+createRequest(requestDto: FormData):Observable<any>{
   return this.http.post(environment.API_URL + environment.URL_SUPPLIESUSER + "requests", requestDto);
 }
+// createRequest(requestDto: RequestDto):Observable<any>{
+//   return this.http.post(environment.API_URL + environment.URL_SUPPLIESUSER + "requests", requestDto);
+// }
+
 
 updateRequest(id: number, requestDto: RequestDto):Observable<any>{
    return this.http.put(environment.API_URL + environment.URL_SUPPLIESUSER + "requests/"+id, requestDto);
+}
+
+//upload attachment
+uploadRequestAttachment(id:number, file: FormData):Observable<any>{
+  return this.http.post(environment.API_URL + environment.URL_SUPPLIESUSER + "request-upload/" + id, file);
+}
+
+//delete attachment
+deleteRequestAttachment(fileId: number):Observable<any>{
+  return this.http.delete(environment.API_URL + environment.URL_SUPPLIESUSER + "request-attachment/"+ fileId );
 }
 
 //get approved for procurement list

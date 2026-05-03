@@ -46,6 +46,7 @@
   {
 
     padding: 2px 0;
+    align-items: center;
 
     .content-label-no-gap
     {
@@ -62,6 +63,7 @@
       margin-right: 8px;
     }
 
+
     .content-description
     {
 
@@ -74,13 +76,29 @@
         padding: 0;
         margin: 0;
       }
+
+      .attachment-row
+      {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
     }
   }
 }
 
+.attachment-warn-button
+{
+  background-color: white;
+  color: #D64545;
+  width: 32px;
+  height: 32px
+}
 
 .other-content
 {
+  margin-top: 8px;
 
   .other-row
   {
@@ -134,6 +152,12 @@
   {
     color: #D64545;
     margin: 16px;
+  }
+
+  .info-button
+  {
+    // color: #7ED1B2;
+    // margin: 16px;
   }
 
   .right-button-container

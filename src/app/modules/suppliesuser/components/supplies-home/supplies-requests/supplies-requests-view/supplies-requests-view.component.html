@@ -70,6 +70,21 @@
           </div>
         </div>
 
+        @if (requestAttachment!== null) {
+        <div class="info-row">
+          <span class="info-label">Approval Document:</span>
+          <span class="info-value">
+            <button (click)="downloadAttachment(requestAttachment.id, requestAttachment.originalName)" mat-raised-button
+              matTooltip="Download Document">
+              <mat-icon>download</mat-icon>
+              {{ requestAttachment.originalName}}
+            </button>
+          </span>
+        </div>
+
+        }
+
+
 
         <mat-divider></mat-divider>
 
@@ -128,15 +143,16 @@
         <span class="info-value">
           <a>
             <!-- goes to update component -->
-            <button mat-fab class="success-button"
+            <button mat-fab class="success-button" matTooltip="Update Request"
               routerLink="/suppliesuser/home/requests/update/{{currentRequest.id}}">
-              <mat-icon matTooltip="Edit">edit</mat-icon>
+              <mat-icon>edit</mat-icon>
             </button>
           </a>
           <a>
             <!-- trigger the click event method in class -->
-            <button mat-fab class="warn-button" (click)="deleteRequest(currentRequest.id)">
-              <mat-icon matTooltip="Delete">delete</mat-icon>
+            <button mat-fab class="warn-button" (click)="openDeleteDialog(currentRequest.id)"
+              matTooltip="Delete Request">
+              <mat-icon>delete</mat-icon>
             </button>
           </a>
         </span>
@@ -147,16 +163,16 @@
           currentRequest.userRoleCreatedBy !='SUPPLIESUSER'">
         <span class="info-value">
           <a>
-            <button mat-flat-button
+            <button mat-flat-button matTooltip="Approve Request"
               routerLink="/suppliesuser/home/requests/view/{{currentRequest.id}}/approve/{{currentRequest.id}}">
-              <mat-icon matTooltip="Approve Request">done_outline</mat-icon>
+              <mat-icon>done_outline</mat-icon>
               Approve
             </button>
           </a>
           <a>
-            <button mat-stroked-button class="decline-button"
+            <button mat-stroked-button class="decline-button" matTooltip="Decline Request"
               routerLink="/suppliesuser/home/requests/view/{{currentRequest.id}}/reject/{{currentRequest.id}}">
-              <mat-icon matTooltip="Decline Request">close</mat-icon>
+              <mat-icon>close</mat-icon>
               Decline
             </button>
           </a>
@@ -264,6 +280,21 @@
             <span class="info-label">Approved Date: </span>
             <span class="info-value">{{approval.approvedDate | date : 'MMM dd, yyyy'}}</span>
           </div>
+
+
+          @if (approvalMap.get(approval.id)) {
+          <div class="info-row">
+            <span class="info-label">Document:</span>
+            <span class="info-value">
+              <button
+                (click)="downloadAttachment(approvalMap.get(approval.id).id, approvalMap.get(approval.id).originalName)"
+                mat-raised-button>
+                <mat-icon>download</mat-icon>
+                {{approvalMap.get(approval.id).originalName}}
+              </button>
+            </span>
+          </div>
+          }
 
 
           <mat-divider></mat-divider>

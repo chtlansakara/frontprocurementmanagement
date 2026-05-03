@@ -31,6 +31,8 @@ import { ProcurementRequestViewComponent } from './components/supplies-home/supp
 import { ReportFormComponent } from './components/supplies-home/supplies-reports/report-form/report-form.component';
 import { ChangePasswordFormComponent } from './components/supplies-home/change-password-form/change-password-form.component';
 import { UserUpdateFormComponent } from './components/supplies-home/user-update-form/user-update-form.component';
+import { AddFileFormComponent } from './components/supplies-home/supplies-procurement/procurement-view/add-file-form/add-file-form.component';
+
 
 
 @NgModule({
@@ -62,13 +64,15 @@ import { UserUpdateFormComponent } from './components/supplies-home/user-update-
     ReportFormComponent,
     ChangePasswordFormComponent,
     UserUpdateFormComponent,
+    AddFileFormComponent,
+
   ],
   imports: [
     CommonModule,
     SuppliesuserRoutingModule,
     AngularmaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
 ]
 })
 export class SuppliesuserModule { }

@@ -15,6 +15,7 @@ import {HttpClientModule, provideHttpClient, withInterceptors } from '@angular/c
 import { tokenInterceptor } from './interceptors/token.interceptor';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { spinnerInterceptor } from './interceptors/spinner.interceptor';
+import { DeleteBoxComponent } from './common/delete-box/delete-box.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { spinnerInterceptor } from './interceptors/spinner.interceptor';
     LoginComponent,
     SignupComponent,
     SuppliesComponent,
-    NavbarComponent
+    NavbarComponent,
+    DeleteBoxComponent
   ],
   imports: [
     BrowserModule,

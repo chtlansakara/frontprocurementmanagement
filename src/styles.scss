@@ -121,6 +121,11 @@ body
   margin-left: 36px;
 }
 
+.button-warn
+{
+  color: #D64545;
+}
+
 .success-button
 {
   // background-color: rgba(115, 243, 115, 0.563);
@@ -129,6 +134,10 @@ body
   // color: black;
 }
 
+.button-success
+{
+  color: #7ED1B2;
+}
 
 // table row hover effect for mat-table
 /* Global hover effect for all Angular Material tables */

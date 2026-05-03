@@ -135,6 +135,31 @@
               class="content-description">{{currentProcurement?.remarks}}</span>
           </div>
 
+          @if (pdfAttachmentList.length>0) {
+          @for(file of pdfAttachmentList; track file.id){
+          <div class="content-row">
+            <span class="content-label">{{file.name? file.name: 'PDF-document'}}</span>
+            <span class="content-description">
+              <span class="attachment-row">
+                <button (click)="downloadAttachment(file.id, file.originalName)" mat-raised-button
+                  matTooltip="Download Document">
+                  <mat-icon>download</mat-icon>
+                  {{ file.originalName}}
+                </button>
+                <button mat-mini-fab class="attachment-warn-button" matTooltip="Delete File"
+                  *ngIf="currentProcurement?.assignedToUserId == this.userId  && currentProcurement?.completedDate == null">
+                  <!-- <mat-icon style="font-size: 20px;" (click)="removeFile(file.id)">delete</mat-icon> -->
+                  <mat-icon style="font-size: 20px;" (click)="openDeleteDocumentDialog(file.id)">delete</mat-icon>
+                </button>
+              </span>
+            </span>
+
+          </div>
+          }
+
+          }
+
+
         </div>
         <mat-divider></mat-divider>
 
@@ -172,26 +197,39 @@
         *ngIf="currentProcurement?.assignedToUserId == this.userId  && currentProcurement?.completedDate == null">
         <!-- only show  update and delete buttons if the user is the assigned employee & when the status id is 2 (not commenced yet)-->
         <div class="button-row">
-          <button mat-icon-button class="delete-button" (click)="deleteProcurement()"
+          <!-- <button mat-icon-button class="delete-button" (click)="deleteProcurement()" matTooltip="Delete Procurement" -->
+          <button mat-icon-button class="delete-button" (click)="openDeleteDialog()" matTooltip="Delete Procurement"
             *ngIf="currentProcurement?.assignedToUserId == this.userId">
-            <mat-icon matTooltip="Delete Procurement">delete</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
+
           <div class="right-button-container">
-            <button mat-stroked-button matTooltip="Update details" class="update-details-button"
+            <button mat-raised-button matTooltip="Update details" class="update-details-button"
+              matTooltip="Update Procurement Details"
               routerLink="/suppliesuser/home/procurement/update/{{currentProcurement.id}}"
               *ngIf="currentProcurement?.assignedToUserId == this.userId  && currentProcurement?.completedDate == null">
 
               <mat-icon>edit</mat-icon>
               Update details
             </button>
+            <button mat-raised-button class="info-button" (click)="openAddFileDialog()" matTooltip="Add Document"
+              *ngIf="currentProcurement?.assignedToUserId == this.userId">
+              <mat-icon>attach_file_add</mat-icon>
+              Add File
+            </button>
             <!-- only show update-status button if it's the assigned user and the procurement is not completed (by date) -->
-            <button mat-stroked-button matTooltip="Update status" class="change-status-button"
+            <button mat-flat-button matTooltip="Update status" class="change-status-button"
               routerLink="/suppliesuser/home/procurement/view/{{currentProcurement.id}}/updateStatus/{{currentProcurement.id}}"
               *ngIf="currentProcurement?.assignedToUserId== this.userId && currentProcurement?.completedDate == null">
               <mat-icon>commit</mat-icon>
               Change Status
             </button>
+
+
+
           </div>
+
+
         </div>
       </mat-card-footer>
     </mat-card>

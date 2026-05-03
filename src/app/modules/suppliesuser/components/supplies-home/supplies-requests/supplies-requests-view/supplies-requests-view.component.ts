@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ApprovalDto } from './../../../../../../interfaces/ApprovalDto';
+import { Component, inject } from '@angular/core';
 import { SpinnerService } from '../../../../../../common/services/spinner.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdmindivService } from '../../../../../admindivuser/services/admindiv.service';
@@ -6,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UtilService } from '../../../../../../utils/util.service';
 import { SuppliesService } from '../../../../services/supplies.service';
 import { ReportServiceService } from '../../../../services/report-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-supplies-requests-view',
@@ -14,8 +17,26 @@ import { ReportServiceService } from '../../../../services/report-service.servic
   styleUrl: './supplies-requests-view.component.scss'
 })
 export class SuppliesRequestsViewComponent {
+  readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(requestId: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'request'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteRequest(requestId);
+      }
+    });
+  }
+
   //to hold id
   id: number;
+  //to hold -approval id - approval map
+  approvalMap = new Map<number, any>();
 
    //fast look up for subdiv info
   subDivMap = new Map<number, any>();
@@ -28,6 +49,9 @@ export class SuppliesRequestsViewComponent {
   //to hold comments & approvals lists for the request
   comments: any = [];
   approvals: any = [];
+
+  //to hold request attachment
+  requestAttachment: any = null;
 
   //initialize id from activated route
   constructor(
@@ -56,6 +80,9 @@ export class SuppliesRequestsViewComponent {
     //load comments & approvals lists
     this.getCommentsByRequestId();
     this.getApprovalsByRequestId();
+    //load attachement
+    this.getRequestAttachment();
+
   }
 
   //creating a map with subdiv id -> subdiv object (to show its admin div in html)
@@ -66,6 +93,8 @@ export class SuppliesRequestsViewComponent {
         });
       });
     }
+
+
 
 //get grouped subdiv list
 
@@ -90,16 +119,39 @@ getCommentsByRequestId(){
   this.suppliesService.getCommentsByRequestId(this.id).subscribe(res => {
     //save to class array
     this.comments = res;
-    // console.log(this.comments);
   });
 }
+
+//get request attachment
+getRequestAttachment(){
+  this.suppliesService.getRequestAttachment(this.id).subscribe(res =>{
+    //save to the class variable
+    if(res != null){
+    this.requestAttachment = res;
+    }
+  });
+}
+
 
 //get approvals of request
 getApprovalsByRequestId(){
   this.suppliesService.getApprovalsByRequestId(this.id).subscribe(res => {
     //save to class array
     this.approvals = res;
+    this.getApprovalAttachments();
   });
+}
+
+
+//get approval attachment
+getApprovalAttachments(){
+  this.approvals.forEach((approval : ApprovalDto) => {
+    this.suppliesService.getApprovalAttachment(approval.id).subscribe(res =>{
+    //save to the class variable
+    this.approvalMap.set(approval.id, res);
+  });
+  });
+
 }
 
 
@@ -142,6 +194,28 @@ getApprovalsByRequestId(){
       this.snackbar.open("Report downloded successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
     });
   }
+
+
+
+    downloadAttachment(fileId:number, fileName: string){
+      this.suppliesService.downloadAttachment(fileId).subscribe((blob: Blob)=>{
+        this.triggerDownloadAttachment(blob, fileName);
+      });
+    }
+
+    private triggerDownloadAttachment(blob: Blob, fileName: string):void{
+      const extension = 'pdf';
+      const filename = fileName;
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href= url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
 
 
 }

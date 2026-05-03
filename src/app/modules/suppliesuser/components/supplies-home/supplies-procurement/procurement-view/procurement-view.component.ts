@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject, model, signal } from '@angular/core';
 import { SpinnerService } from '../../../../../../common/services/spinner.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuppliesService } from '../../../../services/supplies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StorageService } from '../../../../../../auth/services/storage.service';
 import { UtilService } from '../../../../../../utils/util.service';
+//Material dialog
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
+import { AddFileFormComponent } from './add-file-form/add-file-form.component';
 
 @Component({
   selector: 'app-procurement-view',
@@ -13,6 +17,58 @@ import { UtilService } from '../../../../../../utils/util.service';
   styleUrl: './procurement-view.component.scss'
 })
 export class ProcurementViewComponent {
+  readonly dialog = inject(MatDialog);
+
+  openDeleteDialog():void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'procurement'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteProcurement();
+      }
+    });
+  }
+
+    openDeleteDocumentDialog(fileId:number):void{
+      const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+        data:{
+          entity: 'document'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(res =>{
+        if(res  === true){
+          this.removeFile(fileId);
+           this.router.navigateByUrl("/suppliesuser/home/", {skipLocationChange: true}).then(() =>{
+             this.router.navigateByUrl("/suppliesuser/home/procurement/view/"+this.id);
+           });
+        }
+      });
+    }
+
+     openAddFileDialog():void{
+      const dialogRef =  this.dialog.open(AddFileFormComponent,{
+        data:{
+         procurementId: this.id
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(res =>{
+        if(res  === true){
+
+          this.router.navigateByUrl("/suppliesuser/home/", {skipLocationChange: true}).then(() =>{
+             this.router.navigateByUrl("/suppliesuser/home/procurement/view/"+this.id);
+           });
+        }
+      });
+    }
+
+
+
   //to hold id
   id: number;
 
@@ -21,6 +77,11 @@ export class ProcurementViewComponent {
 
   //to hold status-updates of procurement
   statusUpdates: any[] = [];
+
+  //to hold attachments of procurement
+  pdfAttachmentList: any[] = [];
+
+
 
   //logged user id
   userId: number ;
@@ -53,6 +114,8 @@ export class ProcurementViewComponent {
     this.getProcurementById();
     //load status updates
     this.getStatusUpdates();
+    //load pdf attachements
+    this.getProcurementAttachments();
     //to get subdiv code
     this.loadRequests();
   }
@@ -64,11 +127,17 @@ export class ProcurementViewComponent {
     });
   }
 
+  getProcurementAttachments(){
+    this.suppliesService.getProcurementAttachments(this.id).subscribe(res=>{
+      //save to class list
+      this.pdfAttachmentList = res;
+    })
+  }
+
   getStatusUpdates(){
     this.suppliesService.getStatusUpdates(this.id).subscribe(res=>{
       //save to variable
       this.statusUpdates = res;
-      // console.log(this.statusUpdates);
     })
   }
 
@@ -105,6 +174,42 @@ export class ProcurementViewComponent {
     getRequestById(id:number){
       return this.requestsMap.get(id);
     }
+
+
+    downloadAttachment(fileId:number, fileName: string){
+      this.suppliesService.downloadAttachment(fileId).subscribe((blob: Blob)=>{
+        this.triggerDownload(blob, fileName);
+      });
+    }
+
+    private triggerDownload(blob: Blob, fileName: string):void{
+      const extension = 'pdf';
+      const filename = fileName;
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href= url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+
+    removeFile(fileId: number){
+      this.suppliesService.deleteProcurementAttachment(fileId).subscribe(res => {
+          //show success message
+          this.snackbar.open("Document deleted successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+            //navigate by router
+            // this.router.navigateByUrl("/suppliesuser/home/requests/list");
+      });
+    }
+
+    addDocument(){
+
+    }
+
+
 
 
 

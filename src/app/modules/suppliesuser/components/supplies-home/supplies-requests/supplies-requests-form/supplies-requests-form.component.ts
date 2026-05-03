@@ -15,6 +15,9 @@ export class SuppliesRequestsFormComponent {
  //form-group
   requestSuppliesForm ! : FormGroup;
 
+  //file
+  file : File |null = null;
+
   //fast look up - for grouping
   subDivMap = new Map<number, any>();
 
@@ -181,13 +184,21 @@ export class SuppliesRequestsFormComponent {
 
     //submit method
     submitRequest(){
-      // console.log(this.requestSuppliesForm.value);
+
       //filter out select all option value if present
       const formValue = this.requestSuppliesForm.value;
       //remove 0 if it is there & assign
       formValue.subdivIdList = formValue.subdivIdList.filter((id:number)=> id !== 0);
 
-      this.suppliesService.createRequest(formValue).subscribe(res =>{
+      const formData = new FormData();
+      formData.append('request', new Blob([JSON.stringify(formValue)], {type: 'application/json'}));
+      if(this.file){
+        formData.append('file', this.file);
+      }else{
+        formData.append('file', new Blob([], {type: 'application/pdf'}));
+      }
+
+      this.suppliesService.createRequest(formData).subscribe(res =>{
         if( res.id != null){
           //show success message
           this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
@@ -195,7 +206,45 @@ export class SuppliesRequestsFormComponent {
             this.router.navigateByUrl("/suppliesuser/home/requests/list");
         }
       });
+
+      //   this.suppliesService.createRequest(formValue).subscribe(res =>{
+      //   if( res.id != null){
+      //     //show success message
+      //     this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+      //       //navigate by router
+      //       this.router.navigateByUrl("/suppliesuser/home/requests/list");
+      //   }
+      // });
     }
+
+     //handling file changes
+  onFileChange(event: any){
+    const file = event.target.files[0];
+    if(file){
+      if(file.type !== 'application/pdf'){
+      this.snackbar.open("Only PDF files are allowed!", "Close", {
+        duration: 3000,
+        panelClass: "snackbar-error"
+      });
+      event.target.value = '';
+      this.file = null;
+      return;
+    }
+
+    if(file.size > 5 * 1024 * 1024){
+      this.snackbar.open("File size must be less than 5MB!", "Close", {
+        duration: 3000,
+        panelClass: "snackbar-error"
+      });
+      event.target.value = '';
+      this.file = null;
+      return;
+    }
+
+      this.file = file;
+    }
+  }
+
 
 
 

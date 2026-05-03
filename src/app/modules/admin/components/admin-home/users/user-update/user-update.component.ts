@@ -66,7 +66,7 @@ export class UserUpdateComponent {
           this.userUpdateForm.patchValue(res);
 
 
-          //show if recommendatin exists
+          //show if recommendation exists
           if(res.recommendation){
             this.hasExistingFile = true;
             this.existingFileName = `${res.name}_recommendation`;
