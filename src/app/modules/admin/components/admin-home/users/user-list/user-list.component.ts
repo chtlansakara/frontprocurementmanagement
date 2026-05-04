@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 // Material
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,6 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../../services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-user-list',
@@ -14,14 +16,33 @@ import { AdminService } from '../../../../services/admin.service';
   styleUrl: './user-list.component.scss'
 })
 export class UserListComponent implements AfterViewInit{
+    readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(userId: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'user'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteUser(userId);
+      }
+    });
+  }
+
   //to save returned list
   usersList: any[] = [];
   //map to store pre-converted links
   downloadLinks: Map<number, string> = new Map();
 
   // column names in an array
-  displayedColumns: string[] = ['name','email', 'userRole',
-    'employeeId','birthdate',
+  // displayedColumns: string[] = ['name','email', 'userRole',
+  //   'employeeId','birthdate',
+  //   'subdivName', 'subdivCode','admindivName','nic','designationCode','recommendation', 'actions'];
+     displayedColumns: string[] = ['name','email', 'userRole',
+    'employeeId',
     'subdivName', 'subdivCode','admindivName','nic','designationCode','recommendation', 'actions'];
 
   //without the filter or sort - table data from an external array
@@ -86,7 +107,7 @@ export class UserListComponent implements AfterViewInit{
   deleteUser(id: number){
     this.adminService.deleteUser(id).subscribe({
       next: () => {
-        this.snackbar.open("Deleted successfully","Close",{duration:5000, panelClass:"snackbar-success"});
+        this.snackbar.open("User deleted successfully","Close",{duration:5000, panelClass:"snackbar-success"});
         setTimeout(() => this.getUsers(), 200);
       },
       error: () => {

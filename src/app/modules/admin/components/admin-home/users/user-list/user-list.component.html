@@ -30,10 +30,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </th>
           <td mat-cell *matCellDef="let element"> {{element.employeeId}} </td>
         </ng-container>
-        <ng-container matColumnDef="birthdate">
+        <!-- <ng-container matColumnDef="birthdate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Birthdate </th>
           <td mat-cell *matCellDef="let element"> {{element.birthdate | date: 'MMM d, y'}} </td>
-        </ng-container>
+        </ng-container> -->
         <ng-container matColumnDef="subdivName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub-division</th>
           <td mat-cell *matCellDef="let element"> {{element.subdivName}} </td>
@@ -74,14 +74,15 @@
               <div class="example-button-container">
 
                 <a>
-                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/users/update/
+                  <button matTooltip="Edit User" mat-mini-fab class="success-button" routerLink="/adminuser/home/users/update/
                   {{element.id}}">
-                    <mat-icon matTooltip="Edit">edit</mat-icon>
+                    <mat-icon>edit</mat-icon>
                   </button>
                 </a>
                 <a>
-                  <button mat-mini-fab class="warn-button" (click)="deleteUser(element.id)">
-                    <mat-icon matTooltip="Delete">delete</mat-icon>
+                  <button matTooltip="Delete User" mat-mini-fab class="warn-button"
+                    (click)="openDeleteDialog(element.id)">
+                    <mat-icon>delete</mat-icon>
                   </button>
                 </a>
 

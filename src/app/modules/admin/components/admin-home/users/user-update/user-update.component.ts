@@ -93,7 +93,7 @@ export class UserUpdateComponent {
     this.userUpdateForm = this.fb.group({
       name:[null, [Validators.required]],
       email: [null, [Validators.required,Validators.email]],
-      nic: [null, [Validators.required]],
+      nic: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(12)]],
       password: [null],
       employeeId: [null, [Validators.required]],
       subdivId: [null, [Validators.required]],
@@ -194,7 +194,7 @@ export class UserUpdateComponent {
         next: (res)=>{
           if(res.id!=null){
             //show success message
-            this.snackbar.open("Updated successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+            this.snackbar.open("User updated successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router
             this.router.navigateByUrl("/adminuser/home/users/list");
             }
@@ -209,28 +209,30 @@ export class UserUpdateComponent {
   }
 
   buildFormData(): FormData{
+
     const formData = new FormData();
     const val = this.userUpdateForm.value;
+    formData.append('user', new Blob([JSON.stringify(val)],{type: 'application/json'}));
 
 
-    formData.append('name', val.name);
-    formData.append('email', val.email);
-    formData.append('nic', val.nic);
-    formData.append('employeeId', val.employeeId);
-    formData.append('subdivId', val.subdivId);
-    formData.append('admindivId', val.admindivId);
-    formData.append('designationId', val.designationId);
-    formData.append('userRole', val.userRole);
+    // formData.append('name', val.name);
+    // formData.append('email', val.email);
+    // formData.append('nic', val.nic);
+    // formData.append('employeeId', val.employeeId);
+    // formData.append('subdivId', val.subdivId);
+    // formData.append('admindivId', val.admindivId);
+    // formData.append('designationId', val.designationId);
+    // formData.append('userRole', val.userRole);
 
-    if (val.password) {
-      formData.append('password', val.password);
-    }
-    if(val.birthdate){
-      formData.append('birthdate', val.birthdate);
-    }
-    if(val.telephone){
-      formData.append('telephone', val.telephone);
-    }
+    // if (val.password) {
+    //   formData.append('password', val.password);
+    // }
+    // if(val.birthdate){
+    //   formData.append('birthdate', val.birthdate);
+    // }
+    // if(val.telephone){
+    //   formData.append('telephone', val.telephone);
+    // }
    //need to have value for this
     if(this.selectedFile){
       formData.append('recommendationFile', this.selectedFile);

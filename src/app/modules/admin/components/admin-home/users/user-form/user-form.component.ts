@@ -51,7 +51,7 @@ export class UserFormComponent {
     this.userForm = this.fb.group({
       name:[null, [Validators.required]],
       email: [null, [Validators.required,Validators.email]],
-      nic: [null, [Validators.required]],
+      nic: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(12)]],
       employeeId: [null, [Validators.required]],
       subdivId: [null, [Validators.required]],
       admindivId: [null, [Validators.required]],

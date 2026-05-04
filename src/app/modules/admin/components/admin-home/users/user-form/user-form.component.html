@@ -36,6 +36,12 @@
             <mat-error error *ngIf="userForm.get('nic')?.hasError('required')">
               NIC is required!
             </mat-error>
+            <mat-error error *ngIf="userForm.get('nic')?.hasError('minlength')">
+              Invalid NIC!
+            </mat-error>
+            <mat-error error *ngIf="userForm.get('nic')?.hasError('maxlength')">
+              Invalid NIC!
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
