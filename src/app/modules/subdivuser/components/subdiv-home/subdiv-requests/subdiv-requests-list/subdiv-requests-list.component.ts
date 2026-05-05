@@ -67,6 +67,10 @@ export class SubdivRequestsListComponent {
       this.requestsList = res;
       //set table data source
       this.datasource.data = res;
+
+       this.datasource.sort = this.sort;
+    this.datasource.paginator = this.paginator;
+
     })
   }
 

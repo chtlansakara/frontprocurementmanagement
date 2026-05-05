@@ -4,6 +4,12 @@
 
 
 <div class="center-container">
+  <div *ngIf="procurementList.length == 0"
+    style="width: 100%; display: flex; justify-content: center; margin-top: 64px; margin-bottom: 24px;">
+    <div style="font-size: 20px; color: rgb(73, 73, 73);">No procurement records yet.</div>
+  </div>
+
+
   <div class="table-container">
 
     <div class="filter-container">
@@ -23,6 +29,7 @@
         </mat-select>
       </mat-form-field>
     </div>
+
 
     <!-- table -->
     <div class="mat-elevation-z5">

@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../../../../services/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-vendor-list',
@@ -13,6 +15,21 @@ import { Router } from '@angular/router';
   styleUrl: './vendor-list.component.scss'
 })
 export class VendorListComponent {
+       readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(id: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'vendor'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteVendor(id);
+      }
+    });
+  }
   //returned list
   vendorList: any[] = [];
 

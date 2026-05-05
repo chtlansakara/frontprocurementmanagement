@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../../auth/services/storage.service';
 import { MatIcon } from '@angular/material/icon';
@@ -6,14 +6,35 @@ import { UtilService } from '../../../../utils/util.service';
 import { NotificationService } from '../../../../auth/services/notification.service';
 import { AppNotification } from '../../../../interfaces/NotificationDto';
 import { ToastService } from '../../../../auth/services/toast.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SignoutBoxComponent } from '../../../../common/signout-box/signout-box.component';
+
 
 @Component({
   selector: 'app-admindiv-home',
   standalone: false,
   templateUrl: './admindiv-home.component.html',
-  styleUrl: './admindiv-home.component.scss'
+  styleUrl: './admindiv-home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdmindivHomeComponent {
+   readonly dialog = inject(MatDialog);
+
+  openSignoutDialog():void{
+    const dialogRef =  this.dialog.open(SignoutBoxComponent,{
+      data:{
+        entity: 'admindiv user'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.logout();
+      }
+    });
+  }
+
+   private cdr = inject(ChangeDetectorRef);
   loggedInfo: any ;
   loggedUser: string;
 
@@ -25,12 +46,21 @@ export class AdmindivHomeComponent {
   constructor(
     private router:Router,
     public utilService: UtilService,
-    private notificationService: NotificationService,
+    public notificationService: NotificationService,
     public toastService : ToastService,
-    private cdr: ChangeDetectorRef
+    // private cdr: ChangeDetectorRef
   ){
      this.loggedInfo =  this.utilService.getUserInfo();
-     this.loggedUser = `${this.loggedInfo.email}\n${this.loggedInfo.account}`
+     this.loggedUser = `${this.loggedInfo.email}\n${this.loggedInfo.account}`;
+
+          // effect() registers this component as a reactive consumer of the signals.
+    // When notifications or unreadCount change, markForCheck() fires.
+    effect(() => {
+      this.notificationService.notifications();   // track signal
+      this.notificationService.unreadCount();     // track signal
+      this.cdr.markForCheck();                    // tell OnPush to re-render
+    });
+
   }
 
   ngOnInit(){
@@ -40,16 +70,16 @@ export class AdmindivHomeComponent {
 
 
   //updating notifications on check
-  ngDoCheck(): void {
-  const newNotifications = this.notificationService.notifications();
-  const newCount = this.notificationService.unreadCount();
+  // ngDoCheck(): void {
+  // const newNotifications = this.notificationService.notifications();
+  // const newCount = this.notificationService.unreadCount();
 
-    if (newCount !== this.unreadCount || newNotifications.length !== this.notifications.length) {
-      this.notifications = newNotifications;
-      this.unreadCount = newCount;
-      this.cdr.markForCheck();
-    }
-  }
+  //   if (newCount !== this.unreadCount || newNotifications.length !== this.notifications.length) {
+  //     this.notifications = newNotifications;
+  //     this.unreadCount = newCount;
+  //     this.cdr.markForCheck();
+  //   }
+  // }
 
   //disconnect when component is destroyed
   ngOnDestroy():void{

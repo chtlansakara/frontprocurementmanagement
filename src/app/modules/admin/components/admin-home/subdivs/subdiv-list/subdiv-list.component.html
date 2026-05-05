@@ -48,14 +48,15 @@
               <div class="example-button-container">
 
                 <a>
-                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/subdivs/update/
+                  <button matTooltip="Edit Sub-division" mat-mini-fab class="success-button" routerLink="/adminuser/home/subdivs/update/
                   {{element.id}}">
-                    <mat-icon matTooltip="Edit">edit</mat-icon>
+                    <mat-icon>edit</mat-icon>
                   </button>
                 </a>
                 <a>
-                  <button mat-mini-fab class="warn-button" (click)="deleteSubdiv(element.id)">
-                    <mat-icon matTooltip="Delete">delete</mat-icon>
+                  <button matTooltip="Delete Sub-division" mat-mini-fab class="warn-button"
+                    (click)="openDeleteDialog(element.id)">
+                    <mat-icon>delete</mat-icon>
                   </button>
                 </a>
 

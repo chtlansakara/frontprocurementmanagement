@@ -16,6 +16,9 @@ import { tokenInterceptor } from './interceptors/token.interceptor';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { spinnerInterceptor } from './interceptors/spinner.interceptor';
 import { DeleteBoxComponent } from './common/delete-box/delete-box.component';
+import { SignoutBoxComponent } from './common/signout-box/signout-box.component';
+import { HelpBoxComponent } from './auth/components/login/help-box/help-box.component';
+import { NotificationBellComponent } from './auth/components/notification-bell/notification-bell.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { DeleteBoxComponent } from './common/delete-box/delete-box.component';
     SignupComponent,
     SuppliesComponent,
     NavbarComponent,
-    DeleteBoxComponent
+    DeleteBoxComponent,
+    SignoutBoxComponent,
+    HelpBoxComponent,
+    NotificationBellComponent
   ],
   imports: [
     BrowserModule,

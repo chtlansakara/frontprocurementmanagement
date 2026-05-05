@@ -21,7 +21,9 @@
 {
   color: rgb(16, 94, 52);
   font-size: 18px;
-  // font-weight: 500;
+  display: flex;
+  gap: 8px;
+  vertical-align: middle;
 }
 
 .example-card-footer

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../../auth/services/storage.service';
 import { UtilService } from '../../../../utils/util.service';
@@ -6,16 +6,36 @@ import { NotificationService } from '../../../../auth/services/notification.serv
 import { ToastService } from '../../../../auth/services/toast.service';
 import { AppNotification } from '../../../../interfaces/NotificationDto';
 import { MatMenuTrigger } from '@angular/material/menu';
-
+import { MatDialog } from '@angular/material/dialog';
+import { SignoutBoxComponent } from '../../../../common/signout-box/signout-box.component';
+;
 
 @Component({
   selector: 'app-supplies-home',
   standalone: false,
   templateUrl: './supplies-home.component.html',
-  styleUrl: './supplies-home.component.scss'
+  styleUrl: './supplies-home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuppliesHomeComponent {
-   loggedInfo: any ;
+  readonly dialog = inject(MatDialog);
+
+  openSignoutDialog():void{
+    const dialogRef =  this.dialog.open(SignoutBoxComponent,{
+      data:{
+        entity: 'supplies user'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.logout();
+      }
+    });
+  }
+
+    private cdr = inject(ChangeDetectorRef);
+  loggedInfo: any ;
   loggedUser: string;
 
   notifications: AppNotification[] = [];
@@ -30,11 +50,19 @@ export class SuppliesHomeComponent {
     public utilService: UtilService,
     public notificationService: NotificationService,
     public toastService: ToastService,
-    private cdr: ChangeDetectorRef
+    // private cdr: ChangeDetectorRef
   ){
      this.loggedInfo =  this.utilService.getUserInfo();
 
-     this.loggedUser = `${this.loggedInfo.email}\n${this.loggedInfo.account}`
+     this.loggedUser = `${this.loggedInfo.email}\n${this.loggedInfo.account}`;
+
+             // effect() registers this component as a reactive consumer of the signals.
+    // When notifications or unreadCount change, markForCheck() fires.
+    effect(() => {
+      this.notificationService.notifications();   // track signal
+      this.notificationService.unreadCount();     // track signal
+      this.cdr.markForCheck();                    // tell OnPush to re-render
+    });
   }
 
 
@@ -42,16 +70,16 @@ export class SuppliesHomeComponent {
     this.notificationService.connect();
   }
 
-  ngDoCheck(): void {
-  const newNotifications = this.notificationService.notifications();
-  const newCount = this.notificationService.unreadCount();
+  // ngDoCheck(): void {
+  // const newNotifications = this.notificationService.notifications();
+  // const newCount = this.notificationService.unreadCount();
 
-    if (newCount !== this.unreadCount || newNotifications.length !== this.notifications.length) {
-      this.notifications = newNotifications;
-      this.unreadCount = newCount;
-      this.cdr.markForCheck();
-    }
-  }
+  //   if (newCount !== this.unreadCount || newNotifications.length !== this.notifications.length) {
+  //     this.notifications = newNotifications;
+  //     this.unreadCount = newCount;
+  //     this.cdr.markForCheck();
+  //   }
+  // }
 
   logout(){
     //stop notifications

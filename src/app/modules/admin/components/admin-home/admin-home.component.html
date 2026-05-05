@@ -2,7 +2,7 @@
 <mat-toolbar class="nav-bar ">
   <div class="container toolbar-container">
 
-    <a routerLink="/adminuser/home/dashboard" style="cursor: pointer;" matTooltip="Go to Dashboard">
+    <a routerLink="/adminuser/home" style="cursor: pointer;" matTooltip="Home">
       <img src="/public/LogoSuppliesHeader.svg" alt="logo supplies" class="main-toolbar-logo">
     </a>
     <span class="example-spacer"></span>
@@ -37,7 +37,8 @@
     </button>
     <button routerLink="/adminuser/home/sources" mat-button class="main-toolbar-links" routerLinkActive="active"
       matTooltip="Procurement Sources">
-      <mat-icon>attach_money</mat-icon>
+      <!-- <mat-icon>attach_money</mat-icon> -->
+      <mat-icon>money_bag</mat-icon>
       <span class="settings-title">Sources</span>
     </button>
     <button routerLink="/adminuser/home/status" mat-button class="main-toolbar-links" routerLinkActive="active"
@@ -54,7 +55,7 @@
     </button>
 
     <button mat-icon-button class="main-toolbar-icon-button" aria-label="Icon button for sign out" matTooltip="Sign out"
-      (click)="logout()">
+      (click)="openSignoutDialog()">
       <mat-icon class="main-toolbar-icon">logout</mat-icon>
     </button>
   </div>

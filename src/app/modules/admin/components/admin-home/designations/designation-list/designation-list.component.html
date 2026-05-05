@@ -37,14 +37,15 @@
               <div class="example-button-container">
 
                 <a>
-                  <button mat-mini-fab class="success-button" routerLink="/adminuser/home/designations/update/
+                  <button matTooltip="Edit Designation" mat-mini-fab class="success-button" routerLink="/adminuser/home/designations/update/
                   {{element.id}}">
-                    <mat-icon matTooltip="Edit">edit</mat-icon>
+                    <mat-icon>edit</mat-icon>
                   </button>
                 </a>
                 <a>
-                  <button mat-mini-fab class="warn-button" (click)="deleteDesignation(element.id)">
-                    <mat-icon matTooltip="Delete">delete</mat-icon>
+                  <button matTooltip="Delete Designation" mat-mini-fab class="warn-button"
+                    (click)="openDeleteDialog(element.id)">
+                    <mat-icon>delete</mat-icon>
                   </button>
                 </a>
 

@@ -1,0 +1,60 @@
+<!-- <button mat-icon-button style="align-self: flex-end; margin-top: 4px; margin-right: 4px;"
+  mat-dialog-close><mat-icon>close</mat-icon></button> -->
+
+<h4 mat-dialog-title>Need Help?</h4>
+<mat-dialog-content>
+
+
+  <h3 class="info-title">Forgot password?</h3>
+  <p>Please send an email to <b>admin&#64;test.com</b> from your registered email requesting to reset your
+    password.
+    You will be provided with a new password through email, which you can used to login and then to
+    update your password through the application.
+  </p>
+
+
+  <h3 class="info-title">Need to sign up?</h3>
+  <p>Send an email to <b>admin&#64;test.com</b> with a recommendation letter from your head of the division,
+    including following details.
+  </p>
+  <ul>
+    <li>
+      <span>Full name</span>
+    </li>
+    <li>
+      <span>Name with initials</span>
+    </li>
+    <li>
+      <span>Work email</span>
+    </li>
+    <li>
+      <span>Admin-division and Sub-division names and codes</span>
+    </li>
+    <li>
+      <span>Employee ID</span>
+    </li>
+    <li>
+      <span>Designation</span>
+    </li>
+    <li>
+      <span>Contact number</span>
+    </li>
+    <li>
+      <span>Expected user role
+        <br><small>(Sub-division user | Admin-division user | Supplies-division user)</small>
+      </span>
+    </li>
+    <li>
+      <span>Recommendation letter as a PDF document
+        <br> <small>(Must be less than 5MB)</small>
+      </span>
+    </li>
+  </ul>
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <!-- <button mat-raised-button mat-dialog-close>Cancel</button> -->
+  <button mat-flat-button [mat-dialog-close]="true" cdkFocusInital>OK</button>
+</mat-dialog-actions>

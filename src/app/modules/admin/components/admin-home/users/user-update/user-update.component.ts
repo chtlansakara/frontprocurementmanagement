@@ -272,8 +272,9 @@ export class UserUpdateComponent {
           this.selectedFile = null;
           return;
         }
+
       this.selectedFile = file;
-      this.hasExistingFile = false;
+
       this.userUpdateForm.markAsDirty();
     }
   }

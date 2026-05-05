@@ -1,4 +1,9 @@
-<div class="view-container">
+<div class="spinner-container" *ngIf="spinnerService.loading$  | async">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+
+<div class="view-container" *ngIf="currentProcurement">
 
   <div class="left-container">
     <mat-card class="procurement-card" appearance="outlined">

@@ -18,6 +18,7 @@ import { UtilService } from '../../../../../../../utils/util.service';
 })
 export class AdmindivAllComponent {
 
+
 //to save returned list
   requestsList : RequestDto[] = [];
 
@@ -62,10 +63,10 @@ export class AdmindivAllComponent {
 
   //initialize the class list with object
   ngOnInit(){
-      setTimeout(() => {
+  //     setTimeout(() => {
+  //   this.loadList();
+  // }, 500);
     this.loadList();
-  }, 500);
-    // this.loadList();
   }
 
   //method calling the backend to load the list

@@ -3,15 +3,20 @@
 </div>
 
 <div class="center-container">
-  <div class="table-container">
 
+  <div *ngIf="requestsList.length == 0"
+    style="width: 100%; display: flex; justify-content: center; margin-top: 64px;margin-bottom: 24px;">
+    <div style="font-size: 20px; color: rgb(73, 73, 73);">No procurement requests yet.</div>
+  </div>
+
+
+  <div class="table-container">
 
     <!-- filter for the table data -->
     <mat-form-field appearance="outline" class="filter">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Type a keyword to search.." #input>
     </mat-form-field>
-
 
     <!-- table -->
     <div class="mat-elevation-z5">

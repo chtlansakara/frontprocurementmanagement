@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpBoxComponent } from './help-box/help-box.component';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,21 @@ import { NotificationService } from '../../services/notification.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+     readonly dialog = inject(MatDialog);
 
+  openHelpDialog():void{
+    const dialogRef =  this.dialog.open(HelpBoxComponent,{
+      data:{
+        entity: 'document'
+      }
+    });
+
+    // dialogRef.afterClosed().subscribe(res =>{
+    //   if(res  === true){
+    //    this.removeFile();
+    //   }
+    // });
+  }
 
 
   //form-group

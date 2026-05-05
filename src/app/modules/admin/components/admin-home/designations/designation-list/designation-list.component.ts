@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../../services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-designation-list',
@@ -13,6 +15,21 @@ import { AdminService } from '../../../../services/admin.service';
   styleUrl: './designation-list.component.scss'
 })
 export class DesignationListComponent {
+   readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(id: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'designation'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteDesignation(id);
+      }
+    });
+  }
  //array to save returned list
   designationsList: any[] = [];
 

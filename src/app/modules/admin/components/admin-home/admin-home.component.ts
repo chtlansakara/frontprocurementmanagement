@@ -1,8 +1,10 @@
 import { UtilService } from './../../../../utils/util.service';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StorageService } from '../../../../auth/services/storage.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../auth/services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SignoutBoxComponent } from '../../../../common/signout-box/signout-box.component';
 
 @Component({
   selector: 'app-admin-home',
@@ -11,6 +13,23 @@ import { NotificationService } from '../../../../auth/services/notification.serv
   styleUrl: './admin-home.component.scss'
 })
 export class AdminHomeComponent {
+   readonly dialog = inject(MatDialog);
+
+  openSignoutDialog():void{
+    const dialogRef =  this.dialog.open(SignoutBoxComponent,{
+      data:{
+        entity: 'admin user'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.logout();
+      }
+    });
+  }
+
+
   loggedInfo: any ;
   loggedUser: string;
 

@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../../services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 
 @Component({
@@ -14,6 +16,21 @@ import { AdminService } from '../../../../services/admin.service';
   styleUrl: './subdiv-list.component.scss'
 })
 export class SubdivListComponent {
+     readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(id: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'sub-division'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteSubdiv(id);
+      }
+    });
+  }
 
   //to save returned subdiv list
   subdivList: any[] = [];

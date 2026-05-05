@@ -8,7 +8,7 @@
 
         <mat-grid-tile [colspan]="2">
           <mat-form-field appearance="outline">
-            <mat-label>Name with Initials</mat-label>
+            <mat-label>Name</mat-label>
             <input matInput type="text" formControlName="name" required="">
             <!-- error message -->
             <mat-error error *ngIf="userUpdateForm.get('name')?.hasError('required')">
@@ -161,7 +161,9 @@
                 <mat-icon>download</mat-icon>
                 {{ existingFileName }}
               </a>
-              <button matFab aria-label="delete file" (click)="removeFile()" type="button">
+
+              <button mat-mini-fab aria-label="delete file" (click)="removeFile()" class="attachment-warn-button"
+                type="button" matTooltip="Remove File">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

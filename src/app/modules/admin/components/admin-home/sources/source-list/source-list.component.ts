@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../../../../services/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoxComponent } from '../../../../../../common/delete-box/delete-box.component';
 
 @Component({
   selector: 'app-source-list',
@@ -13,6 +15,21 @@ import { Router } from '@angular/router';
   styleUrl: './source-list.component.scss'
 })
 export class SourceListComponent {
+     readonly dialog = inject(MatDialog);
+
+  openDeleteDialog(id: number):void{
+    const dialogRef =  this.dialog.open(DeleteBoxComponent,{
+      data:{
+        entity: 'source'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res =>{
+      if(res  === true){
+       this.deleteSource(id);
+      }
+    });
+  }
 
     //returned list
   sourcesList: any[] = [];
@@ -62,8 +79,8 @@ export class SourceListComponent {
   }
 
 
-  //delete vendor method
-  deleteVendor(id: number){
+  //delete source method
+  deleteSource(id: number){
     this.adminService.deleteSource(id).subscribe({
           next: () => {
     this.snackbar.open("Deleted successfully","Close",{duration:5000, panelClass:"snackbar-success"});

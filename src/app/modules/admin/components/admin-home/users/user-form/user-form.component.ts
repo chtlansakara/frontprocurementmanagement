@@ -140,7 +140,7 @@ export class UserFormComponent {
         next: (res)=>{
           if(res.id!=null){
             //show success message
-            this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+            this.snackbar.open("User created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router
             this.router.navigateByUrl("/adminuser/home/users/list");
             }

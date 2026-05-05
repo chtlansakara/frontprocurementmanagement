@@ -13,7 +13,7 @@ export class AdminDashboardComponent {
     {icon: 'business', title: 'Admin Divisions', description: 'Create & view admin divisions.', path:'admindivs'},
     {icon: 'account_balance', title: 'Sub-divisions', description: 'Create & view sub divisions.', path:'subdivs'},
     {icon: 'category', title: 'Vendors', description: 'Create & view vendors.', path:'vendors'},
-    {icon: 'attach_money', title: 'Procurement Sources', description: 'Create & view sources.', path:'sources'},
+    {icon: 'money_bag', title: 'Procurement Sources', description: 'Create & view sources.', path:'sources'},
     {icon: 'timeline', title: 'Procurement Status', description: 'Create & view status.', path:'status'},
 
   ]
