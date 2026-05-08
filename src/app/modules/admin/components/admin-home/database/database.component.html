@@ -1,0 +1,19 @@
+<div class="card-grid">
+  <mat-card appearance="outlined" class="example-card" (click)="createBackup()">
+    <mat-card-content>
+      <mat-icon>drive_folder_upload</mat-icon>
+      <mat-card-title>Create backup </mat-card-title>
+      <p>Manually create a database backup.</p>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card appearance="outlined" class="example-card" (click)="restoreDatabase()">
+    <mat-card-content>
+      <mat-icon>system_update_alt</mat-icon>
+      <mat-card-title>Restore</mat-card-title>
+      <p>Restore database with last backup file.</p>
+    </mat-card-content>
+  </mat-card>
+
+</div>

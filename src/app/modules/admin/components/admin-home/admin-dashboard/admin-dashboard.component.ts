@@ -15,6 +15,7 @@ export class AdminDashboardComponent {
     {icon: 'category', title: 'Vendors', description: 'Create & view vendors.', path:'vendors'},
     {icon: 'money_bag', title: 'Procurement Sources', description: 'Create & view sources.', path:'sources'},
     {icon: 'timeline', title: 'Procurement Status', description: 'Create & view status.', path:'status'},
+    {icon: 'drive_folder_upload', title: 'Database Backup', description: 'Create backup and restore', path:'db'},
 
   ]
 }

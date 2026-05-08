@@ -43,6 +43,15 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
 
+    // Handle Text error responses (happens when responseType: 'text' is set)
+    if (error.error instanceof String || typeof error.error === 'string') {
+        matsnackbar.open(error.error as string || "An error occurred.", "Close", {
+            duration: 5000,
+            panelClass: ['snackbar-error']
+        });
+        return throwError(() => error);
+    }
+
     if(error.error){
       matsnackbar.open(error.error, "Close", {duration: 5000, panelClass:[`snackbar-error`]});
     }else{

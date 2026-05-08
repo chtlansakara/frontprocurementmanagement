@@ -17,6 +17,20 @@ export class AdminService {
   //injecting dependencies
   constructor(private http: HttpClient) {}
 
+//database--------------------------------------------------------------------------
+  //post designation
+  createBackup():Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN+"backup", {},
+      {responseType: 'text'}
+    );
+  }
+   //post designation
+  restoreDatabase():Observable<any>{
+    return this.http.post(environment.API_URL+ URL_ADMIN+"restore", {},
+      {responseType: 'text'}
+    );
+  }
+
 //users ----------------------------------------------------------------------------
 
   //get users list

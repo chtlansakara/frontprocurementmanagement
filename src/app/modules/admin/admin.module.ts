@@ -39,6 +39,7 @@ import { StatusComponent } from './components/admin-home/status/status.component
 import { StatusFormComponent } from './components/admin-home/status/status-form/status-form.component';
 import { StatusListComponent } from './components/admin-home/status/status-list/status-list.component';
 import { StatusUpdateFormComponent } from './components/admin-home/status/status-update-form/status-update-form.component';
+import { DatabaseComponent } from './components/admin-home/database/database.component';
 
 
 
@@ -73,7 +74,8 @@ import { StatusUpdateFormComponent } from './components/admin-home/status/status
     StatusComponent,
     StatusFormComponent,
     StatusListComponent,
-    StatusUpdateFormComponent
+    StatusUpdateFormComponent,
+    DatabaseComponent
 
   ],
   imports: [

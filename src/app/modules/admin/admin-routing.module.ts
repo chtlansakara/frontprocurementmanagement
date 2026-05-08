@@ -31,6 +31,7 @@ import { StatusComponent } from './components/admin-home/status/status.component
 import { StatusListComponent } from './components/admin-home/status/status-list/status-list.component';
 import { StatusFormComponent } from './components/admin-home/status/status-form/status-form.component';
 import { StatusUpdateFormComponent } from './components/admin-home/status/status-update-form/status-update-form.component';
+import { DatabaseComponent } from './components/admin-home/database/database.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: "home", component:AdminHomeComponent, children:[
             {path:'', redirectTo:"dashboard", pathMatch: "full"},
             {path: "dashboard", component: AdminDashboardComponent},
+            {path: "db", component: DatabaseComponent},
             {path: "users", component: UsersComponent ,children:[
               {path:'', redirectTo:"list", pathMatch: "full"},
               {path: "list", component: UserListComponent},
