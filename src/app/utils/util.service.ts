@@ -8,6 +8,19 @@ export class UtilService {
 
   constructor() { }
 
+  //format date string for text filters
+  formatDate(dateStr: string | null): string {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    // converts to local timezone before extracting date
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // "2026-05-11"
+  }
+
+
    //format procurement stages on html - in list tables & view pages
   formatProcurementStage(stage: string): string{
     switch(stage) {

@@ -118,6 +118,7 @@ export class SuppliesHomeComponent {
         this.router.navigate(['/suppliesuser/home/procurement/view/', notification.referenceId]);
       });
     }
+    this.notifTrigger.closeMenu();
   }
 
 

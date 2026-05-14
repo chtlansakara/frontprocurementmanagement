@@ -12,28 +12,30 @@
 
 
 
-@media (max-width: 1300px)
-{
-  .request-details
-  {
-    width: 100%;
-    /* stack vertically */
-  }
+// @media (max-width: 1300px)
+// {
+//   .request-details
+//   {
+//     width: 100%;
+//     /* stack vertically */
+//   }
 
-  .request-list
-  {
-    flex-direction: column;
+//   .request-list
+//   {
+//     flex-direction: column;
+//     gap: 8px;
 
-  }
 
-  .request-card
-  {
-    margin-bottom: 8px;
-  }
-}
+//   }
+
+//   .request-card
+//   {
+//     margin-bottom: 8px;
+//   }
+// }
 
 /* wrapper */
-.request-list
+.admin-request-list
 {
   width: 100%;
   display: flex;
@@ -62,6 +64,31 @@
 .request-details
 {
   min-width: 300px;
+
+
+}
+
+@media (max-width: 1300px)
+{
+
+  .request-details
+  {
+    width: 100%;
+    /* stack vertically */
+  }
+
+  .admin-request-list
+  {
+    flex-direction: column;
+    gap: 8px;
+
+
+  }
+
+  .request-card
+  {
+    min-width: unset;
+  }
 
 
 }
@@ -116,7 +143,8 @@
 .info-label
 {
   font-weight: 500;
-  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
 
 }
 
@@ -176,19 +204,7 @@
   padding-top: 4px;
 }
 
-@media (max-width: 600px)
-{
-  .request-details
-  {
-    width: 100%;
-    /* stack vertically */
-  }
 
-  .request-list
-  {
-    flex-direction: column;
-  }
-}
 
 
 .reject-card

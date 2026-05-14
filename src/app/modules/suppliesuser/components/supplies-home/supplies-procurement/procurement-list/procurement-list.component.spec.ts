@@ -96,7 +96,7 @@ const mockRequestList = [
 
 
 
-fdescribe('ProcurementListComponent', () => {
+describe('ProcurementListComponent', () => {
   let component: ProcurementListComponent;
   let fixture: ComponentFixture<ProcurementListComponent>;
 

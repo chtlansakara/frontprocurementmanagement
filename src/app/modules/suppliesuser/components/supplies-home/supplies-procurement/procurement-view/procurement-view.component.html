@@ -44,8 +44,8 @@
           </div>
 
           <div class="content-row">
-            <span class="content-label">Estimated Amount:</span> <span
-              class="content-description">{{currentProcurement?.estimatedAmount}}</span>
+            <span class="content-label">Amount Payable:</span> <span
+              class="content-description">{{currentProcurement?.estimatedAmount |number}}</span>
           </div>
 
           <div class="content-row">
@@ -84,6 +84,15 @@
             <span class="content-label">Completion Date:</span> <span
               class="content-description">{{currentProcurement?.completedDate| date: 'yyyy-MMM-dd'}}</span>
           </div>
+          <div class="content-row" *ngIf="currentProcurement?.poNumber">
+            <span class="content-label">PO No:</span> <span
+              class="content-description">{{currentProcurement?.poNumber}}</span>
+          </div>
+          <div class="content-row" *ngIf="currentProcurement?.poValue">
+            <span class="content-label">PO Value:</span> <span class="content-description">{{currentProcurement?.poValue
+              |number}}</span>
+          </div>
+
 
           <div *ngIf="currentProcurement?.vendorName" class="content-group"
             style="border: 1px solid green; border-radius: 8px; padding: 4px; margin: 4px 0;">

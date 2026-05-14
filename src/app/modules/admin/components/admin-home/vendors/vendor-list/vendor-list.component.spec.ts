@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VendorListComponent } from './vendor-list.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('VendorListComponent', () => {
   let component: VendorListComponent;
@@ -8,7 +10,11 @@ describe('VendorListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VendorListComponent]
+      declarations: [VendorListComponent],
+       providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

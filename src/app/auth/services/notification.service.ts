@@ -38,11 +38,11 @@ export class NotificationService {
     })
     .then(response => {
       if (!response.ok) {
-        console.error('❌ SSE connection failed, status:', response.status);
+        console.error('SSE connection failed, status:', response.status);
         this.scheduleReconnect();
         return;
       }
-      console.log('✅ SSE connection opened, status:', response.status);
+      console.log(' SSE connection opened, status:', response.status);
 
       const reader = response.body!.getReader();
       const decoder = new TextDecoder();
@@ -54,7 +54,7 @@ export class NotificationService {
           if (this.abortController?.signal.aborted) return;
 
           if (done) {
-            console.log('🔴 SSE stream ended, reconnecting...');
+            // console.log('🔴 SSE stream ended, reconnecting...');
             this.scheduleReconnect();
             return;
           }
@@ -65,7 +65,7 @@ export class NotificationService {
 
         }).catch(err => {
           if (err.name !== 'AbortError') {
-            console.error('❌ Reader error:', err);
+            // console.error('❌ Reader error:', err);
             this.scheduleReconnect();
           }
         });
@@ -75,7 +75,7 @@ export class NotificationService {
     })
     .catch(err => {
       if (err.name !== 'AbortError') {
-        console.error('❌ Fetch error:', err);
+        // console.error('❌ Fetch error:', err);
         this.scheduleReconnect();
       }
     });
@@ -116,7 +116,7 @@ export class NotificationService {
     }
 
     const eventData = dataLines.join('\n');
-    console.log('🧩 SSE event received:', { eventName, eventData });
+    // console.log('🧩 SSE event received:', { eventName, eventData });
 
     if (eventName === 'notification' && eventData) {
       try {

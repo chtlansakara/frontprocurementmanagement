@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../../auth/services/storage.service';
 import { MatIcon } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { AppNotification } from '../../../../interfaces/NotificationDto';
 import { ToastService } from '../../../../auth/services/toast.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SignoutBoxComponent } from '../../../../common/signout-box/signout-box.component';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class AdmindivHomeComponent {
   notifications: AppNotification[] = [];
   unreadCount: number = 0;
 
+    //to close notification menu
+  @ViewChild(`notifTrigger`) notifTrigger!: MatMenuTrigger;
 
   constructor(
     private router:Router,
@@ -109,6 +112,7 @@ export class AdmindivHomeComponent {
         this.router.navigate(['/admindivuser/home/procurement/view/', notification.referenceId]);
       });
     }
+     this.notifTrigger.closeMenu();
   }
 
 

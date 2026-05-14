@@ -1372,13 +1372,15 @@ describe('SuppliesService', () => {
   describe('approveRequestCreateApproval', () => {
     const id = 2;
     const approveRequestURL = suppliesURL + 'requests/approve/' + id;
-    let approvalDto: ApprovalDto;
+    let approvalDto: FormData;
 
     beforeEach(() => {
       //ARRANGE:
-      approvalDto = {
-        comment: 'Approved',
-      } as ApprovalDto;
+      approvalDto = new FormData();
+      approvalDto.append('comment', 'Approved');
+      // {
+      //   comment: 'Approved',
+      // } as ApprovalDto;
     });
 
     it('should send a POST request to approve a request', () => {
@@ -1541,14 +1543,17 @@ describe('SuppliesService', () => {
   //createRequest()===================================================================
   describe('createRequest', () => {
     const createRequestURL = suppliesURL + 'requests';
-    let requestDto: RequestDto;
+    let requestDto: FormData;
 
     beforeEach(() => {
       //ARRANGE:
-      requestDto = {
-        title: 'Request A',
-        subdivIdList: [1],
-      } as RequestDto;
+      requestDto = new FormData();
+      requestDto.append('title', 'Request A');
+      requestDto.append('subdivIdList', '1');
+      // {
+      //   title: 'Request A',
+      //   subdivIdList: [1],
+      // } as RequestDto;
     });
 
     it('should send a POST request to create a request', () => {

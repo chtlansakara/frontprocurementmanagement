@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationBellComponent } from './notification-bell.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatMenuModule } from '@angular/material/menu';
 
 describe('NotificationBellComponent', () => {
   let component: NotificationBellComponent;
@@ -8,7 +10,9 @@ describe('NotificationBellComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NotificationBellComponent]
+      declarations: [NotificationBellComponent],
+      imports: [MatMenuModule],
+       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

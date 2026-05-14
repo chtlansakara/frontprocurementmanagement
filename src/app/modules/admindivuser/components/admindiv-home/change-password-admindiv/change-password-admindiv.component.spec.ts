@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChangePasswordAdmindivComponent } from './change-password-admindiv.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ChangePasswordAdmindivComponent', () => {
   let component: ChangePasswordAdmindivComponent;
@@ -8,7 +10,12 @@ describe('ChangePasswordAdmindivComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ChangePasswordAdmindivComponent]
+      declarations: [ChangePasswordAdmindivComponent],
+             providers: [
+          provideHttpClient(),
+
+        ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

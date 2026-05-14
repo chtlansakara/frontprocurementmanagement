@@ -96,4 +96,7 @@ export interface ProcurementResponseDto{
         "requestEmployeeCreatedBy": string,
         "requestEmployeeIdCreatedBy": string,
 
+           "poNumber": number,
+        "poValue": number
+
 }

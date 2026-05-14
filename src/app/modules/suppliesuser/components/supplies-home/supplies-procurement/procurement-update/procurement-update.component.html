@@ -175,14 +175,29 @@
 
 
 
-        <mat-grid-tile [colspan]="2">
+
+
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>PO Number</mat-label>
+            <input matInput type="number" formControlName="poNumber">
+
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1">
+          <mat-form-field appearance="outline">
+            <mat-label>PO Value</mat-label>
+            <input matInput type="number" formControlName="poValue">
+
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4">
           <mat-form-field appearance="outline">
             <mat-label>Remarks</mat-label>
             <textarea matInput formControlName="remarks"></textarea>
 
           </mat-form-field>
         </mat-grid-tile>
-
 
         <mat-grid-tile [colspan]="3">
           <div style="text-align: left;  width: 100%; display: flex; justify-content: start">

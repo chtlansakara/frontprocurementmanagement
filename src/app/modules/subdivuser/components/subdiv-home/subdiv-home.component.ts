@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../../auth/services/storage.service';
 import { MatIcon } from '@angular/material/icon';
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SignoutBoxComponent } from '../../../../common/signout-box/signout-box.component';
 import { effect } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-subdiv-home',
@@ -43,7 +44,8 @@ export class SubdivHomeComponent {
   notifications: AppNotification[] = [];
     unreadCount: number = 0;
 
-
+ //to close notification menu
+  @ViewChild(`notifTrigger`) notifTrigger!: MatMenuTrigger;
 
   constructor(
     private router:Router,
@@ -100,7 +102,9 @@ export class SubdivHomeComponent {
           this.notificationService.markRead(notification.referenceId);
         this.router.navigate(['/subdivuser/home/procurement/view/', notification.referenceId]);
       });
+
     }
+    this.notifTrigger.closeMenu();
   }
 
    doMarkAllRead(){

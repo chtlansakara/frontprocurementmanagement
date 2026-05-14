@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChangePasswordSubdivComponent } from './change-password-subdiv.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ChangePasswordSubdivComponent', () => {
   let component: ChangePasswordSubdivComponent;
@@ -8,7 +10,12 @@ describe('ChangePasswordSubdivComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ChangePasswordSubdivComponent]
+      declarations: [ChangePasswordSubdivComponent],
+      providers: [
+          provideHttpClient(),
+
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

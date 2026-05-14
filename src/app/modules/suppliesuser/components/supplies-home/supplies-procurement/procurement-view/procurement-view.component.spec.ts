@@ -77,13 +77,15 @@ describe('ProcurementViewComponent', () => {
       'getProcurementById',
       'getStatusUpdates',
       'deleteProcurement',
-      'getRequestsForUpdateProcurement'
+      'getRequestsForUpdateProcurement',
+      'getProcurementAttachments'
     ]);
     //setup return values for supplies service methods
     mockSuppliesService.getProcurementById.and.returnValue(of(mockProcurement));
     mockSuppliesService.getStatusUpdates.and.returnValue(of(mockStatusUpdatesList));
     mockSuppliesService.deleteProcurement.and.returnValue(of(null));
     mockSuppliesService.getRequestsForUpdateProcurement.and.returnValue(of(mockRequestList));
+    mockSuppliesService.getProcurementAttachments.and.returnValue(of([]));
 
 
     //spy object for mat snack bar

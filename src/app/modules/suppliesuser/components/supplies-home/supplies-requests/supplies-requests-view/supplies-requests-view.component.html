@@ -7,7 +7,7 @@
 
 
   <!-- shows only when the request is not empty -->
-  <div class="request-list" *ngIf="currentRequest">
+  <div class="supplies-request-list" *ngIf="currentRequest">
 
     <!-- request card -->
 
@@ -77,7 +77,7 @@
             <button (click)="downloadAttachment(requestAttachment.id, requestAttachment.originalName)" mat-raised-button
               matTooltip="Download Document">
               <mat-icon>download</mat-icon>
-              {{ requestAttachment.originalName}}
+              <small> {{ requestAttachment.originalName}}</small>
             </button>
           </span>
         </div>
@@ -290,7 +290,7 @@
                 (click)="downloadAttachment(approvalMap.get(approval.id).id, approvalMap.get(approval.id).originalName)"
                 mat-raised-button>
                 <mat-icon>download</mat-icon>
-                {{approvalMap.get(approval.id).originalName}}
+                <small> {{approvalMap.get(approval.id).originalName}}</small>
               </button>
             </span>
           </div>

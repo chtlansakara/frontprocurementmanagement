@@ -101,11 +101,20 @@ export class SubdivProcurementListComponent {
         //text search
         const textMatch =
         !searchTerms.text ||
-        (data.name + ' ' + data.requestTitle + ' ' + data.requestAdmindivCode
+        // (data.name + ' ' + data.requestTitle + ' ' + data.requestAdmindivCode
+        //   + ' ' + data.requestAdmindivName + ' ' + data.requestSubdivCodeList.join(' ')
+        //   + ' ' + data.requestEstimation + ' ' + data.statusName
+        //   + ' ' +  this.utilService.formatProcurementStage(data.procurementStage) + ' '
+        //   + data.vendorName + ' ' + data.commencedDate + data.completedDate)
+        (data.id + ' ' + data.name + ' ' + data.requestTitle + ' ' + data.requestAdmindivCode
           + ' ' + data.requestAdmindivName + ' ' + data.requestSubdivCodeList.join(' ')
-          + ' ' + data.requestEstimation + ' ' + data.statusName
-          + ' ' +  this.utilService.formatProcurementStage(data.procurementStage) + ' '
-          + data.vendorName + ' ' + data.commencedDate + data.completedDate)
+          + ' ' +   + data.quantity + ' '+ data.estimatedAmount
+          + ' ' +  this.utilService.formatProcurementStage(data.procurementStage)
+          + ' ' + data.statusName+ ' ' + data.assignedToUserEmail + ' ' + data.assignedToUserDesignation
+          + ' ' + this.utilService.formatDate(data.commencedDate) + ' '+ this.utilService.formatDate(data.completedDate)  + ' ' + data.category
+          + ' '+ data.sourceName+ ' ' + data.method
+          + ' '  + data.authorityLevel+ ' '+ data.priorityStatus+  ' ' + data.vendorName
+        )
         .toLowerCase()
         .includes(searchTerms.text.toLowerCase());
 

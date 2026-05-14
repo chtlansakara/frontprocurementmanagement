@@ -65,6 +65,8 @@ export class ProcurementUpdateComponent {
       expectedCompletionDate : [null],
       assignedToUserId : [null, [Validators.required]],
       vendorId : [null],
+      poNumber: [null],
+      poValue: [null],
       remarks: [null]
     });
 

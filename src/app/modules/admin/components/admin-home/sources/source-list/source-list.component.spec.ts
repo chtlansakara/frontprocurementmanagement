@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SourceListComponent } from './source-list.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 
 describe('SourceListComponent', () => {
   let component: SourceListComponent;
@@ -8,7 +11,11 @@ describe('SourceListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SourceListComponent]
+      declarations: [SourceListComponent],
+         providers: [
+        provideHttpClient()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

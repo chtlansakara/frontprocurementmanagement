@@ -25,7 +25,7 @@
 
 
 /* wrapper */
-.request-list
+.subdiv-request-list
 {
   width: 100%;
   display: flex;
@@ -52,6 +52,32 @@
 .request-details
 {
   min-width: 300px;
+
+}
+
+@media (max-width: 1300px)
+{
+
+  .request-details
+  {
+    width: 100%;
+    /* stack vertically */
+  }
+
+  .subdiv-request-list
+  {
+    flex-direction: column;
+    gap: 16px;
+
+
+  }
+
+  .request-card
+  {
+    // margin-bottom: 8px;
+    min-width: unset;
+  }
+
 
 }
 
@@ -102,7 +128,8 @@
 .info-label
 {
   font-weight: 500;
-  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
 
 }
 

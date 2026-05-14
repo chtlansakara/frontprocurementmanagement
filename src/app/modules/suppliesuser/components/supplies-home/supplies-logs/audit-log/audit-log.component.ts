@@ -62,7 +62,10 @@ export class AuditLogComponent {
           //text search
           const textMatch =
           !searchTerms.text ||
-          (data.description + ' ' + data.timestamp + ' ' + data.employeeId+ ' '+ data.email)
+          (data.id + ' '+ data.timestamp
+            + ' ' + data.entityId + ' '  + data.description
+            + ' ' + data.email  + ' ' + data.employeeId
+          )
           .toLowerCase()
           .includes(searchTerms.text.toLowerCase());
 

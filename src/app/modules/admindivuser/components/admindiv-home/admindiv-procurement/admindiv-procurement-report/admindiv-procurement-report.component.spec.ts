@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmindivProcurementReportComponent } from './admindiv-procurement-report.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdmindivProcurementReportComponent', () => {
   let component: AdmindivProcurementReportComponent;
@@ -8,7 +10,12 @@ describe('AdmindivProcurementReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdmindivProcurementReportComponent]
+      declarations: [AdmindivProcurementReportComponent],
+                  providers: [
+          provideHttpClient(),
+
+        ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

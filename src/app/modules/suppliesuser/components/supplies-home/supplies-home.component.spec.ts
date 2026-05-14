@@ -124,6 +124,9 @@ describe('SuppliesHomeComponent', () => {
         createdAt : "2026/2/3"
       }
 
+        //mock viewchild
+        component.notifTrigger = jasmine.createSpyObj('MatMenuTrigger', ['closeMenu']);
+
          // navigateByUrl MUST return a Promise because .then() is called on it
         spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
       });

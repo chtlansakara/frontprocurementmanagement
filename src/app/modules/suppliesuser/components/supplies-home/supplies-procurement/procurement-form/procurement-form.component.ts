@@ -64,13 +64,7 @@ export class ProcurementFormComponent {
       this.request = history.state?.request ?? null;
 
 
-      //patch selected requests to the form's select control
-      if(this.request){
 
-        this.procurementForm.patchValue({
-        requestId:this.request.id
-        });
-      }
 
 
       //load lists for form
@@ -99,6 +93,14 @@ export class ProcurementFormComponent {
       this.approvedRequestsList = res;
       //build the request map
       this.buildRequestMap();
+
+      //patch selected requests to the form's select control
+      if(this.request){
+
+        this.procurementForm.patchValue({
+        requestId:this.request.id
+        });
+      }
     })
   }
 

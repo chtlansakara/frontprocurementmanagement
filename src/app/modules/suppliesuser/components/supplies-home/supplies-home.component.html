@@ -96,7 +96,7 @@
   <mat-divider />
 
   <!-- Notification list -->
-  <div class="notif-scroll" (click)="$event.stopPropagation()">
+  <div class="notif-scroll">
     @for (notif of notificationService.notifications(); track notif.id) {
     <div class="notif-item" [class.unread]="!notif.isRead" (click)="onNotificationClick(notif)">
 
@@ -127,7 +127,7 @@
 </div>
 
 
-<!-- TOAST CONTAINER — fixed to bottom right, outside all other layout -->
+<!-- TOAST CONTAINER -->
 <div class="toast-wrapper">
   @for (toast of toastService.toasts(); track toast.id) {
   <div class="toast" [ngClass]="'toast-' + toast.toastType">

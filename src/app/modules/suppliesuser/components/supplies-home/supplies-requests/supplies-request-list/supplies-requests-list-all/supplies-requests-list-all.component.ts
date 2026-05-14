@@ -76,7 +76,12 @@ statusFilter = '';
     //text search
     const textMatch =
     !searchTerms.text ||
-    (data.title + ' ' + data.subdivCodeList.join(' ')+ ' ' + data.authorizedBy)
+    (data.id + ' ' + data.title  + ' ' +  data.subdivCodeList.join(' ') + ' ' + data.quantity
+    + ' ' + data.fund  + ' ' +data.estimation
+     + ' ' + data.authorizedBy + ' ' + this.utilService.formatDate(data.approvedDate)
+     + ' ' + this.utilService.formatStatus(data.status)
+     + ' '  +  data.emailCreatedBy+ ' ' + data.reasonForRequirement
+    )
     .toLowerCase()
     .includes(searchTerms.text.toLowerCase());
 

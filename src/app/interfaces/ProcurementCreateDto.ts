@@ -23,5 +23,8 @@ export interface ProcurementCreateDto{
 
         "requestId": number,
 
+        "poNumber": number,
+        "poValue": number
+
 
 }

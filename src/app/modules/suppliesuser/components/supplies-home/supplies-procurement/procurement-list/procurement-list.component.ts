@@ -43,6 +43,10 @@ statusFilter = '';
     'estimatedAmount',
     'procurementStage',
     'statusName',
+        'assignedToUserEmail',
+    // 'assignedToUsername',
+    // 'assignedToEmployeeId',
+    'assignedToUserDesignation',
    'commencedDate',
     'completedDate',
 
@@ -60,13 +64,11 @@ statusFilter = '';
     "vendorComments",
     // 'vendorDetails',
 
-    'assignedToUserEmail',
-    // 'assignedToUsername',
-    // 'assignedToEmployeeId',
-    'assignedToUserDesignation',
 
-    'remarks',
-    'donorName',
+    'poNumber',
+    'poValue',
+    // 'remarks',
+    // 'donorName',
 
     'createdOn',
     'emailCreatedBy',
@@ -104,11 +106,16 @@ statusFilter = '';
         //text search
         const textMatch =
         !searchTerms.text ||
-        (data.name + ' ' + data.requestTitle + ' ' + data.requestAdmindivCode
+        (data.id + ' ' + data.name + ' ' + data.requestTitle + ' ' + data.requestAdmindivCode
           + ' ' + data.requestAdmindivName + ' ' + data.requestSubdivCodeList.join(' ')
-          + ' ' + data.requestEstimation + ' ' + data.statusName
-          + ' ' +  this.utilService.formatProcurementStage(data.procurementStage) + ' '
-          + data.vendorName + ' ' + data.commencedDate + data.completedDate)
+          + ' ' +   + data.quantity + ' '+ data.estimatedAmount
+          + ' ' +  this.utilService.formatProcurementStage(data.procurementStage)
+          + ' ' + data.statusName+ ' ' + data.assignedToUserEmail + ' ' + data.assignedToUserDesignation
+          + ' ' + this.utilService.formatDate(data.commencedDate) + ' '+ this.utilService.formatDate(data.completedDate)  + ' ' + data.category
+          + ' '+ data.sourceName+ ' ' + data.method
+          + ' '  + data.authorityLevel+ ' '+ data.priorityStatus+  ' ' + data.vendorName + ' '
+          +  ' '+ data.poNumber + ' ' +data.poValue
+        )
         .toLowerCase()
         .includes(searchTerms.text.toLowerCase());
 
@@ -126,6 +133,7 @@ statusFilter = '';
     this.suppliesService.getAllProcurement()
     .subscribe(res => {
       this.procurementList= res;
+
       //set the table datasource
       this.datasource.data = res;
     });
@@ -176,6 +184,7 @@ statusFilter = '';
      this.datasource.paginator.firstPage();
     }
   }
+
 
 
   ViewProcurement(row: ProcurementResponseDto){

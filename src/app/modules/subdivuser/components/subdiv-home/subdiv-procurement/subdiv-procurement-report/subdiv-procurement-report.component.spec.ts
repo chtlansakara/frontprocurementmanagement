@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubdivProcurementReportComponent } from './subdiv-procurement-report.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SubdivProcurementReportComponent', () => {
   let component: SubdivProcurementReportComponent;
@@ -8,7 +10,12 @@ describe('SubdivProcurementReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SubdivProcurementReportComponent]
+      declarations: [SubdivProcurementReportComponent],
+            providers: [
+        provideHttpClient(),
+
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
