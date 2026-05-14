@@ -17,6 +17,7 @@ import { UtilService } from '../../../../../../utils/util.service';
   styleUrl: './procurement-list.component.scss'
 })
 export class ProcurementListComponent {
+  loaded = false;
   //to save returned list
   procurementList : ProcurementResponseDto[] = [];
   //to save stages list
@@ -136,6 +137,9 @@ statusFilter = '';
 
       //set the table datasource
       this.datasource.data = res;
+
+      //set flag
+      this.loaded =true;
     });
   }
 

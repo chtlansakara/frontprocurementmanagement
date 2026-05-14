@@ -17,6 +17,7 @@ import { UtilService } from '../../../../../../utils/util.service';
   styleUrl: './subdiv-requests-list.component.scss'
 })
 export class SubdivRequestsListComponent {
+  loaded = false;
   //to save returned list
   requestsList : RequestDto[] = [];
 
@@ -67,6 +68,8 @@ export class SubdivRequestsListComponent {
       this.requestsList = res;
       //set table data source
       this.datasource.data = res;
+      //set flag
+      this.loaded = true;
 
        this.datasource.sort = this.sort;
     this.datasource.paginator = this.paginator;
@@ -88,88 +91,6 @@ export class SubdivRequestsListComponent {
 ViewRequest(row: RequestDto){
   this.router.navigateByUrl("/subdivuser/home/requests/view/"+row.id);
 }
-
-  //status formatting
-  // getStatusClass(status: string): string{
-  //   switch(status) {
-  //     case 'PENDING_ADMIN_APPROVAL':
-  //       return 'status-admin-pending';
-
-  //     case 'REJECTED_ADMIN_APPROVAL':
-  //       return 'status-admin-rejected';
-
-  //     case 'PENDING_SUPPLIES_APPROVAL':
-  //       return 'status-supplies-pending';
-
-  //     case 'REJECTED_SUPPLIES_APPROVAL':
-  //       return 'status-supplies-rejected';
-
-  //     case 'PENDING_PROCUREMENT':
-  //       return 'status-pending-procurement';
-
-  //     case 'PROCUREMENT_CREATED':
-  //       return 'status-procuremnt-created';
-
-  //         //postponed request - after approved by supplies
-  //     // case 'PROCUREMENT_POSTPONED':
-  //     //   return 'status-procuremnt-created';
-
-  //     //   //cancelled request - after approved by supplies
-  //     // case 'PROCUREMENT_CANCELLED':
-  //     //   return 'status-procuremnt-created';
-
-  //     default:
-  //       return 'status-default';
-  //   }
-  // }
-
-  //format status on html
-  // formatStatus(status: string): string{
-
-
-
-    // switch(status) {
-    //   case 'PENDING_ADMIN_APPROVAL':
-    //     return 'PENDING ADMIN';
-
-    //   case 'REJECTED_ADMIN_APPROVAL':
-    //     return 'X ADMIN';
-
-    //     //when directed to supplies approval
-    //   case 'PENDING_SUPPLIES_APPROVAL':
-    //     return 'Pending Supplies';
-
-    //   case 'REJECTED_SUPPLIES_APPROVAL':
-    //     return 'X Supplies';
-
-    //     //when approved by supplies
-    //   case 'PENDING_PROCUREMENT':
-    //     return '✔ Supplies';
-
-    //     //when a procurement is created for the request
-    //   case 'PROCUREMENT_CREATED':
-    //     return 'In Procurment';
-
-    //     //postponed request - after approved by supplies
-    //   case 'PROCUREMENT_POSTPONED':
-    //     return 'Postponed';
-
-    //     //cancelled request - after approved by supplies
-    //   case 'PROCUREMENT_CANCELLED':
-    //     return 'Cancelled';
-
-    //   default:
-    //     return 'Not defined';
-//   }
-// }
-
-//format previously purchased column
-
-// formatBoolean(value: boolean): string{
-//   if(value == true) return 'Yes';
-//   if(value == false) return 'No';
-//   return ' ';
-// }
 
 
 

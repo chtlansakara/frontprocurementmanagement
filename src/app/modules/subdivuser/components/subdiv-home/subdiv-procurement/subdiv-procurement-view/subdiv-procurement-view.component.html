@@ -89,7 +89,8 @@
               class="content-description">{{currentProcurement?.completedDate| date: 'yyyy-MMM-dd'}}</span>
           </div>
 
-          <div class="content-group" style="border: 1px solid green; border-radius: 8px; padding: 4px; margin: 4px 0;"
+          <div class="content-group"
+            style="background-color: rgb(241, 239, 239); border-radius: 8px; padding: 6px; margin: 4px 0;"
             *ngIf="currentProcurement?.vendorName">
             <div class="content-row">
               <span class="content-label">Vendor:</span> <span
@@ -102,12 +103,12 @@
           </div>
 
 
-          <div class="content-row">
+          <!-- <div class="content-row">
             <span class="content-label">Assigned Employee:</span> <span class="content-description">
               {{currentProcurement?.assignedToUserName}}
               | {{currentProcurement?.assignedToUserDesignation}}
               | {{currentProcurement?.assignedToUserEmail}}</span>
-          </div>
+          </div> -->
           <!-- status  -->
           <div class="content-row">
             <span class="content-label">Current Stage:</span> <span class="content-description">

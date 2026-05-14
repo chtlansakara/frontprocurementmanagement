@@ -116,7 +116,7 @@ export class ProcurementFormComponent {
       this.suppliesService.createProcurement(this.procurementForm.value).subscribe(res =>{
         if( res.id != null){
           //show success message
-          this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+          this.snackbar.open("Procurement created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router
             this.router.navigateByUrl("/suppliesuser/home/procurement/list");
         }

@@ -17,7 +17,7 @@ import { UtilService } from '../../../../../../../utils/util.service';
   styleUrl: './admindiv-all.component.scss'
 })
 export class AdmindivAllComponent {
-
+loaded = false;
 
 //to save returned list
   requestsList : RequestDto[] = [];
@@ -82,6 +82,8 @@ export class AdmindivAllComponent {
       this.requestsList = res;
       //set the table datasource
       this.datasource.data = res;
+      //set flag
+      this.loaded = true;
 
     });
   }

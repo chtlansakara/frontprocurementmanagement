@@ -15,6 +15,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrl: './admindiv-procurement-list.component.scss'
 })
 export class AdmindivProcurementListComponent {
+  loaded = false;
 //to save returned list
   procurementList : ProcurementResponseDto[] = [];
   //to save status list
@@ -130,6 +131,8 @@ statusFilter = '';
       console.log(this.procurementList);
       //set the table datasource
       this.datasource.data = res;
+      //set flag
+      this.loaded = true;
     });
   }
 

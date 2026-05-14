@@ -15,6 +15,7 @@ import { UtilService } from '../../../../../../utils/util.service';
   styleUrl: './subdiv-procurement-list.component.scss'
 })
 export class SubdivProcurementListComponent {
+  loaded = false;
   //to save returned list
   procurementList : ProcurementResponseDto[] = [];
   //to save status list
@@ -134,6 +135,8 @@ export class SubdivProcurementListComponent {
       this.procurementList= res;
       //set the table datasource
       this.datasource.data = res;
+      //set flag
+      this.loaded = true;
     });
   }
 

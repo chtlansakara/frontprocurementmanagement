@@ -16,6 +16,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrl: './supplies-requests-list-all.component.scss'
 })
 export class SuppliesRequestsListAllComponent {
+  loaded = false;
 //to save returned list
   requestsList : RequestDto[] = [];
 
@@ -105,6 +106,8 @@ statusFilter = '';
       this.requestsList = res;
       //set the table datasource
       this.datasource.data = res;
+      //set flag
+      this.loaded= true;
 
     });
   }

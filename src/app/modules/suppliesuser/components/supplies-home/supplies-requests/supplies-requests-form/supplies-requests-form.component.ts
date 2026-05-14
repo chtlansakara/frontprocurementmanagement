@@ -201,7 +201,7 @@ export class SuppliesRequestsFormComponent {
       this.suppliesService.createRequest(formData).subscribe(res =>{
         if( res.id != null){
           //show success message
-          this.snackbar.open("Created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
+          this.snackbar.open("Request created successfully.","Close",{duration:5000, panelClass:"snackbar-success"});
             //navigate by router
             this.router.navigateByUrl("/suppliesuser/home/requests/list");
         }

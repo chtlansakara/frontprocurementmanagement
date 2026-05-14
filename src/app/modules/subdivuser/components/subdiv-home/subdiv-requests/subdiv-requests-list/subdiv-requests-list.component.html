@@ -4,7 +4,7 @@
 
 <div class="center-container">
 
-  <div *ngIf="requestsList.length == 0"
+  <div *ngIf=" loaded && requestsList.length == 0"
     style="width: 100%; display: flex; justify-content: center; margin-top: 64px;margin-bottom: 24px;">
     <div style="font-size: 20px; color: rgb(73, 73, 73);">No procurement requests yet.</div>
   </div>
